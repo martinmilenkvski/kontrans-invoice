@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "Вашиот товар. Нашата одговорност.",
 };
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,7 +24,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} antialiased bg-[#080808] text-white`}
       >
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

@@ -1,31 +1,31 @@
 # Kontrans Design System
 
-This document outlines the core design tokens, layout structures, and components for the Kontrans web application, based on the premium, dark-themed editorial aesthetic. Follow these guidelines to maintain a strictly consistent visual identity throughout the project.
+This document outlines the core design tokens, layout structures, and components for the Kontrans web application. We use a **Hybrid Editorial Aesthetic**: Dramatic pure dark `#080808` sections for the Hero and Footer to create visual impact, sandwiching clean, airy Light/White sections (Services, Process, Stats, Contact) to maximize readability and logistics brand trust.
 
 ## 1. Colors
 
-The application relies on a dark aesthetic with bright, contrasting accents.
+The application relies on high contrast between pure structural blacks, crisp whites, and intense red accents.
 
 ### Primary Accents
 - **Brand Red**: `#D42B2B`
   - Usage: Primary buttons, active states, glowing effects, primary icons, and emphasis text (e.g., eyebrow labels, cursive text).
   - Hover State: `#b02222` (Darker red for interaction feedback).
 
-### Neutral Palette (Dark Theme)
+### Dark Theme Palette (Hero & Footer)
 - **Background Main**: `#080808` (True dark, almost black).
-  - Usage: Main page background and base layout components.
 - **Surface / Card Background**: `#111111` or `#0A0A0A`
-  - Usage: Empty space placeholders, image container backgrounds, and subtle column backgrounds on hover.
 - **Foreground (Text Main)**: `#ffffff` (White).
-  - Usage: Headings, primary body text.
 - **Muted Text**: `text-gray-400` / `text-gray-500`
-  - Usage: Subtitles, secondary information, disabled states, and large structural text accents.
-
-### Borders & Dividers
 - **Structural Borders**: `border-white/10`
-  - Usage: The core of the editorial design layout. Used for horizontal rows and vertical grid columns.
 - **Hover/Active Borders**: `border-white/30` 
-  - Usage: Interactive elements like ghost buttons on hover.
+
+### Light Theme Palette (Middle Sections)
+- **Background Main**: `#FAFAFA` (Off-white, clean daylight).
+- **Surface / Card Background**: `#FFFFFF` (Pure white for raised elements) or `#F0F0F0` (Ash gray for alternating blocks).
+- **Foreground (Text Main)**: `#111111` (Deep black for maximum readability).
+- **Muted Text**: `text-gray-500` / `text-gray-600`
+- **Structural Borders**: `border-black/10`
+- **Hover/Active Borders**: `border-black/30`
 
 ## 2. Typography
 
