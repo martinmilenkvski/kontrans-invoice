@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Phone, Mail, ArrowRight } from "lucide-react";
 import { FadeIn, StaggerGroup, RevealLine } from "./Animations";
+import { Globe } from "./Globe";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,15 +9,15 @@ export function Footer() {
   return (
     <footer className="bg-[#080808] relative font-sans mt-10 md:mt-24">
       
-      {/* Floating CTA Card — pure white against the dark base for max contrast */}
+      {/* Floating CTA Card — dark theme for a cohesive premium look */}
       <div className="max-w-[1600px] mx-auto w-full px-0 lg:px-24 relative z-20">
-        <div className="bg-white border-y lg:border border-black/5 lg:rounded-3xl lg:mb-[-100px] relative overflow-hidden grid grid-cols-1 lg:grid-cols-[55%_45%] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1),0_0_20px_rgba(0,0,0,0.05)] group transition-all duration-500">
+        <div className="bg-[#111111] border-y lg:border border-white/5 lg:rounded-3xl lg:mb-[-100px] relative overflow-hidden grid grid-cols-1 lg:grid-cols-[55%_45%] shadow-2xl group transition-all duration-500">
           
-          {/* subtle tinted glow visible on the white card */}
-          <div className="absolute top-0 right-0 w-[50%] h-full bg-[#D42B2B]/[0.03] pointer-events-none"></div>
+          {/* subtle atmospheric glow */}
+          <div className="absolute top-0 right-0 w-[50%] h-full bg-[#D42B2B]/[0.05] pointer-events-none"></div>
 
           {/* CTA Content */}
-          <StaggerGroup className="p-10 md:p-16 lg:p-20 flex flex-col gap-6 relative z-10 justify-center">
+          <StaggerGroup className="p-10 md:p-16 lg:p-20 flex flex-col gap-6 relative z-10 justify-center items-center lg:items-start text-center lg:text-left">
             
             <FadeIn delay={0.1}>
               <div className="flex items-center gap-3">
@@ -31,14 +32,14 @@ export function Footer() {
             </FadeIn>
 
             <FadeIn delay={0.2}>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] tracking-tight leading-[1.05]">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05]">
                 Спремни за вашата <br />
                 <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)]">следна пратка?</span>
               </h2>
             </FadeIn>
             
             <FadeIn delay={0.3}>
-              <p className="text-gray-600 font-medium text-lg leading-relaxed mt-2 max-w-md">
+              <p className="text-gray-400 font-medium text-lg leading-relaxed mt-2 max-w-md">
                 Придружете се на над 1000 компании кои ни го доверуваат нивниот глобален транспорт.
               </p>
             </FadeIn>
@@ -51,99 +52,16 @@ export function Footer() {
             </FadeIn>
           </StaggerGroup>
 
-          {/* Right side: Modern Data Globe */}
-          <FadeIn direction="left" delay={0.5} className="hidden lg:flex items-center justify-center relative bg-[#080808] overflow-hidden">
-            {/* Soft background illumination */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(212,43,43,0.08)_0%,transparent_60%)] pointer-events-none" />
+          {/* Right side: WebGL Globe — visible on all screen sizes */}
+          <FadeIn direction="left" delay={0.5} className="flex items-center justify-center relative bg-[#080808] overflow-hidden min-h-[300px] sm:min-h-[380px] lg:min-h-0">
+            {/* Atmospheric glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,43,43,0.15)_0%,transparent_70%)] pointer-events-none" />
 
-            <div className="relative w-full aspect-square max-w-[400px] flex items-center justify-center">
-
-              {/* Base gradient sphere */}
-              <div className="absolute inset-4 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.05)_0%,rgba(0,0,0,0.8)_80%)] shadow-[inset_-20px_-20px_60px_rgba(0,0,0,0.9)] border border-white/5" />
-
-              {/* Animated sweeping radar conic gradient */}
-              <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,rgba(212,43,43,0.1)_90deg,transparent_120deg)] animate-[spin_8s_linear_infinite]" />
-
-              {/* Globe lines SVG */}
-              <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 200 200">
-                <defs>
-                  <radialGradient id="globe-mask">
-                    <stop offset="60%" stopColor="white" stopOpacity="1" />
-                    <stop offset="100%" stopColor="white" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
-                <g mask="url(#globe-mask)">
-                  {/* Grid of dots */}
-                  <pattern id="dotGrid" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-                    <circle cx="2" cy="2" r="0.8" fill="white" opacity="0.3" />
-                  </pattern>
-                  <circle cx="100" cy="100" r="90" fill="url(#dotGrid)" opacity="0.4" />
-                  
-                  {/* Horizontal contours */}
-                  <path d="M 10,100 Q 100,60 190,100" fill="none" stroke="white" strokeWidth="0.5" opacity="0.5" />
-                  <path d="M 10,100 Q 100,140 190,100" fill="none" stroke="white" strokeWidth="0.5" opacity="0.5" />
-                  <ellipse cx="100" cy="100" rx="90" ry="8" fill="none" stroke="white" strokeWidth="0.5" opacity="0.5" />
-
-                  {/* Vertical contours */}
-                  <path d="M 100,10 Q 60,100 100,190" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3" />
-                  <path d="M 100,10 Q 140,100 100,190" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3" />
-                  <ellipse cx="100" cy="100" rx="12" ry="90" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3" />
-                </g>
-              </svg>
-
-              {/* Data Connections / Network Nodes */}
-              <div className="absolute inset-0 preserve-3d animate-[spin_60s_linear_infinite]">
-                {/* Hub 1: Europe */}
-                <div className="absolute top-[35%] left-[55%] flex items-center justify-center z-10">
-                  <div className="relative">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#D42B2B] shadow-[0_0_15px_rgba(212,43,43,1)]" />
-                    <div className="absolute inset-0 rounded-full bg-[#D42B2B] animate-ping opacity-50" style={{ animationDuration: '2s' }} />
-                  </div>
-                  {/* Label */}
-                  <span className="absolute left-3 top-0 text-[8px] font-mono text-white/70 uppercase tracking-widest bg-black/50 px-1.5 py-0.5 rounded backdrop-blur">
-                    Frankfurt
-                  </span>
-                </div>
-
-                {/* Hub 2: US East */}
-                <div className="absolute top-[42%] left-[25%] flex items-center justify-center z-10">
-                  <div className="relative">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
-                    <div className="absolute inset-0 rounded-full bg-white animate-ping opacity-30" style={{ animationDuration: '3s' }} />
-                  </div>
-                </div>
-
-                {/* Hub 3: Asia */}
-                <div className="absolute top-[48%] right-[20%] flex items-center justify-center z-10">
-                  <div className="relative">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#D42B2B] shadow-[0_0_12px_rgba(212,43,43,0.9)]" />
-                    <div className="absolute inset-0 rounded-full bg-[#D42B2B] animate-ping opacity-40" style={{ animationDuration: '2.5s' }} />
-                  </div>
-                </div>
-
-                {/* Hub 4: South America */}
-                <div className="absolute bottom-[35%] left-[35%] flex items-center justify-center z-10">
-                  <div className="relative">
-                    <div className="w-1 h-1 rounded-full bg-white/60 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
-                  </div>
-                </div>
-
-                {/* Connecting Lines (SVG) absolute positioned so it spins with the nodes */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">
-                  {/* US to Europe */}
-                  <path d="M 100,168 Q 160,120 220,140" fill="none" stroke="#D42B2B" strokeWidth="1" opacity="0.6" strokeDasharray="3 4">
-                    <animate attributeName="stroke-dashoffset" from="14" to="0" dur="1s" repeatCount="indefinite" />
-                  </path>
-                  {/* Europe to Asia */}
-                  <path d="M 220,140 Q 280,160 320,192" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3" strokeDasharray="2 3">
-                    <animate attributeName="stroke-dashoffset" from="10" to="0" dur="2s" repeatCount="indefinite" />
-                  </path>
-                </svg>
-              </div>
-
-              {/* Floating tech rings */}
-              <div className="absolute inset-0 rounded-full border border-[#D42B2B]/20 scale-[1.05] shadow-[0_0_20px_rgba(212,43,43,0.1)] pointer-events-none" />
-              <div className="absolute inset-0 rounded-full border border-white/5 scale-[1.12] border-dashed pointer-events-none animate-[spin_40s_linear_infinite_reverse]" />
+            {/* Globe container — centered, responsive sizing */}
+            <div className="relative w-[260px] sm:w-[340px] md:w-[400px] lg:w-[460px] xl:w-[500px] flex-shrink-0">
+              <Globe />
+              {/* Vignette edges */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_35%,#080808_85%)] pointer-events-none" />
             </div>
           </FadeIn>
         </div>
