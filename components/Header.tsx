@@ -64,7 +64,7 @@ export function Header() {
         {/* Right side */}
         <div className="flex items-center gap-4 shrink-0">
           <Link
-            href="#contact"
+            href="/login"
             className={`hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[0.75rem] font-bold tracking-wide transition-all duration-300 group ${
               scrolled
                 ? "bg-[#D42B2B] text-white hover:bg-[#b02222]"
