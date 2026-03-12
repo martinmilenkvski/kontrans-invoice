@@ -31,10 +31,25 @@ export function Stats() {
 
       <div className="max-w-[1600px] mx-auto relative z-10 w-full flex flex-col">
         
-        {/* Centered Top Header Row */}
-        <div className="border-b border-white/10 relative">
+        {/* Two-column Header Row */}
+        <div className="border-b border-white/10 relative flex flex-col lg:flex-row min-h-[420px]">
           <RevealLine horizontal={true} className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10" />
-          <StaggerGroup className="p-10 md:p-16 lg:p-24 flex flex-col items-center justify-center text-center max-w-5xl mx-auto">
+
+          {/* Left: Image */}
+          <div className="relative lg:w-1/2 min-h-[280px] lg:min-h-full overflow-hidden">
+            <img
+              src="/stats-truck.png"
+              alt="Logistics fleet"
+              className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
+            />
+            {/* Gradient fade to the right to blend into dark bg */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#111111]" />
+            {/* Bottom fade on mobile */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#111111] lg:hidden" />
+          </div>
+
+          {/* Right: Text Content */}
+          <StaggerGroup className="lg:w-1/2 p-10 md:p-16 lg:p-24 flex flex-col items-start text-left justify-center">
             
             <FadeIn delay={0.1}>
               <div className="flex items-center gap-3 mb-8">
