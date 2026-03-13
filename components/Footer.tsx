@@ -45,10 +45,10 @@ export function Footer() {
             </FadeIn>
             
             <FadeIn delay={0.4}>
-              <button className="mt-4 w-fit px-8 py-5 bg-[#D42B2B] hover:bg-[#b02222] text-white text-sm font-semibold tracking-widest uppercase rounded-lg transition-all duration-300 flex items-center gap-3 group/btn shadow-lg shadow-[#D42B2B]/20">
+              <Link href="/contact" className="mt-4 w-fit px-8 py-5 bg-[#D42B2B] hover:bg-[#b02222] text-white text-sm font-semibold tracking-widest uppercase rounded-lg transition-all duration-300 flex items-center gap-3 group/btn shadow-lg shadow-[#D42B2B]/20">
                 <span>Започнете веднаш</span>
                 <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </FadeIn>
           </StaggerGroup>
 
@@ -115,11 +115,16 @@ export function Footer() {
                 Услуги
               </h4>
               <ul className="flex flex-col gap-6">
-                {['Бродски транспорт', 'Авионски транспорт', 'Камионски транспорт', 'Складирање'].map((item) => (
-                  <li key={item}>
-                    <Link href={`#${item.toLowerCase()}`} className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-3 group/link w-fit">
+                {[
+                  { label: 'Бродски транспорт', href: '/#services' },
+                  { label: 'Авионски транспорт', href: '/#services' },
+                  { label: 'Камионски транспорт', href: '/#services' },
+                  { label: 'Складирање', href: '/#services' }
+                ].map((item) => (
+                  <li key={item.label}>
+                    <Link href={item.href} className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-3 group/link w-fit">
                       <span className="text-[#D42B2B] opacity-0 group-hover/link:opacity-100 transition-opacity text-[10px] font-bold">■</span>
-                      <span className="group-hover/link:translate-x-1 transition-transform">{item}</span>
+                      <span className="group-hover/link:translate-x-1 transition-transform">{item.label}</span>
                     </Link>
                   </li>
                 ))}
@@ -134,11 +139,16 @@ export function Footer() {
                 Компанија
               </h4>
               <ul className="flex flex-col gap-6">
-                {['За нас', 'Процес', 'Статистика', 'Контакт'].map((item) => (
-                  <li key={item}>
-                    <Link href={`#${item.toLowerCase()}`} className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-3 group/link w-fit">
+                {[
+                  { label: 'За нас', href: '/about' },
+                  { label: 'Процес', href: '/#process' },
+                  { label: 'Статистика', href: '/#stats' },
+                  { label: 'Контакт', href: '/contact' }
+                ].map((item) => (
+                  <li key={item.label}>
+                    <Link href={item.href} className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-3 group/link w-fit">
                       <span className="text-[#D42B2B] opacity-0 group-hover/link:opacity-100 transition-opacity text-[10px] font-bold">■</span>
-                      <span className="group-hover/link:translate-x-1 transition-transform">{item}</span>
+                      <span className="group-hover/link:translate-x-1 transition-transform">{item.label}</span>
                     </Link>
                   </li>
                 ))}

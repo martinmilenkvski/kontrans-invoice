@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,10 +17,19 @@ export function Header() {
   }, []);
 
   const navLinks = [
-    { label: "Услуги",     href: "#services" },
-    { label: "Процес",     href: "#process" },
-    { label: "Статистика", href: "#stats" },
-    { label: "Контакт",    href: "#contact" },
+    { label: "За нас",     href: "/about" },
+    { 
+      label: "Услуги",     
+      href: "/#services",
+      dropdown: [
+        { label: "Бродски транспорт", href: "/services/sea" },
+        { label: "Камионски транспорт", href: "/services/road" },
+        { label: "Авионски транспорт", href: "/services/air" },
+      ]
+    },
+    { label: "Процес",     href: "/#process" },
+    { label: "Статистика", href: "/#stats" },
+    { label: "Контакт",    href: "/contact" },
   ];
 
   return (
@@ -49,15 +58,45 @@ export function Header() {
         {/* Desktop nav — center-ish */}
         <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`text-[0.8rem] font-medium transition-colors duration-300 hover:text-[#D42B2B] ${
-                scrolled ? "text-[#111111]" : "text-white/65 hover:text-white"
-              }`}
-            >
-              {item.label}
-            </Link>
+            item.dropdown ? (
+              <div key={item.href} className="relative group py-6">
+                <Link
+                  href={item.href}
+                  className={`flex items-center gap-1.5 text-[0.8rem] font-medium transition-colors duration-300 group-hover:text-[#D42B2B] ${
+                    scrolled ? "text-[#111111]" : "text-white/65"
+                  }`}
+                >
+                  {item.label}
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-300 group-hover:rotate-180 ${
+                    scrolled ? "text-[#111111] group-hover:text-[#D42B2B]" : "text-white/65 group-hover:text-[#D42B2B]"
+                  }`} />
+                </Link>
+                {/* Dropdown Menu */}
+                <div className="absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/[0.06] shadow-2xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
+                  <div className="py-2 flex flex-col">
+                    {item.dropdown.map(drop => (
+                      <Link 
+                        key={drop.href} 
+                        href={drop.href} 
+                        className="px-5 py-3 text-[0.85rem] font-medium text-[#111111] hover:bg-[#FAFAFA] hover:text-[#D42B2B] transition-colors"
+                      >
+                        {drop.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`text-[0.8rem] font-medium transition-colors duration-300 hover:text-[#D42B2B] py-6 ${
+                  scrolled ? "text-[#111111]" : "text-white/65 hover:text-white"
+                }`}
+              >
+                {item.label}
+              </Link>
+            )
           ))}
         </nav>
 
@@ -91,17 +130,44 @@ export function Header() {
       <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? "max-h-[400px]" : "max-h-0"}`}>
         <nav className="bg-white border-t border-black/[0.06] px-6 py-3 flex flex-col shadow-xl">
           {navLinks.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsMenuOpen(false)}
-              className="text-[#111111] hover:text-[#D42B2B] font-semibold text-sm py-4 border-b border-black/[0.04] transition-colors"
-            >
-              {item.label}
-            </Link>
+            <div key={item.href} className="border-b border-black/[0.04]">
+              {item.dropdown ? (
+                <div className="flex flex-col">
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex justify-between items-center text-[#111111] hover:text-[#D42B2B] font-semibold text-sm py-4 transition-colors"
+                  >
+                    {item.label}
+                    <ChevronDown className="w-4 h-4 opacity-30" />
+                  </Link>
+                  <div className="flex flex-col px-4 pb-4 gap-3">
+                    {item.dropdown.map(drop => (
+                      <Link 
+                        key={drop.href} 
+                        href={drop.href} 
+                        onClick={() => setIsMenuOpen(false)} 
+                        className="text-gray-500 hover:text-[#D42B2B] text-sm font-medium transition-colors flex items-center gap-2"
+                      >
+                        <span className="text-[#D42B2B] text-[8px] opacity-50">■</span>
+                        {drop.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-[#111111] hover:text-[#D42B2B] font-semibold text-sm py-4 transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )}
+            </div>
           ))}
           <Link
-            href="#contact"
+            href="/contact"
             onClick={() => setIsMenuOpen(false)}
             className="mt-4 mb-2 flex items-center justify-center gap-2 px-5 py-3 bg-[#D42B2B] text-white text-xs font-bold tracking-widest uppercase rounded-lg transition-all"
           >
