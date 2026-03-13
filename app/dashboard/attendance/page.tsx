@@ -111,7 +111,7 @@ export default function AttendancePage() {
                 className="bg-white/5 border border-white/10 text-white text-[0.75rem] font-bold rounded-xl p-2.5 outline-none focus:border-emerald-500 transition-all appearance-none cursor-pointer"
               >
                 {EMPLOYEES.map(emp => (
-                  <option key={emp} value={emp}>{emp}</option>
+                  <option key={emp} value={emp} className="bg-[#111111] text-white">{emp}</option>
                 ))}
               </select>
             </div>
@@ -127,7 +127,7 @@ export default function AttendancePage() {
                 className="bg-white/5 border border-white/10 text-white text-[0.75rem] font-bold rounded-xl p-2.5 outline-none focus:border-emerald-500 transition-all appearance-none cursor-pointer"
               >
                 {MONTHS.map((month, idx) => (
-                  <option key={month} value={idx}>{month}</option>
+                  <option key={month} value={idx} className="bg-[#111111] text-white">{month}</option>
                 ))}
               </select>
             </div>
@@ -155,14 +155,14 @@ export default function AttendancePage() {
                   type="text" 
                   value={defaultArrivalTime} 
                   onChange={(e) => setDefaultArrivalTime(e.target.value)}
-                  className="bg-white/5 border border-white/10 text-white text-[0.75rem] font-bold rounded-xl p-2.5 w-full outline-none text-center focus:border-emerald-500 transition-all"
+                  className="bg-white/5 border border-white/10 text-white text-[0.75rem] font-bold rounded-xl p-2.5 w-full outline-none text-left pl-4 focus:border-emerald-500 transition-all"
                   placeholder="Од"
                 />
                 <input 
                   type="text" 
                   value={defaultDepartureTime} 
                   onChange={(e) => setDefaultDepartureTime(e.target.value)}
-                  className="bg-white/5 border border-white/10 text-white text-[0.75rem] font-bold rounded-xl p-2.5 w-full outline-none text-center focus:border-emerald-500 transition-all"
+                  className="bg-white/5 border border-white/10 text-white text-[0.75rem] font-bold rounded-xl p-2.5 w-full outline-none text-left pl-4 focus:border-emerald-500 transition-all"
                   placeholder="До"
                 />
               </div>
@@ -197,8 +197,8 @@ export default function AttendancePage() {
               <tr className="bg-slate-50 font-black uppercase tracking-widest text-[9px]">
                 <th className="border border-black p-2 text-center w-12">Датум</th>
                 <th className="border border-black p-2 text-left w-1/3">Име и Презиме</th>
-                <th className="border border-black p-2 text-center">Пристигнување</th>
-                <th className="border border-black p-2 text-center">Одење</th>
+                <th className="border border-black p-2 text-left pl-4">Пристигнување</th>
+                <th className="border border-black p-2 text-left pl-4">Одење</th>
               </tr>
             </thead>
             <tbody>
@@ -222,7 +222,7 @@ export default function AttendancePage() {
                       type="text" 
                       value={row.arrivalTime}
                       onChange={(e) => handleCellEdit(index, 'arrivalTime', e.target.value)}
-                      className="w-full h-full px-2 py-1.5 bg-transparent outline-none text-center focus:bg-emerald-50/50 font-medium"
+                      className="w-full h-full px-4 py-1.5 bg-transparent outline-none text-left focus:bg-emerald-50/50 font-medium"
                     />
                   </td>
                   
@@ -231,7 +231,7 @@ export default function AttendancePage() {
                       type="text" 
                       value={row.departureTime}
                       onChange={(e) => handleCellEdit(index, 'departureTime', e.target.value)}
-                      className="w-full h-full px-2 py-1.5 bg-transparent outline-none text-center focus:bg-emerald-50/50 font-medium"
+                      className="w-full h-full px-4 py-1.5 bg-transparent outline-none text-left focus:bg-emerald-50/50 font-medium"
                     />
                   </td>
                 </tr>
