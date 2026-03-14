@@ -7,6 +7,15 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { saveAs } from 'file-saver';
 
+const InlineInput = ({ value, onChange, className = "", placeholder = "" }: { value: string, onChange: (v: string) => void, className?: string, placeholder?: string }) => (
+  <input 
+    className={`bg-transparent border-none outline-none focus:bg-[#fefce8] px-1 rounded transition-colors ${className}`}
+    value={value}
+    onChange={(e) => onChange(e.target.value)}
+    placeholder={placeholder}
+  />
+);
+
 const InsurancePage = () => {
   const printRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -113,15 +122,6 @@ const InsurancePage = () => {
       }
     }));
   };
-
-  const InlineInput = ({ value, onChange, className = "", placeholder = "" }: { value: string, onChange: (v: string) => void, className?: string, placeholder?: string }) => (
-    <input 
-      className={`bg-transparent border-none outline-none focus:bg-[#fefce8] px-1 rounded transition-colors ${className}`}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-    />
-  );
 
   return (
     <div className="min-h-screen bg-[#1a1a1a] p-4 flex flex-col items-center font-serif text-black">
