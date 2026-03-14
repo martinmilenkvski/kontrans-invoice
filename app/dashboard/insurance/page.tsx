@@ -5,6 +5,7 @@ import { Download, Loader2, FileText, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { saveAs } from 'file-saver';
 
 const InsurancePage = () => {
   const printRef = useRef<HTMLDivElement>(null);
@@ -45,21 +46,55 @@ const InsurancePage = () => {
 
   const exportPDF = async () => {
     if (!printRef.current) return;
+    
+    const safeName = doc.logisticsId.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const fileName = `Eurolink_Prijava_${safeName}.pdf`;
+
+    let fileHandle: any = null;
+    
+    // 1. Ask for file handle synchronously before async generation
+    // This maintains the user gesture token which Chrome requires to set filenames
+    if ('showSaveFilePicker' in window) {
+      try {
+        fileHandle = await (window as any).showSaveFilePicker({
+          suggestedName: fileName,
+          types: [{
+            description: 'PDF Document',
+            accept: { 'application/pdf': ['.pdf'] },
+          }],
+        });
+      } catch (err: any) {
+        // Stop if user cancels the save dialog
+        if (err.name === 'AbortError') return;
+        console.warn('File picker failed:', err);
+      }
+    }
+
     setIsGenerating(true);
     try {
       const element = printRef.current;
       const canvas = await html2canvas(element, { 
-        scale: 3, 
+        scale: 2, 
         useCORS: true,
         backgroundColor: "#ffffff",
         logging: false
       });
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/jpeg', 0.8);
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`Eurolink_Prijava_${doc.logisticsId.split(' ').pop()}.pdf`);
+      pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+      
+      if (fileHandle) {
+        // Write directly to the user-approved file handle
+        const blob = pdf.output('blob');
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+      } else {
+        // Fallback for browsers without File System Access API
+        pdf.save(fileName);
+      }
     } catch (err) {
       console.error(err);
     } finally {
