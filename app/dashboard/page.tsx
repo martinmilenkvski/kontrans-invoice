@@ -10,7 +10,8 @@ import {
   LogOut, 
   LayoutDashboard,
   ChevronRight,
-  Plus
+  Plus,
+  Shield
 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -56,6 +57,14 @@ export default function DashboardPage() {
       href: "/dashboard/offers",
       color: "bg-emerald-500/10 text-emerald-500",
       border: "border-emerald-500/20"
+    },
+    {
+      title: "Осигурување",
+      description: "Преглед и обновување на полиси за осигурување",
+      icon: <Shield className="w-6 h-6" />,
+      href: "/dashboard/insurance",
+      color: "bg-purple-500/10 text-purple-500",
+      border: "border-purple-500/20"
     }
   ];
 
@@ -97,7 +106,7 @@ export default function DashboardPage() {
           <p className="text-white/40">Изберете модул за да продолжите со работа</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {dashboardOptions.map((option) => (
             <Link 
               key={option.title}
