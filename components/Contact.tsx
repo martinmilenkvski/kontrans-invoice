@@ -6,6 +6,15 @@ import { CheckCircle2, ArrowRight, Ship, Plane, Truck, ShieldCheck, Route } from
 export function Contact() {
   const [transportMode, setTransportMode] = useState<string | null>(null);
   const [needsInsurance, setNeedsInsurance] = useState<boolean>(false);
+  const [formData, setFormData] = useState({
+    origin: "",
+    destination: "",
+    weight: "",
+    volume: "",
+    commodity: "",
+    email: "",
+    phone: ""
+  });
 
   const trustPoints = [
     "Гарантирана безбедност на пратката",
@@ -19,6 +28,48 @@ export function Contact() {
     { id: 'road', icon: Truck, label: 'Камионски Транспорт', desc: 'FTL / LTL Европа' },
     { id: 'multimodal', icon: Route, label: 'Мултимодален', desc: 'Комбиниран превоз' },
   ];
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value, placeholder } = e.target;
+    // Map placeholder-only inputs to their logic if ID is missing or generic
+    const field = id || (placeholder?.includes("тежина") ? "weight" : placeholder?.includes("Волумен") ? "volume" : "commodity");
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const recipients = [
+      "info@kontrans.com.mk",
+      "office@kontrans.com.mk",
+      "mmilenkovska@kontrans.com.mk",
+      "martinm@kontrans.com.mk"
+    ].join(",");
+
+    const transportLabel = transportOptions.find(opt => opt.id === transportMode)?.label || "Не е избран";
+    
+    const body = `
+Побарување за понуда (KON-TRANS)
+---------------------------------
+Тип на транспорт: ${transportLabel}
+Место на утовар: ${formData.origin}
+Место на истовар: ${formData.destination}
+
+Детали за товар:
+- Тежина: ${formData.weight}
+- Волумен: ${formData.volume}
+- Тип на стока: ${formData.commodity}
+
+Потребно осигурување: ${needsInsurance ? "ДА" : "НЕ"}
+
+Контакт Информации:
+- Е-маил: ${formData.email}
+- Телефон: ${formData.phone}
+    `.trim();
+
+    const mailtoUrl = `mailto:${recipients}?subject=${encodeURIComponent("Барање за понуда - " + (formData.origin || "Ново побарување"))}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+  };
 
   return (
     <section id="contact" className="bg-[#F4F4F5] border-t border-black/10 relative overflow-hidden font-sans">
@@ -65,7 +116,7 @@ export function Contact() {
           <div className="p-6 md:p-12 lg:p-20 flex items-center justify-center bg-[#F4F4F5] relative border-b border-black/10 lg:border-b-0">
             <div className="w-full max-w-2xl bg-white p-8 md:p-12 rounded-2xl border border-black/5 shadow-2xl relative z-10">
               
-              <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
+              <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
                 
                 {/* Visual Select: Transport Mode */}
                 <div className="flex flex-col gap-4">
@@ -103,6 +154,8 @@ export function Contact() {
                     <input 
                       type="text" 
                       id="origin" 
+                      value={formData.origin}
+                      onChange={handleInputChange}
                       placeholder="Пр. Шангај, Кина" 
                       className="w-full bg-white border border-black/10 rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm"
                     />
@@ -112,6 +165,8 @@ export function Contact() {
                     <input 
                       type="text" 
                       id="destination" 
+                      value={formData.destination}
+                      onChange={handleInputChange}
                       placeholder="Пр. Скопје, МКД" 
                       className="w-full bg-white border border-black/10 rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm"
                     />
@@ -124,16 +179,22 @@ export function Contact() {
                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                      <input 
                         type="text" 
+                        value={formData.weight}
+                        onChange={handleInputChange}
                         placeholder="Бруто тежина (Кг)" 
                         className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
                       />
                       <input 
                         type="text" 
+                        value={formData.volume}
+                        onChange={handleInputChange}
                         placeholder="Волумен (CBM)" 
                         className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
                       />
                       <input 
                         type="text" 
+                        value={formData.commodity}
+                        onChange={handleInputChange}
                         placeholder="Тип на стока (Пр. Електроника)" 
                         className="w-full col-span-2 md:col-span-1 bg-[#FAFAFA] border border-black/10 rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
                       />
@@ -146,10 +207,12 @@ export function Contact() {
                 <div className="flex flex-col gap-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Е-маил Адреса</label>
+                       <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Е-маил Адреса</label>
                       <input 
                         type="email" 
                         id="email" 
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="vasata@kompanija.com" 
                         className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
                       />
@@ -159,6 +222,8 @@ export function Contact() {
                       <input 
                         type="tel" 
                         id="phone" 
+                        value={formData.phone}
+                        onChange={handleInputChange}
                         placeholder="+389 XX XXX XXX" 
                         className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
                       />
