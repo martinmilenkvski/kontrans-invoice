@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, ArrowRight, Ship, Plane, Truck, ShieldCheck, Route } from "lucide-react";
+import { CheckCircle2, ArrowRight, Ship, Plane, Truck, ShieldCheck, Route, Loader2 } from "lucide-react";
 
 export function Contact() {
   const [transportMode, setTransportMode] = useState<string | null>(null);
@@ -15,6 +15,9 @@ export function Contact() {
     email: "",
     phone: ""
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const trustPoints = [
     "Гарантирана безбедност на пратката",
@@ -31,44 +34,59 @@ export function Contact() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, placeholder } = e.target;
-    // Map placeholder-only inputs to their logic if ID is missing or generic
     const field = id || (placeholder?.includes("тежина") ? "weight" : placeholder?.includes("Волумен") ? "volume" : "commodity");
     setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error for this field when user types
+    if (errors[field]) {
+      setErrors(prev => { const next = { ...prev }; delete next[field]; return next; });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validate = (): boolean => {
+    const newErrors: Record<string, string> = {};
+    if (!transportMode) newErrors.transportMode = "Изберете тип на транспорт";
+    if (!formData.origin.trim()) newErrors.origin = "Задолжително поле";
+    if (!formData.destination.trim()) newErrors.destination = "Задолжително поле";
+    if (!formData.weight.trim()) newErrors.weight = "Задолжително поле";
+    if (!formData.email.trim()) newErrors.email = "Задолжително поле";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Невалидна е-маил адреса";
+    if (!formData.phone.trim()) newErrors.phone = "Задолжително поле";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const recipients = [
-      "info@kontrans.com.mk",
-      "office@kontrans.com.mk",
-      "mmilenkovska@kontrans.com.mk",
-      "martinm@kontrans.com.mk"
-    ].join(",");
+    if (!validate()) return;
 
-    const transportLabel = transportOptions.find(opt => opt.id === transportMode)?.label || "Не е избран";
-    
-    const body = `
-Побарување за понуда (KON-TRANS)
----------------------------------
-Тип на транспорт: ${transportLabel}
-Место на утовар: ${formData.origin}
-Место на истовар: ${formData.destination}
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
 
-Детали за товар:
-- Тежина: ${formData.weight}
-- Волумен: ${formData.volume}
-- Тип на стока: ${formData.commodity}
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          transportMode,
+          needsInsurance,
+          ...formData,
+        }),
+      });
 
-Потребно осигурување: ${needsInsurance ? "ДА" : "НЕ"}
-
-Контакт Информации:
-- Е-маил: ${formData.email}
-- Телефон: ${formData.phone}
-    `.trim();
-
-    const mailtoUrl = `mailto:${recipients}?subject=${encodeURIComponent("Барање за понуда - " + (formData.origin || "Ново побарување"))}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoUrl;
+      if (res.ok) {
+        setSubmitStatus('success');
+        // Reset form
+        setFormData({ origin: '', destination: '', weight: '', volume: '', commodity: '', email: '', phone: '' });
+        setTransportMode(null);
+        setNeedsInsurance(false);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -129,11 +147,11 @@ export function Contact() {
                         <button
                           key={opt.id}
                           type="button"
-                          onClick={() => setTransportMode(opt.id)}
+                          onClick={() => { setTransportMode(opt.id); if (errors.transportMode) setErrors(prev => { const next = { ...prev }; delete next.transportMode; return next; }); }}
                           className={`group flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer ${
                             isSelected 
                               ? "border-[#D42B2B] bg-[#fefce8] text-[#D42B2B]" 
-                              : "border-black/5 bg-[#FAFAFA] hover:border-[#D42B2B]/40 hover:bg-white text-gray-600"
+                              : errors.transportMode ? "border-red-400 bg-red-50 text-gray-600" : "border-black/5 bg-[#FAFAFA] hover:border-[#D42B2B]/40 hover:bg-white text-gray-600"
                           }`}
                         >
                           <Icon className={`w-6 h-6 transition-colors ${isSelected ? "text-[#D42B2B]" : "text-gray-400 group-hover:text-[#D42B2B]/70"}`} />
@@ -145,31 +163,34 @@ export function Contact() {
                       );
                     })}
                   </div>
+                  {errors.transportMode && <p className="text-red-500 text-xs font-medium pl-1 -mt-2">{errors.transportMode}</p>}
                 </div>
 
                 {/* Form Group: Origin & Destination */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-5 bg-[#FAFAFA] border border-black/5 rounded-xl">
-                  <div className="flex flex-col gap-2 relative">
-                    <label htmlFor="origin" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest absolute top-3 left-4">Место на утовар</label>
+                  <div className="flex flex-col gap-1 relative">
+                    <label htmlFor="origin" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest absolute top-3 left-4 z-10">Место на утовар</label>
                     <input 
                       type="text" 
                       id="origin" 
                       value={formData.origin}
                       onChange={handleInputChange}
                       placeholder="Пр. Шангај, Кина" 
-                      className="w-full bg-white border border-black/10 rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm"
+                      className={`w-full bg-white border rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm ${errors.origin ? 'border-red-400' : 'border-black/10'}`}
                     />
+                    {errors.origin && <p className="text-red-500 text-[10px] font-medium pl-1">{errors.origin}</p>}
                   </div>
-                  <div className="flex flex-col gap-2 relative">
-                    <label htmlFor="destination" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest absolute top-3 left-4">Место на истовар</label>
+                  <div className="flex flex-col gap-1 relative">
+                    <label htmlFor="destination" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest absolute top-3 left-4 z-10">Место на истовар</label>
                     <input 
                       type="text" 
                       id="destination" 
                       value={formData.destination}
                       onChange={handleInputChange}
                       placeholder="Пр. Скопје, МКД" 
-                      className="w-full bg-white border border-black/10 rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm"
+                      className={`w-full bg-white border rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm ${errors.destination ? 'border-red-400' : 'border-black/10'}`}
                     />
+                    {errors.destination && <p className="text-red-500 text-[10px] font-medium pl-1">{errors.destination}</p>}
                   </div>
                 </div>
 
@@ -182,8 +203,9 @@ export function Contact() {
                         value={formData.weight}
                         onChange={handleInputChange}
                         placeholder="Бруто тежина (Кг)" 
-                        className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
+                        className={`w-full bg-[#FAFAFA] border rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all ${errors.weight ? 'border-red-400' : 'border-black/10'}`}
                       />
+                      {errors.weight && <p className="text-red-500 text-[10px] font-medium col-span-2 md:col-span-1 -mt-2">{errors.weight}</p>}
                       <input 
                         type="text" 
                         value={formData.volume}
@@ -253,13 +275,30 @@ export function Contact() {
                   </button>
                 </div>
 
+                {/* Success/Error Feedback */}
+                {submitStatus === 'success' && (
+                  <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium">
+                    <CheckCircle2 className="w-5 h-5 shrink-0" />
+                    <span>Вашето барање е успешно испратено! Ќе ве контактираме наскоро.</span>
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-medium">
+                    <span>⚠️ Грешка при испраќање. Обидете се повторно или контактирајте нè директно.</span>
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <button 
                   type="submit" 
-                  className="mt-4 w-full px-8 py-5 bg-[#D42B2B] hover:bg-[#b02222] text-white text-[15px] font-bold tracking-[0.2em] uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group border border-[#D42B2B] hover:border-[#b02222] shadow-[0_10px_40px_-10px_rgba(212,43,43,0.4)] hover:shadow-[0_10px_40px_-5px_rgba(212,43,43,0.6)] hover:-translate-y-1"
+                  disabled={isSubmitting}
+                  className="mt-4 w-full px-8 py-5 bg-[#D42B2B] hover:bg-[#b02222] text-white text-[15px] font-bold tracking-[0.2em] uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group border border-[#D42B2B] hover:border-[#b02222] shadow-[0_10px_40px_-10px_rgba(212,43,43,0.4)] hover:shadow-[0_10px_40px_-5px_rgba(212,43,43,0.6)] hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
-                  <span>Испрати барање за понуда</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  {isSubmitting ? (
+                    <><Loader2 className="w-5 h-5 animate-spin" /><span>Се испраќа...</span></>
+                  ) : (
+                    <><span>Испрати барање за понуда</span><ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
+                  )}
                 </button>
 
               </form>
