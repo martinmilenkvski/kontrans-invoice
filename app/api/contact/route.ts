@@ -98,8 +98,10 @@ export async function POST(request: Request) {
       </div>
     `;
 
+    console.log('[Contact API] Sending email to:', RECIPIENTS);
+
     const { data, error } = await resend.emails.send({
-      from: 'KON-TRANS Website <onboarding@resend.dev>',
+      from: 'KON-TRANS <noreply@kontrans.com.mk>',
       to: RECIPIENTS,
       subject: `Барање за понуда — ${origin} → ${destination}`,
       html: htmlContent,
@@ -107,15 +109,20 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error('Resend error:', error);
-      return NextResponse.json({ success: false, errors: [error.message] }, { status: 500 });
+      console.error('[Contact API] Resend error:', JSON.stringify(error, null, 2));
+      return NextResponse.json(
+        { success: false, errors: [error.message || 'Resend API грешка'], details: error },
+        { status: 500 }
+      );
     }
 
+    console.log('[Contact API] Email sent successfully, ID:', data?.id);
     return NextResponse.json({ success: true, id: data?.id });
-  } catch (err) {
-    console.error('API route error:', err);
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+    console.error('[Contact API] Unexpected error:', errorMessage);
     return NextResponse.json(
-      { success: false, errors: ['Серверска грешка. Обидете се повторно.'] },
+      { success: false, errors: ['Серверска грешка: ' + errorMessage] },
       { status: 500 }
     );
   }

@@ -18,6 +18,7 @@ export function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [serverError, setServerError] = useState<string>('');
 
   const trustPoints = [
     "Гарантирана безбедност на пратката",
@@ -61,6 +62,7 @@ export function Contact() {
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setServerError('');
 
     try {
       const res = await fetch('/api/contact', {
@@ -73,17 +75,20 @@ export function Contact() {
         }),
       });
 
-      if (res.ok) {
+      const result = await res.json();
+
+      if (res.ok && result.success) {
         setSubmitStatus('success');
-        // Reset form
         setFormData({ origin: '', destination: '', weight: '', volume: '', commodity: '', email: '', phone: '' });
         setTransportMode(null);
         setNeedsInsurance(false);
       } else {
         setSubmitStatus('error');
+        setServerError(result.errors?.join(', ') || 'Unknown error');
       }
     } catch {
       setSubmitStatus('error');
+      setServerError('Не може да се поврзе со серверот.');
     } finally {
       setIsSubmitting(false);
     }
@@ -284,7 +289,7 @@ export function Contact() {
                 )}
                 {submitStatus === 'error' && (
                   <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-medium">
-                    <span>⚠️ Грешка при испраќање. Обидете се повторно или контактирајте нè директно.</span>
+                    <span>⚠️ {serverError || 'Грешка при испраќање.'}</span>
                   </div>
                 )}
 
