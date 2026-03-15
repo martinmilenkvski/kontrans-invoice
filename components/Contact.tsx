@@ -1,15 +1,27 @@
-import { CheckCircle2, ArrowRight } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { CheckCircle2, ArrowRight, Ship, Plane, Truck, ShieldCheck, Route } from "lucide-react";
 
 export function Contact() {
+  const [transportMode, setTransportMode] = useState<string | null>(null);
+  const [needsInsurance, setNeedsInsurance] = useState<boolean>(false);
+
   const trustPoints = [
     "Гарантирана безбедност на пратката",
     "Транспарентни цени без скриени трошоци",
     "24/7 посветен агент за логистика"
   ];
 
+  const transportOptions = [
+    { id: 'sea', icon: Ship, label: 'Бродски Транспорт', desc: 'FCL / LCL пратки' },
+    { id: 'air', icon: Plane, label: 'Авионски Транспорт', desc: 'Брза испорака' },
+    { id: 'road', icon: Truck, label: 'Камионски Транспорт', desc: 'FTL / LTL Европа' },
+    { id: 'multimodal', icon: Route, label: 'Мултимодален', desc: 'Комбиниран превоз' },
+  ];
+
   return (
     <section id="contact" className="bg-[#F4F4F5] border-t border-black/10 relative overflow-hidden font-sans">
-
       <div className="max-w-[1600px] mx-auto relative z-10 w-full flex flex-col">
         
         {/* Editorial Grid Layout for Contact */}
@@ -35,7 +47,7 @@ export function Contact() {
             </h2>
             
             <p className="text-gray-600 text-lg md:text-xl max-w-lg leading-relaxed mb-12">
-              Исполнете го формуларот со деталите за вашиот товар и нашиот тим ќе ве контактира со оптимално логистичко решение во рок од 24 часа.
+              Внесете ги спецификациите на вашиот товар и нашите агенти ќе креираат персонализирано логистичко решение во рок од 24 часа.
             </p>
 
             {/* Trust Points */}
@@ -51,86 +63,137 @@ export function Contact() {
 
           {/* Right Column: The Form Card */}
           <div className="p-6 md:p-12 lg:p-20 flex items-center justify-center bg-[#F4F4F5] relative border-b border-black/10 lg:border-b-0">
-            <div className="w-full max-w-xl bg-white p-8 md:p-12 rounded-2xl border border-black/5 shadow-2xl relative z-10">
+            <div className="w-full max-w-2xl bg-white p-8 md:p-12 rounded-2xl border border-black/5 shadow-2xl relative z-10">
               
-              <form className="flex flex-col gap-6">
+              <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
                 
-                {/* Form Field: Transport Type */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="transport-type" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Тип на транспорт</label>
-                  <select 
-                    id="transport-type" 
-                    className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all appearance-none cursor-pointer"
-                    defaultValue=""
-                  >
-                    <option value="" disabled className="text-gray-400">Изберете услуга...</option>
-                    <option value="sea">Бродски Транспорт (FCL/LCL)</option>
-                    <option value="air">Авионски Транспорт</option>
-                    <option value="road">Камионски Транспорт</option>
-                  </select>
+                {/* Visual Select: Transport Mode */}
+                <div className="flex flex-col gap-4">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Избери тип на транспорт</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {transportOptions.map((opt) => {
+                      const Icon = opt.icon;
+                      const isSelected = transportMode === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setTransportMode(opt.id)}
+                          className={`group flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer ${
+                            isSelected 
+                              ? "border-[#D42B2B] bg-[#fefce8] text-[#D42B2B]" 
+                              : "border-black/5 bg-[#FAFAFA] hover:border-[#D42B2B]/40 hover:bg-white text-gray-600"
+                          }`}
+                        >
+                          <Icon className={`w-6 h-6 transition-colors ${isSelected ? "text-[#D42B2B]" : "text-gray-400 group-hover:text-[#D42B2B]/70"}`} />
+                          <div className="text-center">
+                            <span className={`block text-xs font-bold transition-colors ${isSelected ? "text-[#D42B2B]" : "text-[#111111] group-hover:text-[#D42B2B]"}`}>{opt.label}</span>
+                            <span className={`block text-[10px] sm:hidden md:block mt-1 transition-colors ${isSelected ? "text-[#D42B2B]/70" : "text-gray-400 group-hover:text-gray-600"}`}>{opt.desc}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Form Group: Origin & Destination */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="origin" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Од (Држава)</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-5 bg-[#FAFAFA] border border-black/5 rounded-xl">
+                  <div className="flex flex-col gap-2 relative">
+                    <label htmlFor="origin" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest absolute top-3 left-4">Место на утовар</label>
                     <input 
                       type="text" 
                       id="origin" 
-                      placeholder="Пр. Кина" 
-                      className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all"
+                      placeholder="Пр. Шангај, Кина" 
+                      className="w-full bg-white border border-black/10 rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm"
                     />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="destination" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">До (Држава)</label>
+                  <div className="flex flex-col gap-2 relative">
+                    <label htmlFor="destination" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest absolute top-3 left-4">Место на истовар</label>
                     <input 
                       type="text" 
                       id="destination" 
-                      placeholder="Пр. Македонија" 
-                      className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all"
+                      placeholder="Пр. Скопје, МКД" 
+                      className="w-full bg-white border border-black/10 rounded-lg px-4 pt-8 pb-3 text-[#111111] font-medium placeholder-gray-300 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all shadow-sm"
                     />
                   </div>
                 </div>
 
-                {/* Form Field: Description */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="description" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Опис на товарот</label>
-                  <textarea 
-                    id="description" 
-                    placeholder="Внесете тежина, тип на стока, димензии..." 
-                    rows={4}
-                    className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all resize-none"
-                  ></textarea>
+                {/* Cargo Details Grid */}
+                <div className="flex flex-col gap-3">
+                   <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Детали за товарот</label>
+                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                     <input 
+                        type="text" 
+                        placeholder="Бруто тежина (Кг)" 
+                        className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
+                      />
+                      <input 
+                        type="text" 
+                        placeholder="Волумен (CBM)" 
+                        className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
+                      />
+                      <input 
+                        type="text" 
+                        placeholder="Тип на стока (Пр. Електроника)" 
+                        className="w-full col-span-2 md:col-span-1 bg-[#FAFAFA] border border-black/10 rounded-lg px-4 py-3.5 text-sm text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
+                      />
+                   </div>
                 </div>
 
-                {/* Form Group: Contact Info */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Е-маил Адреса</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      placeholder="name@company.com" 
-                      className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all"
-                    />
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent my-2" />
+
+                {/* Contact + Insurance Toggle */}
+                <div className="flex flex-col gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Е-маил Адреса</label>
+                      <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="vasata@kompanija.com" 
+                        className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="phone" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Телефонски Број</label>
+                      <input 
+                        type="tel" 
+                        id="phone" 
+                        placeholder="+389 XX XXX XXX" 
+                        className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] transition-all"
+                      />
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="phone" className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Телефонски Број</label>
-                    <input 
-                      type="tel" 
-                      id="phone" 
-                      placeholder="+389 7X XXX XXX" 
-                      className="w-full bg-[#FAFAFA] border border-black/10 rounded-lg px-5 py-4 text-[#111111] font-medium placeholder-gray-400 focus:outline-none focus:border-[#D42B2B] focus:ring-1 focus:ring-[#D42B2B] transition-all"
-                    />
-                  </div>
+
+                  {/* Cargo Insurance Toggle */}
+                  <button 
+                    type="button"
+                    onClick={() => setNeedsInsurance(!needsInsurance)}
+                    className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all duration-300 w-full group ${
+                      needsInsurance ? "border-[#D42B2B] bg-[#fefce8]" : "border-black/5 bg-[#FAFAFA] hover:border-black/10"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg transition-colors ${needsInsurance ? "bg-[#D42B2B]/10" : "bg-black/5"}`}>
+                        <ShieldCheck className={`w-5 h-5 ${needsInsurance ? "text-[#D42B2B]" : "text-gray-400"}`} />
+                      </div>
+                      <div className="text-left flex flex-col">
+                        <span className={`font-bold text-sm ${needsInsurance ? "text-[#D42B2B]" : "text-[#111111]"}`}>Потребно е осигурување на товарот?</span>
+                        <span className="text-xs text-gray-400 mt-0.5">Соработуваме со Eurolink за целосно покритие</span>
+                      </div>
+                    </div>
+                    <div className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${needsInsurance ? "bg-[#D42B2B]" : "bg-gray-300"}`}>
+                      <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-300 ${needsInsurance ? "left-7 shadow-sm" : "left-1"}`} />
+                    </div>
+                  </button>
                 </div>
 
                 {/* Submit Button */}
                 <button 
                   type="submit" 
-                  className="mt-6 w-full px-8 py-5 bg-[#D42B2B] hover:bg-[#b02222] text-white text-sm font-semibold tracking-widest uppercase rounded-lg transition-all duration-300 flex items-center justify-center gap-3 group border border-[#D42B2B] hover:border-[#b02222]"
+                  className="mt-4 w-full px-8 py-5 bg-[#D42B2B] hover:bg-[#b02222] text-white text-[15px] font-bold tracking-[0.2em] uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-3 group border border-[#D42B2B] hover:border-[#b02222] shadow-[0_10px_40px_-10px_rgba(212,43,43,0.4)] hover:shadow-[0_10px_40px_-5px_rgba(212,43,43,0.6)] hover:-translate-y-1"
                 >
-                  <span>Испрати барање</span>
+                  <span>Испрати барање за понуда</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
 
