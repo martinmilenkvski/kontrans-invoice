@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Jost, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+
+const jost = Jost({
+  variable: "--font-jost",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: "400",
+});
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -22,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="mk">
       <body
-        className={`${spaceGrotesk.variable} antialiased bg-[#080808] text-white`}
+        className={`${jost.variable} ${spaceGrotesk.variable} antialiased bg-[#080808] text-white`}
       >
         <SmoothScroll>{children}</SmoothScroll>
       </body>

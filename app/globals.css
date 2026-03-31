@@ -5,7 +5,7 @@
 @theme inline {
   --color-background: #080808;
   --color-foreground: #ffffff;
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
   --font-space: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   
   --color-brand-red: #D42B2B;

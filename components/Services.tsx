@@ -1,6 +1,27 @@
+"use client";
 import { Ship, Plane, Truck, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { FadeIn, StaggerGroup, RevealLine } from "./Animations";
+import { motion, type Variants } from "framer-motion";
+
+const titleContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.18,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const titleItem: Variants = {
+  hidden: { opacity: 0, y: 35 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.1, ease: [0.21, 0.47, 0.32, 0.98] },
+  },
+};
 
 export function Services() {
   const services = [
@@ -52,35 +73,40 @@ export function Services() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(300px,400px)] border-b border-black/10">
           
           {/* Main Title Area */}
-          <div className="p-10 md:p-16 lg:p-24 lg:border-r border-black/10 flex flex-col justify-center bg-[#FAFAFA]">
-            
-            <FadeIn delay={0.1}>
-              <div className="flex items-center gap-3 mb-8">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D42B2B]"></span>
-                </span>
-                <span className="text-[#D42B2B] font-semibold tracking-wider text-xs sm:text-sm uppercase">
-                  Што правиме
-                </span>
-              </div>
-            </FadeIn>
+          <motion.div
+            variants={titleContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="p-10 md:p-16 lg:p-24 lg:border-r border-black/10 flex flex-col justify-center bg-[#FAFAFA]"
+          >
+            <motion.div variants={titleItem} className="flex items-center gap-3 mb-8">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D42B2B]"></span>
+              </span>
+              <span className="text-[#D42B2B] tracking-wider text-xs sm:text-sm uppercase">
+                Што правиме
+              </span>
+            </motion.div>
 
-            <FadeIn delay={0.2}>
-              <h2 className="text-5xl md:text-6xl lg:text-[5.5rem] font-bold text-[#111111] leading-[1.05] tracking-tight mb-8">
-                Три начини да стигне
-                <br />
-                вашата{" "}
-                <span className="text-[#D42B2B] italic pr-2 font-[family-name:var(--font-caveat)]">пратка.</span>
-              </h2>
-            </FadeIn>
-            
-            <FadeIn delay={0.3}>
-              <p className="text-gray-600 text-lg md:text-xl max-w-2xl leading-relaxed">
-                Модерниот бизнис знае дека не купуваме само транспорт, ние купуваме сигурност. Затоа го ставаме креативниот процес во фокус за да ви овозможиме простор да се покажете не само што правите, туку кои сте.
-              </p>
-            </FadeIn>
-          </div>
+            <motion.h2
+              variants={titleItem}
+              className="font-sans font-bold text-5xl md:text-5xl lg:text-[5rem] text-[#111111] leading-[1.05] tracking-tight mb-8"
+            >
+              Три начини да стигне
+              <br />
+              вашата{" "}
+              <span className="text-[#D42B2B] italic pr-2 font-[family-name:var(--font-caveat)]">пратка.</span>
+            </motion.h2>
+
+            <motion.p
+              variants={titleItem}
+              className="font-sans text-gray-600 text-lg md:text-xl max-w-2xl leading-relaxed"
+            >
+              Модерниот бизнис знае дека не купуваме само транспорт, ние купуваме сигурност. Затоа го ставаме креативниот процес во фокус за да ви овозможиме простор да се покажете не само што правите, туку кои сте.
+            </motion.p>
+          </motion.div>
           
           {/* Empty Space / Future content */}
           <div className="hidden lg:block bg-[#EBEBEC]"></div>
@@ -100,7 +126,7 @@ export function Services() {
               {/* Step Circle & Icon */}
               <div className="flex items-center justify-between mb-10 w-full">
                 <div className="w-12 h-12 rounded-full border border-black/10 bg-white flex items-center justify-center shadow-sm">
-                  <span className="text-[#111111] font-bold text-sm tracking-widest">{service.id}</span>
+                  <span className="text-[#111111] text-sm tracking-widest">{service.id}</span>
                 </div>
                 <div className="transform group-hover:scale-110 transition-transform duration-500 origin-right">
                   {service.icon}
@@ -108,14 +134,14 @@ export function Services() {
               </div>
               
               {/* Title */}
-              <h3 className="text-[#111111] font-bold text-2xl tracking-wide uppercase mb-8 pr-4 leading-[1.2]">
+              <h3 className="text-[#111111] text-2xl tracking-wide uppercase mb-8 pr-4 leading-[1.2]">
                 {service.title.split(' ').map((word, i) => (
                   <span key={i} className="block">{word}</span>
                 ))}
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 text-base leading-relaxed mb-12 flex-grow font-medium">
+              <p className="text-gray-600 text-base leading-relaxed mb-12 flex-grow">
                 {service.description}
               </p>
 
@@ -123,10 +149,10 @@ export function Services() {
               <div className="w-full h-[1px] bg-black/10 mb-8"></div>
 
               {/* Bullet Points */}
-              <ul className="flex flex-col gap-4 mb-12 font-semibold">
+              <ul className="flex flex-col gap-4 mb-12">
                 {service.bullets.map((bullet, i) => (
                   <li key={i} className="flex items-start gap-4 text-gray-500 hover:text-[#111111] transition-colors">
-                    <span className="text-[#D42B2B] text-xs font-bold mt-[4px]">■</span>
+                    <span className="text-[#D42B2B] text-xs mt-[4px]">■</span>
                     <span className="text-sm">{bullet}</span>
                   </li>
                 ))}
@@ -134,7 +160,7 @@ export function Services() {
 
               {/* Action Button - Ghost Button style from design system */}
               {service.hasButton && (
-                <button className="mt-auto flex items-center justify-between w-full bg-white border border-black/10 hover:border-black/30 hover:shadow-md text-[#111111] font-bold p-5 rounded-lg transition-all duration-300 group/btn">
+                <button className="mt-auto flex items-center justify-between w-full bg-white border border-black/10 hover:border-black/30 hover:shadow-md text-[#111111] p-5 rounded-lg transition-all duration-300 group/btn">
                   <span className="uppercase tracking-widest text-sm">Побарај понуда</span>
                   <ArrowRight className="w-5 h-5 text-[#D42B2B] group-hover/btn:translate-x-1 transition-transform" />
                 </button>

@@ -71,65 +71,87 @@ export default function DashboardPage() {
   if (!isLoaded) return null;
 
   return (
-    <main className="min-h-screen bg-[#080808] text-white font-sans flex flex-col">
-      {/* Sidebar / Top Nav */}
-      <header className="border-b border-white/5 bg-[#0a0a0a] sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-1.5 shrink-0">
-              <span className="text-sm font-black tracking-[0.12em] uppercase">
+    <main className="min-h-screen bg-[#050505] text-white font-space flex flex-col selection:bg-[#D42B2B] selection:text-white">
+      {/* Structural Brutalist Top Bar */}
+      <header className="border-b-2 border-white/10 bg-[#050505] sticky top-0 z-50">
+        <div className="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="flex items-center gap-2 shrink-0 group">
+              <div className="w-2 h-2 bg-[#D42B2B] group-hover:scale-150 transition-transform" />
+              <span className="text-sm font-black tracking-[0.2em] uppercase">
                 KON<span className="text-[#D42B2B]">TRANS</span>
               </span>
             </Link>
-            <div className="hidden md:flex items-center gap-2 text-white/40">
-              <ChevronRight className="w-4 h-4" />
-              <span className="text-xs font-medium uppercase tracking-widest flex items-center gap-2">
-                <LayoutDashboard className="w-3 h-3" />
-                Контролна табла
-              </span>
+            <div className="hidden md:flex items-center gap-3 text-white/30 font-mono text-xs uppercase tracking-widest pl-6 border-l-2 border-white/10 h-8">
+              <span className="text-[#D42B2B] mr-2">SYS_MSG:</span>
+              Систем активен // Контролна Табла
             </div>
           </div>
           
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest"
+            className="flex items-center gap-3 px-4 py-2 border-2 border-white/10 hover:border-[#D42B2B] hover:bg-[#D42B2B] hover:text-white transition-all text-white/70 text-xs font-bold uppercase tracking-widest group"
           >
             Одјави се
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </header>
 
-      <div className="flex-1 max-w-7xl mx-auto px-6 py-12 w-full">
-        <div className="mb-12">
-          <h1 className="text-3xl font-bold mb-2">Добредојдовте назад, Админ</h1>
-          <p className="text-white/40">Изберете модул за да продолжите со работа</p>
+      {/* Main Grid Canvas */}
+      <div className="flex-1 max-w-[1600px] w-full mx-auto p-6 md:p-12 relative">
+        {/* Decorative Grid Lines */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+             style={{
+               backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+               backgroundSize: '40px 40px'
+             }}
+        />
+
+        <div className="relative z-10 mb-16 border-l-4 border-[#D42B2B] pl-6 py-2">
+          <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-none mb-4">
+            Команден <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/30">Центар</span>
+          </h1>
+          <p className="text-white/40 font-mono text-xs uppercase tracking-[0.2em] max-w-xl">
+            // Пристапот е одобрен. Изберете модул за да продолжите со работа.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {dashboardOptions.map((option) => (
+        {/* Brutalist Module Grid */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {dashboardOptions.map((option, idx) => (
             <Link 
               key={option.title}
               href={option.href}
               className="group block"
             >
-              <div className={`h-full bg-[#111111] border border-white/5 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 relative overflow-hidden`}>
-                {/* Visual indicator corner */}
-                <div className={`absolute top-0 right-0 w-24 h-24 blur-[60px] opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${option.color.replace('text-', 'bg-')}`} />
+              <div className="h-full bg-[#0a0a0a] border-2 border-white/10 hover:border-[#D42B2B] transition-all relative overflow-hidden flex flex-col shadow-[8px_8px_0_0_rgba(255,255,255,0.02)] hover:shadow-[8px_8px_0_0_#D42B2B] hover:-translate-y-1 hover:-translate-x-1">
                 
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 ${option.color} border ${option.border}`}>
-                  {option.icon}
+                {/* Protocol Header */}
+                <div className="flex items-center justify-between p-4 border-b-2 border-white/10 bg-[#000]">
+                  <span className="font-mono text-[#D42B2B] text-[0.65rem] uppercase tracking-widest">
+                    МОД_0{idx + 1}
+                  </span>
+                  <div className="flex gap-1">
+                    <div className="w-1.5 h-1.5 bg-white/20 group-hover:bg-[#D42B2B] transition-colors" />
+                    <div className="w-1.5 h-1.5 bg-white/20 group-hover:bg-[#D42B2B] transition-colors" />
+                  </div>
                 </div>
                 
-                <h3 className="text-xl font-bold mb-3 group-hover:text-[#D42B2B] transition-colors">{option.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed mb-8">
-                  {option.description}
-                </p>
+                <div className="p-6 md:p-8 flex-1 flex flex-col">
+                  {/* Brutalist Icon Box */}
+                  <div className="w-14 h-14 border-2 border-white/10 bg-black flex items-center justify-center mb-8 group-hover:bg-[#D42B2B] group-hover:border-[#D42B2B] text-white/50 group-hover:text-white transition-all">
+                    {option.icon}
+                  </div>
+                  
+                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide mb-4 group-hover:text-[#D42B2B] transition-colors leading-tight">{option.title}</h3>
+                  <p className="text-white/40 font-mono text-xs leading-relaxed mb-10 flex-1">
+                    {option.description}
+                  </p>
 
-                <div className="flex items-center justify-between text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/40 group-hover:text-white transition-colors">
-                  <span>Отвори модул</span>
-                  <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#D42B2B] group-hover:border-[#D42B2B] transition-all">
-                    <Plus className="w-4 h-4" />
+                  <div className="flex items-center justify-between text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white/30 group-hover:text-white transition-colors border-t-2 border-white/10 pt-4">
+                    <span>Отвори модул</span>
+                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
                   </div>
                 </div>
               </div>
@@ -137,23 +159,35 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Quick Stats or Footer section for the DASHBOARD */}
-        <div className="mt-16 bg-white/[0.02] border border-white/5 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
-            <h4 className="text-lg font-bold mb-1">Потребна ви е помош?</h4>
-            <p className="text-white/40 text-sm">Доколку имате технички проблеми контактирајте ја поддршката.</p>
+        {/* Support Banner (Brutalist) */}
+        <div className="relative z-10 mt-16 bg-[#D42B2B] border-2 border-[#D42B2B] p-6 lg:p-10 flex flex-col md:flex-row items-center justify-between gap-8 text-black shadow-[8px_8px_0_0_rgba(255,255,255,0.1)]">
+          <div className="flex items-start gap-6">
+            <Shield className="w-12 h-12 shrink-0 opacity-80" />
+            <div>
+              <h4 className="text-xl font-black uppercase tracking-tight mb-2">Системска Дијагностика и Поддршка</h4>
+              <p className="text-black/70 font-mono text-sm uppercase tracking-wider">ПРЕДУПРЕДУВАЊЕ: Криптиран канал. Само за овластен персонал.</p>
+            </div>
           </div>
-          <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-xs font-bold uppercase tracking-widest transition-all">
-            Контактирај поддршка
+          <button className="whitespace-nowrap px-8 py-4 bg-black text-white hover:bg-white hover:text-black border-2 border-black text-xs font-black uppercase tracking-[0.2em] transition-colors flex items-center gap-3 group">
+            КОНТАКТ
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1" />
           </button>
         </div>
       </div>
 
-      <footer className="mt-auto py-8 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-white/20 text-[0.65rem] uppercase tracking-[0.2em]">
-            &copy; 2024 KONTRANS INVOICE SYSTEM &bull; ПРЕМИУМ ПАНЕЛ
+      {/* Structural Footer */}
+      <footer className="mt-auto border-t-2 border-white/10 bg-black">
+        <div className="max-w-[1600px] mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-white/30 font-mono text-[0.65rem] uppercase tracking-[0.2em]">
+            СИС_ДАТУМ // {new Date().getFullYear()} // KONTRANS ПРЕМИУМ ПАНЕЛ
           </p>
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full bg-[#D42B2B] opacity-40" />
+              <span className="relative inline-flex h-2 w-2 bg-[#D42B2B]" />
+            </span>
+            <span className="text-[#D42B2B] font-mono text-[0.65rem] uppercase tracking-[0.2em]">Активна Врска</span>
+          </div>
         </div>
       </footer>
     </main>
