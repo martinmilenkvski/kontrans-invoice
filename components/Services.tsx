@@ -1,187 +1,250 @@
 "use client";
-import { Ship, Plane, Truck, ArrowRight } from "lucide-react";
+
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { FadeIn, StaggerGroup, RevealLine } from "./Animations";
-import { motion, type Variants } from "framer-motion";
+import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { ArrowUpRight } from "lucide-react";
 
-const titleContainer: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.18,
-      delayChildren: 0.1,
-    },
-  },
-};
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-const titleItem: Variants = {
-  hidden: { opacity: 0, y: 35 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1.1, ease: [0.21, 0.47, 0.32, 0.98] },
+const serviceStacks = [
+  {
+    id: "001",
+    label: "OCEAN",
+    title: "ОКЕАНСКИ\nтранспорт.",
+    subtitle: "ПОЧНЕТЕ ТУКА",
+    tags: ["FCL / LCL", "DDP", "HUB_GREECE"],
+    desc: "Сеопфатен бродски транспорт со фокус на Азискиот и Европскиот пазар. Оптимизирани рути преку Солунското пристаниште за максимална ефикасност.",
+    color: "bg-[#D42B2B]",
+    textColor: "text-white",
+    image: "/service_ocean_dark_cinematic_1775397818540.png"
   },
-};
+  {
+    id: "002",
+    label: "AIR",
+    title: "АВИОНСКИ\nТРАНСПОРТ.",
+    subtitle: "ЕКСПРЕСНА ДОСТАВА",
+    tags: ["EXPRESS", "CHARTER", "DGR"],
+    desc: "Кога брзината е императив. Експресна достава на деликатни и итни пратки преку најголемите светски авио-центтар.",
+    color: "bg-[#111111]",
+    textColor: "text-white",
+    image: "/service_air_dark_cinematic_1775397835417.png"
+  },
+  {
+    id: "003",
+    label: "LAND",
+    title: "КОПНЕН\nТРАНСПОРТ.",
+    subtitle: "ДИРЕКТНА ЛИНИЈА",
+    tags: ["FTL / LTL", "DISTRIBUTION", "GPS"],
+    desc: "Развиена патна мрежа која ја поврзува Македонија и Балканот со цела Европа. Дистрибуција од врата до врата со целосен надзор.",
+    color: "bg-[#D42B2B]",
+    textColor: "text-white",
+    image: "/service_land_dark_cinematic_1775397850992.png",
+    isCTA: true, 
+  }
+];
 
 export function Services() {
-  const services = [
-    {
-      id: "01",
-      title: "БРОДСКИ ТРАНСПОРТ",
-      icon: <Ship className="w-10 h-10 text-[#D42B2B]" strokeWidth={1.5} />,
-      description: "Најоптимално решение за транспорт на големи количини стока ширум светот со загарантирана безбедност.",
-      bullets: [
-        "FCL/LCL контејнери",
-        "Царинско чистење",
-        "Азиски пазар",
-        "Транзит Солун",
-      ],
-    },
-    {
-      id: "02",
-      title: "АВИОНСКИ ТРАНСПОРТ",
-      icon: <Plane className="w-10 h-10 text-[#D42B2B]" strokeWidth={1.5} />,
-      description: "Кога времето е од клучно значење, нашиот авионски транспорт нуди најбрза испорака до било која дестинација.",
-      bullets: [
-        "Експресна достава",
-        "Меѓународни аеродроми",
-        "Деликатни пратки",
-        "Карго чартери",
-      ],
-    },
-    {
-      id: "03",
-      title: "КАМИОНСКИ ТРАНСПОРТ",
-      icon: <Truck className="w-10 h-10 text-[#D42B2B]" strokeWidth={1.5} />,
-      description: "Флексибилна и директна достава преку развиена патна мрежа која ги поврзува пазарите ефикасно и навремено.",
-      bullets: [
-        "Дистрибуција МКД",
-        "Дневни линии Балкан",
-        "Full Truck Load (FTL)",
-        "Tracking во живо",
-      ],
-      hasButton: true,
-    },
-  ];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  // 1. SECTION-LEVEL REVEAL (GSAP)
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      }
+    });
+
+    tl.from(".s-header-reveal", {
+      y: 40,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      stagger: 0.2
+    });
+  }, { scope: containerRef });
+
+  // 2. SCROLL PROGRESS ENGINE
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const { top, height } = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      const scrollableDistance = height - windowHeight;
+      const scrolled = -top;
+      
+      if (scrollableDistance > 0) {
+        const p = Math.max(0, Math.min(1, scrolled / scrollableDistance));
+        setProgress(p);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const totalTransitions = serviceStacks.length - 1;
+  const cardProgress = progress * totalTransitions;
 
   return (
-    <section id="services" className="bg-[#F4F4F5] border-t border-black/10 relative overflow-hidden">
-
-      <div className="max-w-[1600px] mx-auto relative z-10 w-full">
+    <section 
+      ref={containerRef} 
+      id="services" 
+      className="relative bg-[#F4F4F5] w-full"
+      style={{ height: `${serviceStacks.length * 100}vh` }}
+    >
+      {/* ── STICKY STAGE ── */}
+      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col pt-[8vh] lg:pt-[10vh]">
         
-        {/* Top Header Row */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(300px,400px)] border-b border-black/10">
-          
-          {/* Main Title Area */}
-          <motion.div
-            variants={titleContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
-            className="p-10 md:p-16 lg:p-24 lg:border-r border-black/10 flex flex-col justify-center bg-[#FAFAFA]"
-          >
-            <motion.div variants={titleItem} className="flex items-center gap-3 mb-8">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D42B2B]"></span>
-              </span>
-              <span className="text-[#D42B2B] tracking-wider text-xs sm:text-sm uppercase">
-                Што правиме
-              </span>
-            </motion.div>
+        {/* Editorial Heading Section */}
+        <div className="w-full max-w-[1400px] mx-auto px-10 lg:px-20 mb-6 flex justify-between items-start">
+          {/* Identity Tag (Left) */}
+          <div className="s-header-reveal bg-[#EBEBEC] py-1.5 px-4 rounded-none border border-black/5">
+             <span className="font-sans text-[9px] lg:text-[10px] font-black tracking-[0.4em] text-black/60 uppercase">
+                НАШИОТ ИДЕНТИТЕТ
+             </span>
+          </div>
 
-            <motion.h2
-              variants={titleItem}
-              className="font-sans font-bold text-5xl md:text-5xl lg:text-[5rem] text-[#111111] leading-[1.05] tracking-tight mb-8"
-            >
-              Три начини да стигне
-              <br />
-              вашата{" "}
-              <span className="text-[#D42B2B] italic pr-2 font-[family-name:var(--font-caveat)]">пратка.</span>
-            </motion.h2>
-
-            <motion.p
-              variants={titleItem}
-              className="font-sans text-gray-600 text-lg md:text-xl max-w-2xl leading-relaxed"
-            >
-              Модерниот бизнис знае дека не купуваме само транспорт, ние купуваме сигурност. Затоа го ставаме креативниот процес во фокус за да ви овозможиме простор да се покажете не само што правите, туку кои сте.
-            </motion.p>
-          </motion.div>
-          
-          {/* Empty Space / Future content */}
-          <div className="hidden lg:block bg-[#EBEBEC]"></div>
-
+          {/* Mission Statement (Right) */}
+          <p className="s-header-reveal font-sans text-[clamp(0.9rem,1.2vw,1.1rem)] font-medium leading-[1.4] text-right max-w-lg text-[#111111] opacity-80">
+             Се посветуваме целосно на нашите партнери и решенијата што ги нудиме, носејќи <span className="text-[#D42B2B] italic">највисока експертиза.</span>
+          </p>
         </div>
 
-        {/* Services Columns Area */}
-        <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" staggerDelay={0.15}>
+        <div className="relative h-[62vh] lg:h-[65vh] w-full max-w-[1400px] mx-auto px-4 lg:px-0">
           
-          {services.map((service, index) => (
-            <FadeIn 
-              key={service.id}
-              className={`group p-10 md:p-12 border-b lg:border-b-0 border-black/10 flex flex-col hover:bg-white transition-colors duration-500 bg-[#F4F4F5] ${index < 3 ? 'lg:border-r' : ''} relative`}
-            >
-              {index < 3 && <RevealLine horizontal={false} className="hidden lg:block absolute top-0 right-0 bottom-0 w-[1px] bg-black/10" />}
-              
-              {/* Step Circle & Icon */}
-              <div className="flex items-center justify-between mb-10 w-full">
-                <div className="w-12 h-12 rounded-full border border-black/10 bg-white flex items-center justify-center shadow-sm">
-                  <span className="text-[#111111] text-sm tracking-widest">{service.id}</span>
+          {serviceStacks.map((service, i) => {
+            let yPercent = 120;
+            let scale = 1;
+            let brightness = 1;
+            let opacity = 1;
+
+            // KINETIC TEXT ANIMATION LOGIC
+            let slideProgress = 0;
+
+            if (i === 0) {
+              yPercent = 0;
+              slideProgress = 1; // Base card always fully active
+              const shrinkProgress = Math.max(0, Math.min(1, cardProgress - 0));
+              scale = 1 - (0.05 * shrinkProgress);
+              brightness = 1 - (0.6 * shrinkProgress);
+              opacity = 1 - (0.3 * shrinkProgress);
+            } else {
+              slideProgress = Math.max(0, Math.min(1, cardProgress - (i - 1)));
+              yPercent = 130 * (1 - slideProgress);
+
+              const shrinkProgress = Math.max(0, Math.min(1, cardProgress - i));
+              scale = 1 - (0.05 * shrinkProgress);
+              brightness = 1 - (0.6 * shrinkProgress);
+              opacity = 1 - (0.3 * shrinkProgress);
+            }
+
+            // Staggered Text Reveal based on slideProgress
+            // Starts revealing at 70% of the card's slide-complete
+            const revealStart = 0.7;
+            const contentOpacity = Math.max(0, Math.min(1, (slideProgress - revealStart) / (1 - revealStart)));
+            const contentY = 30 * (1 - contentOpacity);
+
+            return (
+              <div 
+                key={i} 
+                className={`service-card absolute inset-0 w-full h-full rounded-none shadow-lg border border-white/5 overflow-hidden flex flex-col justify-between p-10 lg:p-20 ${service.color} ${service.textColor} will-change-transform shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]`}
+                style={{ 
+                  zIndex: i + 1,
+                  transform: `translateY(${yPercent}%) scale(${scale})`,
+                  opacity: opacity,
+                  filter: `brightness(${brightness})`,
+                  transition: 'opacity 0.3s ease-out, filter 0.3s ease-out'
+                }}
+              >
+                {/* Background Texture Image - Reduced Intensity */}
+                <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none grayscale">
+                    <Image 
+                        src={service.image} 
+                        alt="" 
+                        fill 
+                        className="object-cover"
+                    />
                 </div>
-                <div className="transform group-hover:scale-110 transition-transform duration-500 origin-right">
-                  {service.icon}
+
+                {/* 1. TOP BAR */}
+                <div 
+                  className="flex justify-between items-start w-full relative z-10 border-b border-white/10 pb-8"
+                  style={{ opacity: contentOpacity, transform: `translateY(${contentY * 0.5}px)` }}
+                >
+                   <div className="w-14 h-14 lg:w-16 lg:h-16 border border-white/20 rounded-none flex items-center justify-center group hover:bg-white transition-all duration-500 cursor-pointer">
+                      <ArrowUpRight className="w-6 h-6 lg:w-7 lg:h-7 text-white group-hover:text-black group-hover:rotate-45 transition-all" />
+                   </div>
+                   
+                   <div className="flex flex-col items-end">
+                      <span className="font-mono text-[10px] lg:text-[11px] font-black tracking-[0.4rem] opacity-30">
+                         {service.id} // {service.label}
+                      </span>
+                   </div>
                 </div>
+
+                {/* 2. SPLIT CONTENT BODY */}
+                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-end flex-1 pt-12">
+                   {/* Left side: Title & Pills */}
+                   <div 
+                      className="flex flex-col items-start gap-6"
+                      style={{ opacity: contentOpacity, transform: `translateY(${contentY}px)` }}
+                   >
+                      <div className="flex gap-3">
+                         {service.tags?.map((tag, idx) => (
+                           <div key={idx} className="px-4 py-1 rounded-full border border-white/20 bg-white/[0.05] text-[9px] font-black tracking-widest text-white/70 uppercase">
+                              {tag}
+                           </div>
+                         ))}
+                      </div>
+                      <h2 className="font-sans text-[clamp(2rem,6vw,5.5rem)] leading-[0.85] tracking-tighter uppercase font-black whitespace-pre-line text-left">
+                         {service.title}
+                      </h2>
+                   </div>
+
+                   {/* Right side: Description & Action */}
+                   <div 
+                      className="flex flex-col items-end text-right gap-8"
+                      style={{ opacity: contentOpacity, transform: `translateY(${contentY * 0.8}px)` }}
+                   >
+                      <p className="text-white/60 font-[family-name:var(--font-jost)] text-[clamp(0.9rem,1.2vw,1.1rem)] font-medium leading-relaxed max-w-sm ml-auto">
+                         {service.desc}
+                      </p>
+
+                      {service.isCTA ? (
+                        <Link href="/contact" className="px-8 lg:px-10 py-4 lg:py-5 bg-white text-black font-black tracking-[0.4rem] text-[9px] lg:text-[10px] uppercase hover:bg-black hover:text-white transition-all shadow-xl block">
+                           INITIATE_PROJECT
+                        </Link>
+                      ) : (
+                         <div className="group/btn flex items-center gap-6 cursor-pointer">
+                            <span className="font-sans text-[10px] font-black tracking-[0.4rem] opacity-40 uppercase border-b border-white/10 pb-2 group-hover:opacity-100 transition-all">
+                               VIEW_DETAILS
+                            </span>
+                         </div>
+                      )}
+                   </div>
+                </div>
+
+                {/* 4. DECORATIVE ELEMENTS */}
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[60%] border border-white/5 rounded-full pointer-events-none" />
+                <div className="absolute top-[20%] right-10 opacity-[0.03] text-[12rem] lg:text-[15rem] font-black leading-none pointer-events-none select-none">
+                    {service.id.slice(-1)}
+                </div>
+
               </div>
-              
-              {/* Title */}
-              <h3 className="text-[#111111] text-2xl tracking-wide uppercase mb-8 pr-4 leading-[1.2]">
-                {service.title.split(' ').map((word, i) => (
-                  <span key={i} className="block">{word}</span>
-                ))}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-600 text-base leading-relaxed mb-12 flex-grow">
-                {service.description}
-              </p>
-
-              {/* Separator */}
-              <div className="w-full h-[1px] bg-black/10 mb-8"></div>
-
-              {/* Bullet Points */}
-              <ul className="flex flex-col gap-4 mb-12">
-                {service.bullets.map((bullet, i) => (
-                  <li key={i} className="flex items-start gap-4 text-gray-500 hover:text-[#111111] transition-colors">
-                    <span className="text-[#D42B2B] text-xs mt-[4px]">■</span>
-                    <span className="text-sm">{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Action Button - Ghost Button style from design system */}
-              {service.hasButton && (
-                <button className="mt-auto flex items-center justify-between w-full bg-white border border-black/10 hover:border-black/30 hover:shadow-md text-[#111111] p-5 rounded-lg transition-all duration-300 group/btn">
-                  <span className="uppercase tracking-widest text-sm">Побарај понуда</span>
-                  <ArrowRight className="w-5 h-5 text-[#D42B2B] group-hover/btn:translate-x-1 transition-transform" />
-                </button>
-              )}
-            </FadeIn>
-          ))}
-
-          {/* 4th Column: Image */}
-          <FadeIn className="relative h-[600px] lg:h-auto min-h-[500px] hidden lg:block overflow-hidden border-black/10 group bg-black" direction="left">
-            <div className="absolute inset-0 bg-[#D42B2B]/10 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-            <Image
-              src="/services-cinematic.png"
-              alt="Logistics Operations"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105 contrast-125"
-              quality={90}
-            />
-          </FadeIn>
-
-        </StaggerGroup>
-        
+            );
+          })}
+        </div>
       </div>
     </section>
   );

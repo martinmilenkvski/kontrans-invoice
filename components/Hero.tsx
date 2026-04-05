@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 
@@ -147,7 +147,7 @@ export function Hero() {
           poster="/hero-cinematic.png"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
+          <source src="/bg-kontrans.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
@@ -156,7 +156,7 @@ export function Hero() {
       {/* ── Content layer ── */}
       <motion.div
         style={{ y: contentY }}
-        className="relative z-10 h-full max-w-[1600px] mx-auto px-8 lg:px-16 flex flex-col"
+        className="relative z-10 h-full max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col"
       >
         <div className="mt-auto pb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-24 items-end">
 
@@ -181,7 +181,7 @@ export function Hero() {
 
             <motion.p
               variants={slideUp}
-              className="text-white/60 text-base md:text-lg leading-relaxed max-w-md"
+              className="text-white/60 font-[family-name:var(--font-jost)] text-base md:text-lg leading-relaxed max-w-md"
             >
               Сигурен, брз и целосно следен транспорт на над 50 дестинации.
               Бродски, авионски и камионски превоз од една платформа.
@@ -196,7 +196,9 @@ export function Hero() {
                 className="inline-flex items-center gap-3 text-white text-sm uppercase tracking-widest hover:gap-5 transition-all duration-300 group"
               >
                 Побарај понуда
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white transition-all duration-300">
+                  <Image src="/upper-right-arrow.png" alt="Arrow" width={16} height={16} className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 invert group-hover:invert-0" />
+                </div>
               </Link>
               <div className="w-px h-4 bg-white/30" />
               <Link
@@ -242,7 +244,9 @@ export function Hero() {
                 className="text-white/40 hover:text-white text-xs uppercase tracking-[0.2em] transition-colors flex items-center gap-2 group"
               >
                 Повеќе
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                <div className="w-8 h-8 bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white transition-all duration-300">
+                  <Image src="/upper-right-arrow.png" alt="Arrow" width={12} height={12} className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 invert group-hover:invert-0" />
+                </div>
               </Link>
             </motion.div>
           </motion.div>

@@ -1,0 +1,173 @@
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { ArrowUpRight } from "lucide-react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// ── DIGITAL SLOT COUNTER ──────────────────────────────────────────────────────
+const DIGIT_H = 80; 
+
+function SlotDigit({ digit, delay }: { digit: number; delay: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(ref.current, 
+      { y: 0 }, 
+      { 
+        y: -(digit * DIGIT_H), 
+        duration: 2.5, 
+        delay, 
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 80%",
+        }
+      }
+    );
+  }, { scope: ref });
+
+  return (
+    <span className="relative inline-block overflow-hidden h-[80px] w-[0.625em]">
+      <span ref={ref} className="absolute top-0 flex flex-col">
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+          <span key={n} className="h-[80px] flex items-center leading-none">
+            {n}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function Commitment() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      }
+    });
+
+    const heroEase = "power4.out";
+
+    // ── STAGGERED ENTRANCE ──
+    tl.fromTo(".comm-headline", 
+      { y: 60, opacity: 0 }, 
+      { y: 0, opacity: 1, duration: 1.5, ease: heroEase }, 0
+    );
+
+    tl.fromTo([".comm-tag", ".comm-text", ".comm-link", ".comm-counter", ".comm-img", ".comm-footer-text"], 
+      { y: 30, opacity: 0 }, 
+      { y: 0, opacity: 1, duration: 1.2, ease: heroEase, stagger: 0.1 }, 
+      0.5
+    );
+
+  }, { scope: containerRef });
+
+  return (
+    <section ref={containerRef} className="relative bg-[#FAFAFA] pt-32 pb-24 overflow-hidden border-b border-black/5">
+      
+      <div className="max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col gap-24 lg:gap-32">
+        
+        {/* TOP: LARGE EDITORIAL HEADLINE */}
+        <div className="max-w-5xl">
+          <h2 className="comm-headline font-sans text-[clamp(2.2rem,5vw,3rem)] text-[#111111] leading-[1.05] tracking-tight font-medium opacity-0">
+            Се посветуваме целосно на нашите <br className="hidden lg:block" />
+            партнери и решенијата што ги нудиме, <br className="hidden lg:block" />
+            носејќи <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-normal">највисока експертиза.</span>
+          </h2>
+        </div>
+
+        {/* MIDDLE: MULTI-COL LAYOUT */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-12 lg:gap-20 items-start">
+           
+           {/* Left: Tag */}
+           <div className="comm-tag opacity-0">
+              <span className="inline-block px-4 py-2 bg-black/[0.03] border border-black/5 text-[0.6rem] font-black text-black/40 tracking-[0.2em] uppercase">
+                НАШИОТ ИДЕНТИТЕТ
+              </span>
+           </div>
+
+           {/* Middle: Paragraph + CTA */}
+           <div className="flex flex-col gap-10">
+              <p className="comm-text text-[#111111]/60 font-[family-name:var(--font-jost)] text-lg lg:text-xl font-medium leading-relaxed max-w-lg opacity-0">
+                Ние сме сеопфатен логистички партнер специјализиран за глобален патен, авионски и бродски транспорт. Со длабок увид во индустријата и филозофија насочена кон партнерот, ги водиме клиентите низ секоја фаза од транспортниот циклус.
+              </p>
+              <Link href="/contact" className="comm-link group inline-flex items-center gap-3 text-[0.7rem] font-black text-black tracking-[0.2em] uppercase border-b border-black/10 pb-2 w-fit opacity-0 transition-all hover:border-[#D42B2B] hover:text-[#D42B2B]">
+                ПОВРЗЕТЕ СЕ СО НАС
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+           </div>
+
+           {/* Right: Counter */}
+           <div className="comm-counter flex flex-col items-end opacity-0">
+              <div className="flex items-center font-sans text-7xl lg:text-8xl font-black text-[#111111] leading-none tracking-tighter">
+                <SlotDigit digit={7} delay={0.6} />
+                <SlotDigit digit={5} delay={0.7} />
+                <SlotDigit digit={0} delay={0.8} />
+                <span className="text-[#D42B2B] ml-2">+</span>
+              </div>
+              <span className="text-[0.6rem] font-bold text-black/30 tracking-widest uppercase mt-4">УСПЕШНИ ПРОЕКТИ</span>
+           </div>
+        </div>
+
+        {/* BOTTOM: IMAGE TRIO + FOOTER LABELS */}
+        <div className="flex flex-col gap-12">
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { src: "/port-min.png", alt: "Modern Port" },
+                { src: "/ship-min.png", alt: "Minimal Ship" }
+              ].map((img, i) => (
+                <div key={i} className="comm-img relative aspect-[4/3] overflow-hidden opacity-0 transition-all duration-700">
+                  <Image src={img.src} alt={img.alt} fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                </div>
+              ))}
+              
+              {/* THIRD IMAGE -> RED CARD */}
+              <Link href="#contact" className="comm-img relative aspect-[4/3] bg-[#D42B2B] flex flex-col justify-between p-8 overflow-hidden opacity-0 group hover:bg-[#c02626] transition-all duration-500">
+                <div className="flex justify-between items-start">
+                   <div className="w-10 h-10 border border-white/20 flex items-center justify-center">
+                      <ArrowUpRight className="text-white w-5 h-5 group-hover:rotate-45 transition-transform duration-500" />
+                   </div>
+                   <span className="font-mono text-[0.6rem] text-white/40 tracking-widest uppercase italic">003 // CTA</span>
+                </div>
+                
+                <div className="flex flex-col gap-2">
+                   <span className="text-white/60 text-[0.65rem] font-bold tracking-widest uppercase">ПОЧНЕТЕ ТУКА</span>
+                   <h3 className="text-white font-[family-name:var(--font-jost)] font-black text-3xl lg:text-4xl leading-tight uppercase tracking-tighter">
+                      ПОБАРАЈ <br /> ПОНУДА.
+                   </h3>
+                </div>
+
+                {/* ABSTRACT DECORATIVE CIRCLE */}
+                <div className="absolute -bottom-10 -right-10 w-32 h-32 border border-white/5 rounded-full" />
+              </Link>
+           </div>
+           
+           <div className="flex justify-between items-center px-2">
+              <span className="comm-footer-text font-mono text-[0.55rem] text-black/20 tracking-[0.4em] uppercase opacity-0">
+                 BEYOND CONVENTIONAL LOGISTICS.
+              </span>
+              <span className="comm-footer-text font-mono text-[0.55rem] text-black/20 tracking-[0.4em] uppercase opacity-0 text-right">
+                 НИЕ ГРАДИМЕ ДОВЕРБА.
+              </span>
+           </div>
+        </div>
+
+      </div>
+
+    </section>
+  );
+}

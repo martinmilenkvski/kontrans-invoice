@@ -1,19 +1,25 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { LogosMarquee } from "@/components/LogosMarquee";
+import { Commitment } from "@/components/Commitment";
 import { Services } from "@/components/Services";
-import { Stats } from "@/components/Stats";
-import { Process } from "@/components/Process";
+import { VideoPortal } from "@/components/VideoPortal";
+import { GlobalCoverage } from "@/components/GlobalCoverage";
+import { FleetArsenal } from "@/components/FleetArsenal";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#080808] overflow-hidden">
+    <main className="min-h-screen bg-[#080808] overflow-x-clip">
       <Header />
       <Hero />
+      <LogosMarquee />
+      <Commitment />
       <Services />
-      <Process />
-      <Stats />
+      <VideoPortal />
+      <GlobalCoverage />
+      <FleetArsenal />
       <Contact />
       <Footer />
     </main>
