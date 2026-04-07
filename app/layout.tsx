@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
+import { GradualBlurOverlay } from "@/components/GradualBlurOverlay";
 
 export default function RootLayout({
   children,
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${jost.variable} ${spaceGrotesk.variable} antialiased bg-[#080808] text-white`}
       >
         <SmoothScroll>{children}</SmoothScroll>
+        <GradualBlurOverlay />
       </body>
     </html>
   );
