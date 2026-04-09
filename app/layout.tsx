@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Jost, Space_Grotesk } from "next/font/google";
+import { Jost, Space_Grotesk, Caveat } from "next/font/google";
 import "./globals.css";
 
 const jost = Jost({
@@ -10,6 +10,11 @@ const jost = Jost({
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
+  subsets: ["latin", "latin-ext"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin", "latin-ext"],
 });
 
@@ -29,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="mk">
       <body
-        className={`${jost.variable} ${spaceGrotesk.variable} antialiased bg-[#080808] text-white`}
+        className={`${jost.variable} ${spaceGrotesk.variable} ${caveat.variable} antialiased bg-[#080808] text-white`}
       >
         <SmoothScroll>{children}</SmoothScroll>
         <GradualBlurOverlay />

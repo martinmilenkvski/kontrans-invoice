@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
-import { Ship, Plane, Truck, Route, Loader2 } from "lucide-react";
+import { Ship, Plane, Truck, Route, Loader2, ArrowUpRight } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -17,7 +17,6 @@ export function Contact() {
 
   // ── FORM LOGIC ──
   const [transportMode, setTransportMode] = useState<string | null>(null);
-  const [needsInsurance, setNeedsInsurance] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     origin: "",
     destination: "",
@@ -30,18 +29,17 @@ export function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [serverError, setServerError] = useState<string>('');
 
   const transportOptions = [
-    { id: 'sea', icon: Ship, label: 'Бродски Транспорт' },
-    { id: 'air', icon: Plane, label: 'Авионски Транспорт' },
-    { id: 'road', icon: Truck, label: 'Камионски Транспорт' },
-    { id: 'multimodal', icon: Route, label: 'Мултимодален' },
+    { id: 'sea', icon: Ship, label: 'SEAFREIGHT' },
+    { id: 'air', icon: Plane, label: 'AIRFREIGHT' },
+    { id: 'road', icon: Truck, label: 'ROAD_CARRIAGE' },
+    { id: 'multimodal', icon: Route, label: 'MULTIMODAL' },
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, placeholder } = e.target;
-    const field = id || (placeholder?.includes("тежина") ? "weight" : placeholder?.includes("Волумен") ? "volume" : "commodity");
+    const field = id || (placeholder?.includes("ОД") ? "origin" : placeholder?.includes("ДО") ? "destination" : placeholder?.includes("EMAIL") ? "email" : "phone");
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors(prev => { const next = { ...prev }; delete next[field]; return next; });
@@ -68,7 +66,7 @@ export function Contact() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ transportMode, needsInsurance, ...formData }),
+        body: JSON.stringify({ transportMode, ...formData }),
       });
       if (res.ok) {
         setSubmitStatus('success');
@@ -84,25 +82,23 @@ export function Contact() {
     }
   };
 
-  // ── ENTRANCE STAGGER ANIMATIONS (LIGHT THEME) ──
   useGSAP(
     () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%",
+          start: "top 70%",
         },
       });
 
-      const heroEase = "power4.out";
-      
-      tl.fromTo(".light-contact-bg", { opacity: 0 }, { opacity: 1, duration: 1.5 }, 0);
-      tl.fromTo(".stagger-line", { scaleX: 0 }, { scaleX: 1, duration: 1.5, ease: "power3.inOut" }, 0.2);
-      
-      // Main Reveal Stagger
-      tl.fromTo([".stagger-title span", ".stagger-desc", ".contact-feature", ".form-field-group", ".transport-btn", ".submit-btn-wrap"],
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, ease: heroEase, stagger: 0.1 },
+      tl.fromTo(".contact-minimal-reveal", 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, stagger: 0.1, ease: "power4.out" }
+      );
+
+      tl.fromTo(".contact-minimal-line", 
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1.5, ease: "power3.inOut" },
         0.5
       );
     },
@@ -110,153 +106,155 @@ export function Contact() {
   );
 
   return (
-    <section ref={containerRef} id="contact" className="relative bg-[#FAFAFA] overflow-hidden border-t border-black/5 min-h-screen w-full flex flex-col py-32 px-4 lg:px-4">
+    <section ref={containerRef} id="contact" className="relative bg-[#FAFAFA] pt-48 pb-32 overflow-hidden border-t border-black/5 min-h-screen">
       
-      {/* ── CINEMATIC LIGHT GRADIENT ── */}
-      <div className="light-contact-bg absolute inset-0 z-0 opacity-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-[#D42B2B]/5 blur-[120px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-black/[0.02] blur-[100px] rounded-full" />
+      {/* Background Subtle Label */}
+      <div className="absolute top-24 left-1/2 -translate-x-1/2 flex items-center gap-4 opacity-20 pointer-events-none select-none">
+         <div className="w-[100px] h-[1px] bg-black" />
+         <span className="font-mono text-[0.6rem] tracking-[0.8em] uppercase font-bold text-black">ТЕРМИНАЛ ЗА ПРАШАЊА // ОТВОРЕНО</span>
+         <div className="w-[100px] h-[1px] bg-black" />
       </div>
 
-      <div className="stagger-line absolute top-[15%] left-0 w-full h-[0.5px] bg-black/10 origin-left" />
-
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-20 lg:gap-32">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6">
         
-        {/* LEFT: HEADING */}
-        <div className="flex flex-col gap-12">
-          <div className="flex flex-col gap-6">
-            <span className="stagger-desc font-mono text-[0.65rem] text-[#D42B2B] uppercase tracking-[0.625em] font-black italic opacity-0">
-               (03) // TERMINAL HUB
-            </span>
-            <h2 className="stagger-title font-sans text-[clamp(2.5rem,6vw,5.5rem)] text-[#111111] leading-[0.9] tracking-tighter uppercase font-black">
-              <span className="block opacity-0">МРЕЖА</span> 
-              <span className="block opacity-0">КОЈА</span> 
-              <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] lowercase font-normal px-2 block opacity-0">
-                зборува.
-              </span>
-            </h2>
+        {/* Editorial Headline */}
+        <div className="flex flex-col gap-10 mb-32">
+          <div className="flex flex-col gap-4">
+             <span className="contact-minimal-reveal font-mono text-[0.65rem] text-[#D42B2B] uppercase tracking-[0.625em] font-black italic opacity-0">
+                БАРАЊЕ ЗА КОНТАКТ // 08
+             </span>
+             <h2 className="contact-minimal-reveal font-sans text-[clamp(2.5rem,8vw,6.5rem)] text-[#111111] leading-[0.8] tracking-tighter uppercase font-black opacity-0">
+               Побарај <br /> 
+               <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] lowercase font-normal px-2">Понуда.</span>
+             </h2>
           </div>
+          <div className="contact-minimal-line w-[80px] h-1 bg-[#D42B2B] origin-left" />
+        </div>
+
+        <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-24">
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-t border-black/10 pt-12">
-            {[
-              { label: "БЕЗБЕДНОСТ", desc: "Гарантирана сигурност на секоја пратка во реално време." },
-              { label: "ТРАНСПАРЕНТНОСТ", desc: "Реални цени без скриени маржи или трошоци." },
-              { label: "24/7 ПОДДРШКА", desc: "Вашиот агент е достапен на еден клик." },
-              { label: "МРЕЖА", desc: "Пристап до над 50 глобални дестинации." }
-            ].map((item, i) => (
-              <div key={i} className="contact-feature flex flex-col gap-3 opacity-0 group">
-                 <span className="text-[0.6rem] font-black text-[#D42B2B] tracking-widest">{item.label}</span>
-                 <p className="text-black/50 text-[0.7rem] font-bold leading-relaxed uppercase group-hover:text-black transition-colors">{item.desc}</p>
-              </div>
-            ))}
+          {/* 1. Избор на тип на транспорт */}
+          <div className="contact-minimal-reveal flex flex-col gap-8 opacity-0">
+            <span className="font-mono text-[0.55rem] font-bold text-black/60 tracking-widest uppercase">01 // ИЗБЕРЕТЕ_ТИП_НА_ТРАНСПОРТ</span>
+            <div className="flex flex-wrap gap-x-12 gap-y-6">
+              {transportOptions.map((opt) => {
+                const isSelected = transportMode === opt.id;
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setTransportMode(opt.id)}
+                    className={`group flex items-center gap-4 transition-all ${isSelected ? "opacity-100" : "opacity-60 hover:opacity-100"}`}
+                  >
+                    <div className={`w-10 h-10 border transition-all ${isSelected ? "bg-[#111111] border-black" : "border-black/20 group-hover:border-black"}`}>
+                       <opt.icon className={`w-4 h-4 ${isSelected ? "text-[#D42B2B]" : "text-black"}`} />
+                    </div>
+                    <span className="font-sans text-[11px] font-black tracking-widest uppercase text-black">{opt.label === 'SEAFREIGHT' ? 'БРОДСКИ' : opt.label === 'AIRFREIGHT' ? 'АВИОНСКИ' : opt.label === 'ROAD_CARRIAGE' ? 'КАМИОНСКИ' : 'МУЛТИМОДАЛЕН'}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {errors.transportMode && <span className="text-[#D42B2B] text-[0.6rem] font-bold uppercase">{errors.transportMode}</span>}
           </div>
-        </div>
 
-        {/* RIGHT: FORM */}
-        <div className="w-full">
-           <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-10">
-              
-              <div className="grid grid-cols-2 sm:grid-cols-4 border border-black/10">
-                 {transportOptions.map((opt) => {
-                   const Icon = opt.icon;
-                   const isSelected = transportMode === opt.id;
-                   return (
-                     <button
-                       key={opt.id}
-                       type="button"
-                       onClick={() => setTransportMode(opt.id!)}
-                       className={`transport-btn flex flex-col items-center justify-center gap-4 py-8 border-r border-black/10 last:border-r-0 transition-all opacity-0 ${
-                         isSelected 
-                           ? "bg-[#111111] text-white" 
-                           : "bg-white text-black/40 hover:bg-black/[0.02] hover:text-black"
-                       }`}
-                     >
-                        <Icon className={`w-5 h-5 ${isSelected ? "text-[#D42B2B]" : "text-black/20 group-hover:text-[#D42B2B] transition-colors"}`} />
-                        <span className="font-black text-[9px] uppercase tracking-tighter">{opt.label.split(' ')[0]}</span>
-                     </button>
-                   );
-                 })}
-              </div>
+          {/* 2. Routing Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-20">
+             
+             {/* Origin */}
+             <div className="contact-minimal-reveal flex flex-col gap-3 opacity-0 group">
+                <span className="font-mono text-[0.55rem] font-bold text-black/60 tracking-widest uppercase mb-1">02 // ОД_ПОЧЕТНА_ТОЧКА</span>
+                <input 
+                  type="text" 
+                  value={formData.origin}
+                  onChange={handleInputChange}
+                  placeholder="ГРАД / ПРИСТАНИШТЕ / HUB"
+                  className="w-full bg-transparent border-b-2 border-black/10 pb-4 text-[#111111] text-2xl font-black placeholder-black/30 focus:outline-none focus:border-[#D42B2B] transition-all"
+                />
+                {errors.origin && <span className="text-[#D42B2B] text-[0.6rem] font-bold uppercase">{errors.origin}</span>}
+             </div>
 
-              <div className="flex flex-col gap-10">
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                    <div className="form-field-group flex flex-col gap-3 opacity-0">
-                       <label className="text-[0.55rem] font-bold text-black/30 tracking-widest uppercase">ОД (Origin)</label>
-                       <input 
-                         type="text" 
-                         value={formData.origin}
-                         onChange={handleInputChange}
-                         placeholder="ГРАД / ПРИСТАНИШТЕ"
-                         className="w-full bg-transparent border-b border-black/10 px-0 py-3 text-[#111111] text-lg font-bold placeholder-black/10 focus:outline-none focus:border-[#D42B2B] transition-all"
-                       />
-                       {errors.origin && <span className="text-[#D42B2B] text-[0.6rem] font-bold uppercase">{errors.origin}</span>}
-                    </div>
-                    <div className="form-field-group flex flex-col gap-3 opacity-0">
-                       <label className="text-[0.55rem] font-bold text-black/30 tracking-widest uppercase">ДО (Destination)</label>
-                       <input 
-                         type="text" 
-                         value={formData.destination}
-                         onChange={handleInputChange}
-                         placeholder="КРАЈНА ДЕСТИНАЦИЈА"
-                         className="w-full bg-transparent border-b border-black/10 px-0 py-3 text-[#111111] text-lg font-bold placeholder-black/10 focus:outline-none focus:border-[#D42B2B] transition-all"
-                       />
-                       {errors.destination && <span className="text-[#D42B2B] text-[0.6rem] font-bold uppercase">{errors.destination}</span>}
-                    </div>
-                 </div>
+             {/* Destination */}
+             <div className="contact-minimal-reveal flex flex-col gap-3 opacity-0 group">
+                <span className="font-mono text-[0.55rem] font-bold text-black/60 tracking-widest uppercase mb-1">03 // ДО_ДЕСТИНАЦИЈА</span>
+                <input 
+                  type="text" 
+                  value={formData.destination}
+                  onChange={handleInputChange}
+                  placeholder="КРАЈНА_ТОЧКА_НА_ИСПОРУКА"
+                  className="w-full bg-transparent border-b-2 border-black/10 pb-4 text-[#111111] text-2xl font-black placeholder-black/30 focus:outline-none focus:border-[#D42B2B] transition-all"
+                />
+                {errors.destination && <span className="text-[#D42B2B] text-[0.6rem] font-bold uppercase">{errors.destination}</span>}
+             </div>
 
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                    <div className="form-field-group flex flex-col gap-3 opacity-0">
-                       <label className="text-[0.55rem] font-bold text-black/30 tracking-widest uppercase">Email Контакт</label>
-                       <input 
-                         type="email" 
-                         id="email"
-                         value={formData.email}
-                         onChange={handleInputChange}
-                         placeholder="YOUR@EMAIL.COM"
-                         className="w-full bg-transparent border-b border-black/10 px-0 py-3 text-[#111111] text-lg font-bold placeholder-black/10 focus:outline-none focus:border-[#D42B2B] transition-all"
-                       />
-                    </div>
-                    <div className="form-field-group flex flex-col gap-3 opacity-0">
-                       <label className="text-[0.55rem] font-bold text-black/30 tracking-widest uppercase">Телефон</label>
-                       <input 
-                         type="tel" 
-                         id="phone"
-                         value={formData.phone}
-                         onChange={handleInputChange}
-                         placeholder="+389 __ ___ ___"
-                         className="w-full bg-transparent border-b border-black/10 px-0 py-3 text-[#111111] text-lg font-bold placeholder-black/10 focus:outline-none focus:border-[#D42B2B] transition-all"
-                       />
-                    </div>
-                 </div>
-              </div>
+             {/* Email */}
+             <div className="contact-minimal-reveal flex flex-col gap-3 opacity-0 group">
+                <span className="font-mono text-[0.55rem] font-bold text-black/60 tracking-widest uppercase mb-1">04 // Е-ПОШТА_КОМУНИКАЦИЈА</span>
+                <input 
+                  type="email" 
+                  id="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="ВАНАТА@Е-ПОШТА.COM"
+                  className="w-full bg-transparent border-b-2 border-black/10 pb-4 text-[#111111] text-2xl font-black placeholder-black/30 focus:outline-none focus:border-[#D42B2B] transition-all"
+                />
+                {errors.email && <span className="text-[#D42B2B] text-[0.6rem] font-bold uppercase">{errors.email}</span>}
+             </div>
 
-              <div className="submit-btn-wrap pt-6 opacity-0">
-                 <button 
-                   type="submit" 
-                   disabled={isSubmitting}
-                   className="inline-flex items-center gap-8 text-[#111111] text-sm uppercase tracking-widest hover:gap-12 transition-all duration-500 group disabled:opacity-50"
-                 >
-                    <span className="font-black">
-                      {isSubmitting ? "СЕ ПРОЦЕСИРА..." : "Побарај понуда"}
-                    </span>
-                    <div className="w-16 h-16 bg-[#111111] flex items-center justify-center relative overflow-hidden group-hover:bg-[#D42B2B] transition-all duration-500">
-                       {isSubmitting ? (
-                         <Loader2 className="w-6 h-6 animate-spin text-white" />
-                       ) : (
-                         <Image src="/upper-right-arrow.png" alt="Arrow" width={24} height={24} className="w-6 h-6 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-500 invert z-10" />
-                       )}
-                    </div>
-                 </button>
-                 {submitStatus === 'success' && (
-                    <p className="mt-8 text-[#D42B2B] font-mono text-[0.65rem] font-black tracking-widest uppercase">
-                      ✓ Барањето е успешно прифатено.
-                    </p>
-                 )}
-              </div>
-           </form>
-        </div>
+             {/* Phone */}
+             <div className="contact-minimal-reveal flex flex-col gap-3 opacity-0 group">
+                <span className="font-mono text-[0.55rem] font-bold text-black/60 tracking-widest uppercase mb-1">05 // ТЕЛЕФОНСКИ_КОНТАКТ</span>
+                <input 
+                  type="tel" 
+                  id="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="+389 __ ___ ___"
+                  className="w-full bg-transparent border-b-2 border-black/10 pb-4 text-[#111111] text-2xl font-black placeholder-black/30 focus:outline-none focus:border-[#D42B2B] transition-all"
+                />
+                {errors.phone && <span className="text-[#D42B2B] text-[0.6rem] font-bold uppercase">{errors.phone}</span>}
+             </div>
+
+          </div>
+
+          {/* Submit Button */}
+          <div className="contact-minimal-reveal pt-10 opacity-0">
+             <button 
+               type="submit" 
+               disabled={isSubmitting}
+               className="group flex flex-col items-start gap-4 disabled:opacity-50"
+             >
+                <div className="flex items-center gap-6">
+                   <span className="font-sans text-xl lg:text-3xl font-black text-[#111111] tracking-tighter uppercase group-hover:text-[#D42B2B] transition-colors">
+                      {isSubmitting ? "СЕ ПРОЦЕСИРА..." : "ИСПРАТИ БАРАЊЕ"}
+                   </span>
+                   <div className="w-12 h-12 lg:w-16 lg:h-16 bg-[#111111] flex items-center justify-center transition-all duration-500 group-hover:bg-[#D42B2B] group-hover:rotate-45">
+                      {isSubmitting ? (
+                        <Loader2 className="w-6 h-6 animate-spin text-white" />
+                      ) : (
+                        <ArrowUpRight className="text-white w-6 h-6 lg:w-8 lg:h-8" />
+                      )}
+                   </div>
+                </div>
+                <span className="font-mono text-[0.6rem] font-bold text-black/50 tracking-[0.5em] uppercase text-right">ИНИЦИРАЈ_ТЕРМИНАЛНИ_ПРОТОКОЛИ_V4</span>
+             </button>
+
+             {submitStatus === 'success' && (
+                <div className="mt-12 p-8 bg-black text-white flex flex-col gap-2">
+                   <span className="font-sans text-2xl font-black uppercase">Успешно!</span>
+                   <p className="font-mono text-[0.6rem] text-white/50 tracking-widest uppercase italic">Вашето барање е во процесирање. Нашиот тим ќе ве контактира набрзо.</p>
+                </div>
+             )}
+          </div>
+
+        </form>
 
       </div>
+
+      {/* Side Decorative Numbers */}
+      <div className="absolute right-12 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-[0.03] select-none pointer-events-none">
+         <span className="font-sans text-9xl font-black">08</span>
+      </div>
+
     </section>
   );
 }

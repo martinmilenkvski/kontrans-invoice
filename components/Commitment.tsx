@@ -68,10 +68,24 @@ export function Commitment() {
       { y: 0, opacity: 1, duration: 1.5, ease: heroEase }, 0
     );
 
-    tl.fromTo([".comm-tag", ".comm-text", ".comm-link", ".comm-counter", ".comm-img", ".comm-footer-text"], 
+    tl.fromTo([".comm-tag", ".comm-text", ".comm-link", ".comm-counter", ".comm-footer-text"], 
       { y: 30, opacity: 0 }, 
       { y: 0, opacity: 1, duration: 1.2, ease: heroEase, stagger: 0.1 }, 
       0.5
+    );
+
+    // ── CLIP-PATH IMAGE REVEALS (staggered left-to-right) ──
+    tl.fromTo(".comm-img-clip",
+      { clipPath: "inset(0 100% 0 0)" },
+      { clipPath: "inset(0 0% 0 0)", duration: 1.4, ease: "power3.inOut", stagger: 0.2 },
+      0.8
+    );
+
+    // ── RED CTA CARD — dramatic entrance ──
+    tl.fromTo(".comm-card",
+      { y: 60, opacity: 0, scale: 0.92 },
+      { y: 0, opacity: 1, scale: 1, duration: 1.6, ease: "power4.out" },
+      1.2
     );
 
   }, { scope: containerRef });
@@ -130,13 +144,13 @@ export function Commitment() {
                 { src: "/port-min.png", alt: "Modern Port" },
                 { src: "/ship-min.png", alt: "Minimal Ship" }
               ].map((img, i) => (
-                <div key={i} className="comm-img relative aspect-[4/3] overflow-hidden opacity-0 transition-all duration-700">
+                <div key={i} className="comm-img-clip relative aspect-[4/3] overflow-hidden transition-all duration-700" style={{ clipPath: "inset(0 100% 0 0)" }}>
                   <Image src={img.src} alt={img.alt} fill className="object-cover hover:scale-105 transition-transform duration-700" />
                 </div>
               ))}
               
               {/* THIRD IMAGE -> RED CARD */}
-              <Link href="#contact" className="comm-img relative aspect-[4/3] bg-[#D42B2B] flex flex-col justify-between p-8 overflow-hidden opacity-0 group hover:bg-[#c02626] transition-all duration-500">
+              <Link href="#contact" className="comm-card relative aspect-[4/3] bg-[#D42B2B] flex flex-col justify-between p-8 overflow-hidden opacity-0 group hover:bg-[#c02626] transition-all duration-500">
                 <div className="flex justify-between items-start">
                    <div className="w-10 h-10 border border-white/20 flex items-center justify-center">
                       <ArrowUpRight className="text-white w-5 h-5 group-hover:rotate-45 transition-transform duration-500" />

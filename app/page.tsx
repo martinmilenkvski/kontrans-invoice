@@ -5,7 +5,10 @@ import { Commitment } from "@/components/Commitment";
 import { Services } from "@/components/Services";
 import { VideoPortal } from "@/components/VideoPortal";
 import { GlobalCoverage } from "@/components/GlobalCoverage";
-import { FleetArsenal } from "@/components/FleetArsenal";
+import { VesselShowcase } from "@/components/VesselShowcase";
+import { OperationalGrid } from "@/components/OperationalGrid";
+import { TechnicalAnatomy } from "@/components/TechnicalAnatomy";
+import { OperationalHub } from "@/components/OperationalHub";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -19,7 +22,8 @@ export default function Home() {
       <Services />
       <VideoPortal />
       <GlobalCoverage />
-      <FleetArsenal />
+      <TechnicalAnatomy />
+      <OperationalHub />
       <Contact />
       <Footer />
     </main>

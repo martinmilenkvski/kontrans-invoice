@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, MapPin, Phone, Mail, ArrowRight } from "lucide-react";
+import { ArrowUpRight, MapPin, Phone, Mail, ArrowRight, Instagram, Facebook, Linkedin } from "lucide-react";
 import { FadeIn, StaggerGroup } from "./Animations";
 import { Globe } from "./Globe";
 
@@ -9,170 +9,147 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#FFFFFF] relative font-sans pt-10 md:pt-24 border-t border-black/5">
+    <footer className="bg-[#D42B2B] relative font-sans text-white overflow-hidden border-t border-white/5">
       
-      {/* Floating CTA Card — Pure White / Brand Red Accent */}
-      <div className="max-w-[1600px] mx-auto w-full px-0 lg:px-24 relative z-20">
-        <div className="bg-[#FAFAFA] border lg:border-black/5 lg:rounded-3xl lg:mb-[-100px] relative overflow-hidden grid grid-cols-1 lg:grid-cols-[55%_45%] shadow-xl group transition-all duration-500">
+      {/* ── TOP SECTION: MASSIVE HEADLINE & GLOBE ── */}
+      <div className="relative w-full border-b border-white/10">
+        <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-12 items-center">
           
-          {/* subtle atmospheric glow */}
-          <div className="absolute top-0 right-0 w-[50%] h-full bg-[#D42B2B]/[0.05] pointer-events-none"></div>
-
-          {/* CTA Content */}
-          <StaggerGroup className="p-10 md:p-16 lg:p-20 flex flex-col gap-6 relative z-10 justify-center items-center lg:items-start text-center lg:text-left">
-            
-            <FadeIn delay={0.1}>
-              <div className="flex items-center gap-3">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D42B2B]"></span>
+          {/* Left: Huge CTA */}
+          <div className="lg:col-span-8 p-8 lg:p-20 border-r border-white/10 flex flex-col gap-12">
+            <StaggerGroup className="flex flex-col gap-8">
+              <FadeIn>
+                <span className="font-mono text-[0.65rem] tracking-[0.6em] uppercase font-bold opacity-60">
+                  Ready to move // 09
                 </span>
-                <span className="text-[#D42B2B] font-bold tracking-widest text-xs uppercase cursor-default">
-                  СУПЕРИОРНА ЛОГИСТИКА
-                </span>
-              </div>
-            </FadeIn>
+              </FadeIn>
+              <FadeIn>
+                <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-black leading-[0.85] tracking-tighter uppercase">
+                  Спремни за <br />
+                  <span className="italic font-[family-name:var(--font-caveat)] font-normal lowercase opacity-80">следна пратка?</span>
+                </h2>
+              </FadeIn>
+              <FadeIn>
+                <Link href="/contact" className="group inline-flex items-center gap-6 mt-6">
+                   <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500">
+                      <ArrowRight className="w-8 h-8 group-hover:text-[#D42B2B] transition-colors" />
+                   </div>
+                   <span className="text-xl lg:text-3xl font-black uppercase tracking-tighter">Започнете веднаш</span>
+                </Link>
+              </FadeIn>
+            </StaggerGroup>
+          </div>
 
-            <FadeIn delay={0.2}>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#111111] tracking-tight leading-[1.05] uppercase">
-                Спремни за вашата <br />
-                <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] lowercase font-normal px-2">следна пратка?</span>
-              </h2>
-            </FadeIn>
-            
-            <FadeIn delay={0.3}>
-              <p className="text-black/40 font-bold text-lg leading-relaxed mt-2 max-w-md uppercase tracking-tight">
-                Придружете се на над 1000 компании кои ни го доверуваат нивниот глобален транспорт.
-              </p>
-            </FadeIn>
-            
-            <FadeIn delay={0.4}>
-              <Link href="/contact" className="mt-8 w-fit px-10 py-5 bg-[#111111] hover:bg-[#D42B2B] text-white text-xs font-black tracking-widest uppercase rounded-sm transition-all duration-300 flex items-center gap-4 group/btn shadow-lg shadow-black/10">
-                <span>Започнете веднаш</span>
-                <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-              </Link>
-            </FadeIn>
-          </StaggerGroup>
+          {/* Right: Integrated Globe */}
+          <div className="lg:col-span-4 h-full min-h-[400px] flex items-center justify-center relative overflow-hidden bg-black/5">
+             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_70%)] pointer-events-none" />
+             <div className="relative w-[300px] lg:w-[450px] opacity-80 hover:opacity-100 transition-opacity duration-1000 scale-125">
+                <Globe />
+             </div>
+          </div>
 
-          {/* Right side: WebGL Globe with Light Fade */}
-          <FadeIn direction="left" delay={0.5} className="flex items-center justify-center relative bg-white overflow-hidden min-h-[300px] sm:min-h-[380px] lg:min-h-0">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,43,43,0.08)_0%,transparent_70%)] pointer-events-none" />
-            <div className="relative w-[300px] sm:w-[380px] lg:w-[480px] flex-shrink-0">
-              <Globe />
-              {/* Light Vignette */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_35%,#FFFFFF_85%)] pointer-events-none" />
-            </div>
-          </FadeIn>
         </div>
       </div>
 
-      {/* Structural footer base */}
-      <div className="bg-[#FFFFFF] pt-32 lg:pt-48 pb-12 w-full relative z-10">
-        
-        <div className="max-w-[1600px] mx-auto w-full flex flex-col relative z-10 px-8 lg:px-16">
+      {/* ── MIDDLE SECTION: LOGO & LINKS ── */}
+      <div className="w-full border-b border-white/10">
+        <div className="max-w-[1700px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12">
           
-          <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-20 pb-20 mb-20 border-b border-black/5" staggerDelay={0.1}>
-            
-            {/* Col 1: Brand */}
-            <FadeIn className="flex flex-col relative">
-              <Link href="/" className="inline-block mb-10">
-                <span className="text-3xl font-black text-[#111111] tracking-widest leading-none block uppercase">
-                  KON<span className="text-[#D42B2B]">TRANS</span>
-                </span>
-                <span className="text-[0.55rem] font-black text-[#D42B2B] tracking-[0.4em] uppercase block mt-2">
-                  Logistics & Shipping
-                </span>
-              </Link>
-              
-              <div className="text-black/40 text-[0.7rem] font-bold leading-relaxed mb-10 max-w-[200px] uppercase tracking-wider">
-                Вашиот доверлив партнер за меѓународен транспорт и глобална логистика.
-              </div>
+          {/* Branding */}
+          <div className="lg:col-span-5 p-8 lg:p-20 border-r border-white/10 flex flex-col justify-between gap-20">
+             <div className="flex flex-col gap-4">
+                <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-none uppercase">
+                   KON<br />TRANS
+                </h1>
+                <p className="font-mono text-[0.6rem] tracking-[0.4em] uppercase opacity-60 max-w-xs leading-relaxed">
+                   Вашиот доверлив партнер за меѓународен транспорт и глобална логистика низ светот.
+                </p>
+             </div>
 
-              <div className="flex gap-6 mt-auto">
-                {['LinkedIn', 'Facebook', 'Instagram'].map((social) => (
-                  <a 
-                    key={social} 
-                    href={`#${social.toLowerCase()}`}
-                    className="text-black/20 hover:text-[#D42B2B] transition-all duration-300 transform hover:-translate-y-1"
-                  >
-                    <ArrowUpRight className="w-5 h-5" />
-                  </a>
+             <div className="flex gap-4">
+                {[
+                  { icon: Instagram, href: "#" },
+                  { icon: Facebook, href: "#" },
+                  { icon: Linkedin, href: "#" }
+                ].map((social, i) => (
+                  <Link key={i} href={social.href} className="w-12 h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-[#D42B2B] transition-all">
+                     <social.icon className="w-5 h-5" />
+                  </Link>
                 ))}
-              </div>
-            </FadeIn>
+             </div>
+          </div>
 
-            {/* Col 2: Services */}
-            <FadeIn className="flex flex-col">
-              <h4 className="text-[#111111] font-black tracking-[0.3em] text-[0.6rem] uppercase mb-10 flex items-center gap-4">
-                <div className="w-6 h-[1px] bg-[#D42B2B]"></div>
-                Услуги
-              </h4>
-              <ul className="flex flex-col gap-6">
-                {['Бродски транспорт', 'Авионски транспорт', 'Камионски транспорт', 'Складирање'].map((link) => (
-                  <li key={link}>
-                    <Link href="/#services" className="text-black/40 hover:text-[#111111] text-[0.7rem] font-black uppercase tracking-widest transition-colors flex items-center gap-3 group/link w-fit">
-                      <span className="group-hover:translate-x-1 transition-transform">{link}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </FadeIn>
+          {/* Links Grid */}
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 h-full">
+             
+             {/* Col: Services */}
+             <div className="p-8 lg:p-20 border-r border-white/10 flex flex-col gap-10">
+                <span className="font-mono text-[0.55rem] font-bold tracking-widest uppercase opacity-40">01 // Услуги</span>
+                <ul className="flex flex-col gap-4">
+                   {['Бродски транспорт', 'Авионски транспорт', 'Камионски транспорт', 'Складирање'].map((link) => (
+                     <li key={link}>
+                        <Link href="/#services" className="text-sm font-bold uppercase tracking-widest hover:pl-2 transition-all block">
+                           {link}
+                        </Link>
+                     </li>
+                   ))}
+                </ul>
+             </div>
 
-            {/* Col 3: Company */}
-            <FadeIn className="flex flex-col">
-              <h4 className="text-[#111111] font-black tracking-[0.3em] text-[0.6rem] uppercase mb-10 flex items-center gap-4">
-                <div className="w-6 h-[1px] bg-[#D42B2B]"></div>
-                Компанија
-              </h4>
-              <ul className="flex flex-col gap-6">
-                {['За нас', 'Процес', 'Статистика', 'Контакт'].map((link) => (
-                  <li key={link}>
-                    <Link href={link === 'За нас' ? '/about' : link === 'Контакт' ? '/contact' : '/#process'} className="text-black/40 hover:text-[#111111] text-[0.7rem] font-black uppercase tracking-widest transition-colors flex items-center gap-3 group/link w-fit">
-                      <span className="group-hover:translate-x-1 transition-transform">{link}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </FadeIn>
+             {/* Col: Company */}
+             <div className="p-8 lg:p-20 border-r border-white/10 flex flex-col gap-10">
+                <span className="font-mono text-[0.55rem] font-bold tracking-widest uppercase opacity-40">02 // Компанија</span>
+                <ul className="flex flex-col gap-4">
+                   {['За нас', 'Процес', 'Статистика', 'Контакт'].map((link) => (
+                     <li key={link}>
+                        <Link href={link === 'За нас' ? '/about' : link === 'Контакт' ? '/contact' : '/#process'} className="text-sm font-bold uppercase tracking-widest hover:pl-2 transition-all block">
+                           {link}
+                        </Link>
+                     </li>
+                   ))}
+                </ul>
+             </div>
 
-            {/* Col 4: Contact */}
-            <FadeIn className="flex flex-col p-10 bg-black/[0.02] border border-black/5">
-              <h4 className="text-[#111111] font-black tracking-[0.3em] text-[0.6rem] uppercase mb-10 flex items-center gap-4">
-                <div className="w-6 h-[1px] bg-[#D42B2B]"></div>
-                Контакт
-              </h4>
-              <ul className="flex flex-col gap-8">
-                <li className="flex items-start gap-5">
-                  <MapPin className="w-4 h-4 text-[#D42B2B] shrink-0 mt-0.5" />
-                  <span className="text-black/40 text-[0.7rem] font-bold uppercase leading-relaxed tracking-wider">
-                    Бул. Партизански <br />Одреди 15, Скопје
-                  </span>
-                </li>
-                <li className="flex items-center gap-5">
-                  <Phone className="w-4 h-4 text-[#D42B2B] shrink-0" />
-                  <span className="text-black/40 text-[0.7rem] font-bold uppercase">+389 2 3123 456</span>
-                </li>
-                <li className="flex items-center gap-5">
-                  <Mail className="w-4 h-4 text-[#D42B2B] shrink-0" />
-                  <span className="text-black/40 text-[0.7rem] font-bold uppercase">info@kontrans.mk</span>
-                </li>
-              </ul>
-            </FadeIn>
+             {/* Col: Info */}
+             <div className="p-8 lg:p-20 flex flex-col gap-10">
+                <span className="font-mono text-[0.55rem] font-bold tracking-widest uppercase opacity-40">03 // Контакт</span>
+                <div className="flex flex-col gap-8">
+                   <div className="flex items-start gap-4">
+                      <MapPin className="w-4 h-4 mt-1 opacity-50" />
+                      <span className="text-xs font-bold leading-relaxed uppercase">
+                         Бул. Партизански <br />Одреди 15, Скопје
+                      </span>
+                   </div>
+                   <div className="flex items-start gap-4">
+                      <Phone className="w-4 h-4 mt-1 opacity-50" />
+                      <span className="text-xs font-bold uppercase tracking-widest">+389 2 3123 456</span>
+                   </div>
+                   <div className="flex items-start gap-4">
+                      <Mail className="w-4 h-4 mt-1 opacity-50" />
+                      <span className="text-xs font-bold uppercase tracking-widest">info@kontrans.mk</span>
+                   </div>
+                </div>
+             </div>
 
-          </StaggerGroup>
-
-          {/* Bottom Copyright Row */}
-          <FadeIn className="flex flex-col md:flex-row justify-between items-center gap-8 py-8" delay={0.3}>
-            <p className="text-black/20 text-[0.6rem] font-black tracking-[0.2em] font-mono uppercase">
-              &copy; {currentYear} KONTRANS. СИТЕ ПРАВА СЕ ЗАДРЖАНИ.
-            </p>
-            <div className="flex items-center gap-12">
-              <Link href="#privacy" className="text-black/20 hover:text-black text-[0.6rem] transition-colors font-black tracking-[0.2em] uppercase">Приватност</Link>
-              <Link href="#terms" className="text-black/20 hover:text-black text-[0.6rem] transition-colors font-black tracking-[0.2em] uppercase">Услови</Link>
-            </div>
-          </FadeIn>
+          </div>
 
         </div>
+      </div>
+
+      {/* ── BOTTOM SECTION: COPYRIGHT ── */}
+      <div className="max-w-[1700px] mx-auto p-8 lg:px-20 lg:py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+         <div className="font-mono text-[0.55rem] tracking-[0.5em] uppercase opacity-40">
+            &copy; {currentYear} KONTRANS. СИТЕ ПРАВА СЕ ЗАДРЖАНИ.
+         </div>
+         <div className="flex gap-12 font-mono text-[0.55rem] tracking-[0.4em] uppercase opacity-40">
+            <Link href="#privacy" className="hover:opacity-100 transition-opacity">Приватност</Link>
+            <Link href="#terms" className="hover:opacity-100 transition-opacity">Услови</Link>
+         </div>
+      </div>
+
+      {/* Decorative BG Text */}
+      <div className="absolute -bottom-20 -right-20 text-[20vw] font-black opacity-[0.03] select-none pointer-events-none">
+         2026
       </div>
 
     </footer>
