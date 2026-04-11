@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, MapPin, Phone, Mail, ArrowRight, Instagram, Facebook, Linkedin } from "lucide-react";
-import { FadeIn, StaggerGroup } from "./Animations";
-import { Globe } from "./Globe";
+import { MapPin, Phone, Mail, Instagram, Facebook, Linkedin } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,46 +9,6 @@ export function Footer() {
   return (
     <footer className="bg-[#D42B2B] relative font-sans text-white overflow-hidden border-t border-white/5">
       
-      {/* ── TOP SECTION: MASSIVE HEADLINE & GLOBE ── */}
-      <div className="relative w-full border-b border-white/10">
-        <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-12 items-center">
-          
-          {/* Left: Huge CTA */}
-          <div className="lg:col-span-8 p-8 lg:p-20 border-r border-white/10 flex flex-col gap-12">
-            <StaggerGroup className="flex flex-col gap-8">
-              <FadeIn>
-                <span className="font-mono text-[0.65rem] tracking-[0.6em] uppercase font-bold opacity-60">
-                  Ready to move // 09
-                </span>
-              </FadeIn>
-              <FadeIn>
-                <h2 className="text-[clamp(2.5rem,8vw,8rem)] font-black leading-[0.85] tracking-tighter uppercase">
-                  Спремни за <br />
-                  <span className="italic font-[family-name:var(--font-caveat)] font-normal lowercase opacity-80">следна пратка?</span>
-                </h2>
-              </FadeIn>
-              <FadeIn>
-                <Link href="/contact" className="group inline-flex items-center gap-6 mt-6">
-                   <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500">
-                      <ArrowRight className="w-8 h-8 group-hover:text-[#D42B2B] transition-colors" />
-                   </div>
-                   <span className="text-xl lg:text-3xl font-black uppercase tracking-tighter">Започнете веднаш</span>
-                </Link>
-              </FadeIn>
-            </StaggerGroup>
-          </div>
-
-          {/* Right: Integrated Globe */}
-          <div className="lg:col-span-4 h-full min-h-[400px] flex items-center justify-center relative overflow-hidden bg-black/5">
-             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_70%)] pointer-events-none" />
-             <div className="relative w-[300px] lg:w-[450px] opacity-80 hover:opacity-100 transition-opacity duration-1000 scale-125">
-                <Globe />
-             </div>
-          </div>
-
-        </div>
-      </div>
-
       {/* ── MIDDLE SECTION: LOGO & LINKS ── */}
       <div className="w-full border-b border-white/10">
         <div className="max-w-[1700px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12">

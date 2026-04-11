@@ -107,7 +107,7 @@ export function Services() {
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col pt-[8vh] lg:pt-[10vh]">
         
         {/* Editorial Heading Section */}
-        <div className="w-full max-w-[1400px] mx-auto px-10 lg:px-20 mb-6 flex justify-between items-start">
+        <div className="w-full max-w-6xl mx-auto px-10 lg:px-20 mb-6 flex justify-between items-start">
           {/* Identity Tag (Left) */}
           <div className="s-header-reveal bg-[#EBEBEC] py-1.5 px-4 rounded-none border border-black/5">
              <span className="font-sans text-[9px] lg:text-[10px] font-black tracking-[0.4em] text-black/60 uppercase">
@@ -121,7 +121,7 @@ export function Services() {
           </p>
         </div>
 
-        <div className="relative h-[62vh] lg:h-[65vh] w-full max-w-[1400px] mx-auto px-4 lg:px-0">
+        <div className="relative h-[62vh] lg:h-[65vh] w-full max-w-6xl mx-auto px-4 lg:px-0">
           
           {serviceStacks.map((service, i) => {
             let yPercent = 120;

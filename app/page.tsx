@@ -4,11 +4,8 @@ import { LogosMarquee } from "@/components/LogosMarquee";
 import { Commitment } from "@/components/Commitment";
 import { Services } from "@/components/Services";
 import { VideoPortal } from "@/components/VideoPortal";
-import { GlobalCoverage } from "@/components/GlobalCoverage";
-import { VesselShowcase } from "@/components/VesselShowcase";
-import { OperationalGrid } from "@/components/OperationalGrid";
 import { TechnicalAnatomy } from "@/components/TechnicalAnatomy";
-import { OperationalHub } from "@/components/OperationalHub";
+import { GlobalCoverage } from "@/components/GlobalCoverage";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -21,9 +18,8 @@ export default function Home() {
       <Commitment />
       <Services />
       <VideoPortal />
-      <GlobalCoverage />
       <TechnicalAnatomy />
-      <OperationalHub />
+      <GlobalCoverage />
       <Contact />
       <Footer />
     </main>
