@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
@@ -22,6 +22,19 @@ const item: Variants = {
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPreloaderDone, setIsPreloaderDone] = useState(false);
+
+  useEffect(() => {
+    const handlePreloader = () => setIsPreloaderDone(true);
+    window.addEventListener("preloaderComplete", handlePreloader);
+
+    const timer = setTimeout(() => setIsPreloaderDone(true), 8000); // 8s fallback
+    
+    return () => {
+      window.removeEventListener("preloaderComplete", handlePreloader);
+      clearTimeout(timer);
+    };
+  }, []);
 
   const navLinks = [
     { label: "За нас",     href: "/about" },
@@ -42,7 +55,7 @@ export function Header() {
       <motion.div
         variants={container}
         initial="hidden"
-        animate="show"
+        animate={isPreloaderDone ? "show" : "hidden"}
         className="max-w-[1600px] mx-auto px-8 lg:px-16 h-[80px] flex items-center justify-between"
       >
         {/* Logo */}
@@ -119,7 +132,7 @@ export function Header() {
       {/* Animated HR — grows left → right */}
       <motion.div
         initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
+        animate={isPreloaderDone ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut", delay: 0.2 }}
         style={{ originX: 0 }}
         className="h-[2px] w-full bg-white/10"

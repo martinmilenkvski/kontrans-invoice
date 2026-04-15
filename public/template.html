@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>David Alaba Landing Page Reveal | Template</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+    <!-- Styles Inlined -->
+    <style>
+      :root {
+        --light: #fff;
+        --dark: #000;
+        --accent: #555;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Manrope", sans-serif;
+        background-color: var(--light);
+        color: var(--dark);
+        overflow-x: hidden;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      h1 {
+        text-transform: uppercase;
+        font-size: 8rem;
+        line-height: 1;
+        letter-spacing: -0.5rem;
+      }
+
+      p {
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 550;
+      }
+
+      a {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: var(--light);
+        font-family: "Agdasima", sans-serif;
+        font-size: 7.5rem;
+        font-weight: 600;
+        line-height: 0.9;
+        display: block;
+      }
+
+      /* Preloader Styles */
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--dark);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        will-change: clip-path;
+        overflow: hidden;
+        z-index: 10;
+      }
+
+      .progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 7px;
+        background-color: var(--light);
+        transform: scaleX(0);
+        transform-origin: left;
+        will-change: transform;
+      }
+
+      .preloader-images {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 25rem;
+        height: 25rem;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        will-change: clip-path;
+        overflow: hidden;
+      }
+
+      .preloader-images .img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+        will-change: clip-path;
+        overflow: hidden;
+      }
+
+      .preloader-images .img img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform: scale(2);
+        will-change: transform;
+      }
+
+      .preloader-copy {
+        position: absolute;
+        bottom: 5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30%;
+        color: #fff;
+      }
+
+      .preloader-header {
+        position: fixed;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(60vh);
+        transform-origin: top;
+        will-change: transform;
+        z-index: 11;
+      }
+
+      /* Hero Content Styles */
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .header-row {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .divider {
+        position: relative;
+        width: 100%;
+        height: 1.5px;
+        transform: scaleX(0);
+        background-color: rgba(0, 0, 0, 0.2);
+        will-change: transform;
+      }
+
+      .preloader-header a .char,
+      .preloader-copy p .line,
+      .header-row h1 .line {
+        position: relative;
+        display: inline-block;
+        transform: translateY(0);
+        will-change: transform;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 1000px) {
+        h1 {
+          font-size: 3rem;
+          letter-spacing: 0;
+        }
+
+        .preloader-images {
+          top: 35%;
+          width: 15rem;
+          height: 15rem;
+        }
+
+        .preloader-copy {
+          width: 80%;
+          bottom: 2rem;
+        }
+
+        .preloader-header {
+          transform: translateY(50vh);
+        }
+
+        .preloader-header a {
+          font-size: 4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Preloader Layer -->
+    <div class="preloader">
+      <div class="progress-bar"></div>
+
+      <div class="preloader-images">
+        <div class="img"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=1000" alt="Fashion 1" /></div>
+        <div class="img"><img src="https://images.unsplash.com/photo-1515881191090-bc7300f3a633?auto=format&fit=crop&q=80&w=1000" alt="Fashion 2" /></div>
+        <div class="img"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1000" alt="Fashion 3" /></div>
+        <div class="img"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1000" alt="Fashion 4" /></div>
+      </div>
+
+      <div class="preloader-copy">
+        <p>
+          A visual storyteller focused on shaping timeless fashion narratives
+          through bold composition and refined tone.
+        </p>
+      </div>
+    </div>
+
+    <!-- Sticky Header that moves after loading -->
+    <div class="preloader-header">
+      <a href="#">Dorian Valez</a>
+    </div>
+
+    <!-- Hero Content -->
+    <section class="hero">
+      <div class="header-row">
+        <div class="divider"></div>
+        <h1>A Vision</h1>
+      </div>
+
+      <div class="header-row">
+        <div class="divider"></div>
+        <h1>Captured Through</h1>
+      </div>
+
+      <div class="header-row">
+        <div class="divider"></div>
+        <h1>Dorian Valez</h1>
+      </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+    <!-- Note: SplitText is typically a premium plugin. If this CDN doesn't work in your environment, 
+         you can replace it with your local file or a Club GSAP authenticated link. 
+         Using GSAP's official Trial version for SplitText: -->
+    <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Registers GSAP Plugins
+        gsap.registerPlugin(CustomEase, SplitText);
+
+        // Custom Ease Configuration
+        CustomEase.create("hop", "0.9, 0, 0.1, 1");
+
+        // Helper to Create SplitText instances
+        const createSplit = (selector, type, className) => {
+          return new SplitText(selector, {
+            type: type,
+            [type + "Class"]: className,
+            mask: type,
+          });
+        };
+
+        // Initialize Splits
+        const splitPreloaderHeader = createSplit(".preloader-header a", "chars", "char");
+        const splitPreloaderCopy = createSplit(".preloader-copy p", "lines", "line");
+        const splitHeader = createSplit(".header-row h1", "lines", "line");
+
+        const chars = splitPreloaderHeader.chars;
+        const lines = splitPreloaderCopy.lines;
+        const headerLines = splitHeader.lines;
+        const initialChar = chars[0];
+        const lastChar = chars[chars.length - 1];
+
+        // Set Initial States
+        chars.forEach((char, index) => {
+          gsap.set(char, { yPercent: index % 2 === 0 ? -100 : 100 });
+        });
+
+        gsap.set(lines, { yPercent: 100 });
+        gsap.set(headerLines, { yPercent: 100 });
+
+        const preloaderImages = gsap.utils.toArray(".preloader-images .img");
+        const preloaderImagesInner = gsap.utils.toArray(".preloader-images .img img");
+
+        // Timeline Creation
+        const tl = gsap.timeline({ delay: 0.25 });
+
+        // Phase 1: Progress Bar
+        tl.to(".progress-bar", {
+          scaleX: 1,
+          duration: 4,
+          ease: "power3.inOut",
+        })
+        .set(".progress-bar", { transformOrigin: "right" })
+        .to(".progress-bar", {
+          scaleX: 0,
+          duration: 1,
+          ease: "power3.in",
+        });
+
+        // Phase 2: Image Reveal
+        preloaderImages.forEach((preloaderImg, index) => {
+          tl.to(
+            preloaderImg,
+            {
+              clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+              duration: 1,
+              ease: "hop",
+              delay: index * 0.75,
+            },
+            "-=5"
+          );
+        });
+
+        preloaderImagesInner.forEach((preloaderImageInner, index) => {
+          tl.to(
+            preloaderImageInner,
+            {
+              scale: 1,
+              duration: 1.5,
+              ease: "hop",
+              delay: index * 0.75,
+            },
+            "-=5.25"
+          );
+        });
+
+        // Phase 3: Copy & Header Entrance
+        tl.to(
+          lines,
+          {
+            yPercent: 0,
+            duration: 2,
+            ease: "hop",
+            stagger: 0.1,
+          },
+          "-=5.5"
+        );
+
+        tl.to(
+          chars,
+          {
+            yPercent: 0,
+            duration: 1,
+            ease: "hop",
+            stagger: 0.025,
+          },
+          "-=5"
+        );
+
+        // Phase 4: Preloader Exit
+        tl.to(
+          ".preloader-images",
+          {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+            duration: 1,
+            ease: "hop",
+          },
+          "-=1.5"
+        );
+
+        tl.to(
+          lines,
+          {
+            y: "-125%",
+            duration: 2,
+            ease: "hop",
+            stagger: 0.1,
+          },
+          "-=2"
+        );
+
+        tl.to(
+          chars,
+          {
+            yPercent: (index) => {
+              if (index === 0 || index === chars.length - 1) {
+                return 0;
+              }
+              return index % 2 === 0 ? 100 : -100;
+            },
+            duration: 1,
+            ease: "hop",
+            stagger: 0.025,
+            delay: 0.5,
+            onStart: () => {
+              const initialCharMask = initialChar.parentElement;
+              const lastCharMask = lastChar.parentElement;
+
+              if (initialCharMask && initialCharMask.classList.contains("char-mask")) {
+                initialCharMask.style.overflow = "visible";
+              }
+
+              if (lastCharMask && lastCharMask.classList.contains("char-mask")) {
+                lastCharMask.style.overflow = "visible";
+              }
+
+              const viewportWidth = window.innerWidth;
+              const centerX = viewportWidth / 2;
+              const initialCharRect = initialChar.getBoundingClientRect();
+              const lastCharRect = lastChar.getBoundingClientRect();
+
+              gsap.to([initialChar, lastChar], {
+                duration: 1,
+                ease: "hop",
+                delay: 0.5,
+                x: (i) => {
+                  if (i === 0) {
+                    return centerX - initialCharRect.left - initialCharRect.width;
+                  } else {
+                    return centerX - lastCharRect.left;
+                  }
+                },
+                onComplete: () => {
+                  gsap.set(".preloader-header", { mixBlendMode: "difference" });
+                  gsap.to(".preloader-header", {
+                    y: "2rem",
+                    scale: 0.35,
+                    duration: 1.75,
+                    ease: "hop",
+                  });
+                },
+              });
+            },
+          },
+          "-=2.5"
+        );
+
+        tl.to(
+          ".preloader",
+          {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+            duration: 1.75,
+            ease: "hop",
+          },
+          "-=0.5"
+        );
+
+        // Final Phase: Hero Reveal
+        tl.to(
+          ".header-row .line",
+          {
+            yPercent: 0,
+            duration: 1,
+            ease: "power4.out",
+            stagger: 0.1,
+          },
+          "-=0.75"
+        );
+
+        tl.to(
+          ".divider",
+          {
+            scaleX: 1,
+            duration: 1,
+            ease: "power4.out",
+            stagger: 0.1,
+          },
+          "<"
+        );
+      });
+    </script>
+  </body>
+</html>

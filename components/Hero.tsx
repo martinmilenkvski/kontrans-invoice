@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
@@ -113,6 +113,20 @@ const statsContainer: Variants = {
 // ────────────────────────────────────────────────────────────────────────────
 
 export function Hero() {
+  const [isPreloaderDone, setIsPreloaderDone] = useState(false);
+
+  useEffect(() => {
+    const handlePreloader = () => setIsPreloaderDone(true);
+    window.addEventListener("preloaderComplete", handlePreloader);
+
+    const timer = setTimeout(() => setIsPreloaderDone(true), 8000); // 8s fallback
+    
+    return () => {
+      window.removeEventListener("preloaderComplete", handlePreloader);
+      clearTimeout(timer);
+    };
+  }, []);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -154,10 +168,11 @@ export function Hero() {
       </motion.div>
 
       {/* ── Content layer ── */}
-      <motion.div
-        style={{ y: contentY }}
-        className="relative z-10 h-full max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col"
-      >
+      {isPreloaderDone && (
+        <motion.div
+          style={{ y: contentY }}
+          className="relative z-10 h-full max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col"
+        >
         <div className="mt-auto pb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-24 items-end">
 
           {/* ── LEFT: Headline + subtitle + CTA ── */}
@@ -253,6 +268,7 @@ export function Hero() {
 
         </div>
       </motion.div>
+      )}
     </section>
   );
 }
