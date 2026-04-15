@@ -67,27 +67,27 @@ export function Preloader() {
         });
 
       // Phase 2: Image Reveal
-      preloaderImages.forEach((preloaderImg: Element, index: number) => {
+      preloaderImages.forEach((preloaderImg, index) => {
         tl.to(
-          preloaderImg,
+          preloaderImg as Element,
           {
             clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
             duration: 1,
             ease: "hop",
-            delay: index * 0.75,
+            delay: (index as number) * 0.75,
           },
           "-=5"
         );
       });
 
-      preloaderImagesInner.forEach((preloaderImageInner: Element, index: number) => {
+      preloaderImagesInner.forEach((preloaderImageInner, index) => {
         tl.to(
-          preloaderImageInner,
+          preloaderImageInner as Element,
           {
             scale: 1,
             duration: 1.5,
             ease: "hop",
-            delay: index * 0.75,
+            delay: (index as number) * 0.75,
           },
           "-=5.25"
         );

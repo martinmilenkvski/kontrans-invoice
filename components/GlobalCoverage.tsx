@@ -121,7 +121,28 @@ export function GlobalCoverage() {
              </div>
              
              <div className="relative z-10 w-full h-full flex items-center justify-center">
-                <Globe />
+                <Globe 
+                  markers={[
+                    { location: [41.9981, 21.4254], size: 0.1, id: 'SKP', label: 'Kontrans HQ' },
+                    { location: [40.6401, 22.9444], size: 0.08, id: 'SKG', label: 'Thessaloniki Port' },
+                    { location: [31.2304, 121.4737], size: 0.08, id: 'SHA', label: 'Shanghai Hub' },
+                    { location: [40.7128, -74.006], size: 0.06, id: 'NYC' },
+                    { location: [35.6762, 139.6503], size: 0.06, id: 'TKY' },
+                    { location: [1.3521, 103.8198], size: 0.06, id: 'SGP' },
+                  ]}
+                  arcs={[
+                    { from: [31.2304, 121.4737], to: [40.6401, 22.9444] }, // Shanghai -> Thessaloniki
+                    { from: [40.6401, 22.9444], to: [41.9981, 21.4254] }, // Thessaloniki -> Skopje
+                  ]}
+                  config={{
+                    phi: 0.5,
+                    theta: 0.3,
+                    dark: 0,
+                    baseColor: [1, 1, 1],
+                    glowColor: [1, 1, 1],
+                    markerColor: [212 / 255, 43 / 255, 43 / 255],
+                  }}
+                />
              </div>
 
              {/* Globe Metadata */}

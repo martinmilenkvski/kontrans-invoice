@@ -112,12 +112,12 @@ export function Contact() {
     <section
       ref={containerRef}
       id="contact"
-      className="relative bg-[#F5F5F0] py-40 overflow-hidden border-t border-[#111111]/10"
+      className="relative bg-[#F5F5F0] pb-20 overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto px-6 flex flex-col gap-24 lg:gap-32 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 lg:px-6 flex flex-col gap-12 lg:gap-20 relative z-10 w-full pt-20 lg:pt-32">
         
         {/* ── HEADER ── */}
-        <div className="contact-header flex flex-col gap-8 opacity-0">
+        <div className="contact-header flex flex-col gap-6 opacity-0 w-full">
           <span className="font-mono text-[0.65rem] text-[#D42B2B] tracking-[0.6em] uppercase font-bold">
             INQUIRY_MODULE // V9.1
           </span>
@@ -129,17 +129,20 @@ export function Contact() {
           </h2>
         </div>
 
-        {/* ── THE FORM TERMINAL ── */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-20 p-8 lg:p-12 bg-white/40 border border-[#111111]/05 backdrop-blur-sm rounded-sm">
+        {/* ── THE FORM TERMINAL (DARK MODE THEME) ── */}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-16 p-8 lg:p-16 bg-[#080808] text-[#F5F5F0] border border-[#111111]/10 rounded-sm shadow-2xl relative overflow-hidden">
           
+          {/* Subtle Form Background Noise/Gradient */}
+          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#D42B2B]/20 via-transparent to-transparent mix-blend-screen" />
+
           {/* 1. SELECTION */}
-          <div className="contact-section flex flex-col gap-10 opacity-0 border-t border-[#111111]/15 pt-10">
-            <div className="flex justify-between items-center">
-               <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">01 // ТИП НА ТРАНСПОРТ</span>
+          <div className="contact-section flex flex-col gap-8 opacity-0 relative z-10">
+            <div className="flex justify-between items-center border-b border-white/10 pb-4">
+               <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">01 // ТИП НА ТРАНСПОРТ</span>
                {errors.transportMode && <span className="font-mono text-[0.6rem] text-[#D42B2B] font-bold uppercase tracking-widest">{errors.transportMode}</span>}
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                {transportOptions.map((opt) => {
                  const isSelected = transportMode === opt.id;
                  return (
@@ -147,15 +150,14 @@ export function Contact() {
                      key={opt.id}
                      type="button"
                      onClick={() => setTransportMode(opt.id)}
-                     className={`group relative h-20 border flex flex-col items-center justify-center gap-2 transition-all duration-400 rounded-sm ${
-                       isSelected ? "bg-[#111111] border-[#111111]" : "bg-white/50 border-[#111111]/15 hover:border-[#111111]/40"
+                     className={`group relative h-24 border flex flex-col items-center justify-center gap-3 transition-all duration-400 rounded-sm ${
+                       isSelected ? "bg-[#D42B2B] border-[#D42B2B]" : "bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10"
                      }`}
                    >
-                     <opt.icon className={`w-4 h-4 transition-colors ${isSelected ? "text-[#D42B2B]" : "text-[#111111]/60 group-hover:text-[#111111]"}`} />
-                     <span className={`font-mono text-[0.55rem] tracking-widest font-black uppercase ${isSelected ? "text-white" : "text-[#111111]/40 group-hover:text-[#111111]"}`}>
+                     <opt.icon className={`w-5 h-5 transition-colors ${isSelected ? "text-white" : "text-white/60 group-hover:text-white"}`} />
+                     <span className={`font-mono text-[0.6rem] tracking-widest font-black uppercase ${isSelected ? "text-white" : "text-white/50 group-hover:text-white"}`}>
                        {opt.label}
                      </span>
-                     {isSelected && <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#D42B2B]" />}
                    </button>
                  );
                })}
@@ -163,10 +165,10 @@ export function Contact() {
           </div>
 
           {/* 2. THE ROUTE */}
-          <div className="contact-section grid grid-cols-1 md:grid-cols-2 gap-12 opacity-0 border-t border-[#111111]/15 pt-10">
-             <div className="flex flex-col gap-10 relative">
-                <div className="flex justify-between items-center">
-                  <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">02 // ПОЧЕТНА ТОЧКА</span>
+          <div className="contact-section grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 opacity-0 relative z-10">
+             <div className="flex flex-col gap-6 relative">
+                <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                  <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">02 // ПОЧЕТНА ТОЧКА</span>
                   {errors.origin && <span className="font-mono text-[0.6rem] text-[#D42B2B] font-bold uppercase tracking-widest">{errors.origin}</span>}
                 </div>
                 <input
@@ -175,14 +177,14 @@ export function Contact() {
                   value={formData.origin}
                   onChange={handleInputChange}
                   placeholder="ГРАД / ПРИСТАНИШТЕ / HUB"
-                  className="w-full bg-transparent border-b border-[#111111]/25 pb-6 text-[#111111] text-2xl font-black placeholder-[#111111]/20 focus:outline-none focus:border-[#D42B2B] transition-all tracking-tighter"
+                  className="w-full bg-transparent border-b border-white/20 pb-4 text-white text-2xl lg:text-3xl font-black placeholder-white/20 focus:outline-none focus:border-[#D42B2B] transition-all tracking-tighter"
                 />
-                <div className="hidden md:block absolute right-0 bottom-6 w-[1px] h-12 bg-[#111111]/10 translate-x-6" />
+                <div className="hidden md:block absolute right-[-2rem] top-1/2 -translate-y-1/2 w-8 h-[1px] bg-white/20" />
              </div>
 
-             <div className="flex flex-col gap-10">
-                <div className="flex justify-between items-center">
-                  <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">03 // ДЕСТИНАЦИЈА</span>
+             <div className="flex flex-col gap-6">
+                <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                  <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">03 // ДЕСТИНАЦИЈА</span>
                   {errors.destination && <span className="font-mono text-[0.6rem] text-[#D42B2B] font-bold uppercase tracking-widest">{errors.destination}</span>}
                 </div>
                 <input
@@ -191,56 +193,62 @@ export function Contact() {
                   value={formData.destination}
                   onChange={handleInputChange}
                   placeholder="КРАЈНА ТОЧКА НА ИСПОРАКА"
-                  className="w-full bg-transparent border-b border-[#111111]/25 pb-6 text-[#111111] text-2xl font-black placeholder-[#111111]/20 focus:outline-none focus:border-[#D42B2B] transition-all tracking-tighter"
+                  className="w-full bg-transparent border-b border-white/20 pb-4 text-white text-2xl lg:text-3xl font-black placeholder-white/20 focus:outline-none focus:border-[#D42B2B] transition-all tracking-tighter"
                 />
              </div>
           </div>
 
           {/* 3. SPECIFICATIONS */}
-          <div className="contact-section grid grid-cols-1 md:grid-cols-3 gap-12 opacity-0 border-t border-[#111111]/15 pt-10">
+          <div className="contact-section grid grid-cols-1 md:grid-cols-3 gap-12 opacity-0 relative z-10">
              {/* Weight */}
-             <div className="flex flex-col gap-8">
-                <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">04 // ТЕЖИНА (kg)</span>
+             <div className="flex flex-col gap-6">
+                <div className="border-b border-white/10 pb-4">
+                   <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">04 // ТЕЖИНА (kg)</span>
+                </div>
                 <input
                   type="text"
                   id="weight"
                   value={formData.weight}
                   onChange={handleInputChange}
                   placeholder="0.00"
-                  className="w-full bg-transparent border-b border-[#111111]/20 pb-4 text-[#111111] text-lg font-black placeholder-[#111111]/20 focus:outline-none focus:border-[#D42B2B] transition-all"
+                  className="w-full bg-transparent border-b border-white/20 pb-2 text-white text-xl font-black placeholder-white/20 focus:outline-none focus:border-[#D42B2B] transition-all"
                 />
              </div>
              {/* Volume */}
-             <div className="flex flex-col gap-8">
-                <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">05 // ВОЛУМЕН (m3)</span>
+             <div className="flex flex-col gap-6">
+                <div className="border-b border-white/10 pb-4">
+                   <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">05 // ВОЛУМЕН (m3)</span>
+                </div>
                 <input
                   type="text"
                   id="volume"
                   value={formData.volume}
                   onChange={handleInputChange}
                   placeholder="0.00"
-                  className="w-full bg-transparent border-b border-[#111111]/20 pb-4 text-[#111111] text-lg font-black placeholder-[#111111]/20 focus:outline-none focus:border-[#D42B2B] transition-all"
+                  className="w-full bg-transparent border-b border-white/20 pb-2 text-white text-xl font-black placeholder-white/20 focus:outline-none focus:border-[#D42B2B] transition-all"
                 />
              </div>
              {/* Commodity */}
-             <div className="flex flex-col gap-8">
-                <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">06 // ВИД НА СТОКА</span>
+             <div className="flex flex-col gap-6">
+                <div className="border-b border-white/10 pb-4">
+                   <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">06 // ВИД НА СТОКА</span>
+                </div>
                 <input
                   type="text"
                   id="commodity"
                   value={formData.commodity}
                   onChange={handleInputChange}
                   placeholder="ОПИС"
-                  className="w-full bg-transparent border-b border-[#111111]/20 pb-4 text-[#111111] text-lg font-black placeholder-[#111111]/20 focus:outline-none focus:border-[#D42B2B] transition-all"
+                  className="w-full bg-transparent border-b border-white/20 pb-2 text-white text-xl font-black placeholder-white/20 focus:outline-none focus:border-[#D42B2B] transition-all"
                 />
              </div>
           </div>
 
           {/* 4. IDENTIFICATION */}
-          <div className="contact-section grid grid-cols-1 md:grid-cols-2 gap-12 opacity-0 border-t border-[#111111]/15 pt-10">
-             <div className="flex flex-col gap-8">
-                <div className="flex justify-between items-center">
-                  <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">07 // Е-ПОШТА</span>
+          <div className="contact-section grid grid-cols-1 md:grid-cols-2 gap-12 opacity-0 relative z-10 pt-4">
+             <div className="flex flex-col gap-6">
+                <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                  <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">07 // Е-ПОШТА</span>
                   {errors.email && <span className="font-mono text-[0.6rem] text-[#D42B2B] font-bold uppercase tracking-widest">{errors.email}</span>}
                 </div>
                 <input
@@ -249,12 +257,12 @@ export function Contact() {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="example@mail.com"
-                  className="w-full bg-transparent border-b border-[#111111]/20 pb-4 text-[#111111] text-lg font-black placeholder-[#111111]/30 focus:outline-none focus:border-[#D42B2B] transition-all"
+                  className="w-full bg-transparent border-b border-white/20 pb-2 text-white text-xl font-black placeholder-white/20 focus:outline-none focus:border-[#D42B2B] transition-all"
                 />
              </div>
-             <div className="flex flex-col gap-8">
-                <div className="flex justify-between items-center">
-                  <span className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.4em] font-black uppercase">08 // ТЕЛЕФОН</span>
+             <div className="flex flex-col gap-6">
+                <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                  <span className="font-mono text-[0.6rem] text-white/50 tracking-[0.4em] font-black uppercase">08 // ТЕЛЕФОН</span>
                   {errors.phone && <span className="font-mono text-[0.6rem] text-[#D42B2B] font-bold uppercase tracking-widest">{errors.phone}</span>}
                 </div>
                 <input
@@ -263,19 +271,19 @@ export function Contact() {
                   value={formData.phone}
                   onChange={handleInputChange}
                   placeholder="+389"
-                  className="w-full bg-transparent border-b border-[#111111]/20 pb-4 text-[#111111] text-lg font-black placeholder-[#111111]/30 focus:outline-none focus:border-[#D42B2B] transition-all"
+                  className="w-full bg-transparent border-b border-white/20 pb-2 text-white text-xl font-black placeholder-white/20 focus:outline-none focus:border-[#D42B2B] transition-all"
                 />
              </div>
           </div>
 
           {/* SUBMIT */}
-          <div className="contact-submit pt-16 flex flex-col items-center gap-12 opacity-0">
+          <div className="contact-submit pt-12 flex flex-col items-center gap-10 opacity-0 relative z-10 border-t border-white/10 mt-4">
              <button
                type="submit"
                disabled={isSubmitting}
-               className="group relative px-14 py-6 bg-[#D42B2B] text-white overflow-hidden transition-all duration-500 hover:px-16 active:scale-95 disabled:opacity-50 rounded-sm shadow-xl shadow-[#D42B2B]/20"
+               className="group relative px-16 py-6 bg-[#D42B2B] text-white overflow-hidden transition-all duration-500 hover:px-20 active:scale-95 disabled:opacity-50 rounded-sm w-full md:w-auto"
              >
-                <div className="relative z-10 flex items-center gap-6">
+                <div className="relative z-10 flex items-center justify-center gap-6">
                    <span className="font-sans text-xl lg:text-2xl font-black uppercase tracking-tighter">
                       {isSubmitting ? "ПРОЦЕСИРАЊЕ..." : "ИСПРАТИ БАРАЊЕ"}
                    </span>
@@ -285,13 +293,13 @@ export function Contact() {
                      <ArrowUpRight className="w-6 h-6 transition-transform group-hover:rotate-45" />
                    )}
                 </div>
-                <div className="absolute inset-0 bg-[#111111] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-0 mix-blend-overlay opacity-20" />
              </button>
 
              {submitStatus === 'success' && (
-               <div className="text-center flex flex-col gap-2">
-                 <span className="text-[#111111] text-2xl font-black uppercase tracking-tight">УСПЕШНО ИСПРАТЕНО.</span>
-                 <p className="font-mono text-[0.6rem] text-[#111111]/40 tracking-[0.3em] uppercase font-bold italic">
+               <div className="text-center flex flex-col gap-2 mt-4">
+                 <span className="text-[#D42B2B] text-2xl font-black uppercase tracking-tight">УСПЕШНО ИСПРАТЕНО.</span>
+                 <p className="font-mono text-[0.6rem] text-white/60 tracking-[0.3em] uppercase font-bold italic">
                    Нашиот тим ќе ве контактира набрзо.
                  </p>
                </div>
@@ -301,7 +309,7 @@ export function Contact() {
         </form>
 
         {/* FOOTER META */}
-        <div className="contact-section flex justify-between items-center opacity-0 pt-20 border-t border-[#111111]/15">
+        <div className="contact-section flex justify-between items-center opacity-0 pt-12 pb-12">
           <span className="font-mono text-[0.55rem] tracking-[0.5em] uppercase text-[#111111]/30 font-black">
             TERMINAL_SECURED // 256_BIT
           </span>
@@ -312,11 +320,6 @@ export function Contact() {
 
       </div>
 
-      {/* Decorative background grid (subtle) */}
-      <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.02]">
-         <div className="w-full h-full bg-[repeating-linear-gradient(90deg,#111111,#111111_1px,transparent_1px,transparent_100px)]" />
-         <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,#111111,#111111_1px,transparent_1px,transparent_100px)]" />
-      </div>
     </section>
   );
 }
