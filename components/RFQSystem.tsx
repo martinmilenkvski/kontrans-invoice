@@ -1,133 +1,197 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { MoveRight, ClipboardCheck, Anchor, Wind, MoveHorizontal } from "lucide-react";
-import { KineticButton } from "./ui/KineticButton";
+import { MoveRight, Anchor, Wind, MoveHorizontal, MapPin, Globe2 } from "lucide-react";
+import Image from "next/image";
+
+const SERVICES = [
+  { id: "OCEAN", label: "Бродски", icon: <Anchor className="w-5 h-5" /> },
+  { id: "AIR", label: "Авионски", icon: <Wind className="w-5 h-5" /> },
+  { id: "ROAD", label: "Патен", icon: <MoveHorizontal className="w-5 h-5" /> }
+];
 
 export function RFQSystem() {
   const [service, setService] = useState("OCEAN");
+  const [mounted, setMounted] = useState(false);
+  const [timestamp, setTimestamp] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setMounted(true);
+    setTimestamp(new Date().toLocaleTimeString() + " (UTC+2)");
+  }, []);
+
   useGSAP(() => {
-    gsap.fromTo(".man-reveal", 
-      { y: 20, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 0.8, 
-        stagger: 0.1, 
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none"
-        }
+    if (!mounted) return;
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 70%",
+        toggleActions: "play none none none"
       }
+    });
+
+    // ── ANIMATION SEQUENCE ──
+    
+    // 1. Globe Image Fade-In
+    tl.fromTo(".man-visual", 
+      { opacity: 0, scale: 0.95, filter: "blur(10px)" }, 
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "power2.out" },
+      0
     );
-  }, { scope: containerRef });
+
+    // 2. Grid lines grow
+    tl.fromTo(".man-line", 
+      { scaleX: 0, opacity: 0 }, 
+      { scaleX: 1, opacity: 1, duration: 1, ease: "power3.inOut", stagger: 0.1 },
+      0.2
+    );
+
+    // 3. Form Content
+    tl.fromTo(".man-reveal-h", 
+      { y: 20, opacity: 0 }, 
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 
+      0.4
+    );
+
+    tl.fromTo(".man-field", 
+      { opacity: 0, x: 20 }, 
+      { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", stagger: 0.1 }, 
+      0.6
+    );
+
+  }, { scope: containerRef, dependencies: [mounted] });
 
   return (
-    <section ref={containerRef} className="relative bg-white py-40 overflow-hidden border-y border-black/10">
-      <div className="max-w-[1600px] mx-auto px-4 lg:px-4">
+    <section ref={containerRef} className="relative bg-[#FAFAFA] py-32 lg:py-56 border-t border-black/5">
+      
+      <div className="relative z-10 max-w-[1600px] mx-auto px-6 lg:px-20">
         
-        <div className="border-x border-black/10 shadow-[20px_20px_0px_#D42B2B]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          {/* MANIFEST HEADER */}
-           <div className="man-reveal p-12 border-b border-black flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-[#111111] text-white">
-              <div className="flex flex-col gap-4">
-                 <span className="font-mono text-[9px] font-medium tracking-[0.4em] text-[#D42B2B]">005 // Logistics_manifest</span>
-                 <div className="flex items-center gap-6">
-                    <div className="w-10 h-10 border border-white/20 flex items-center justify-center">
-                       <ClipboardCheck className="text-[#D42B2B] w-5 h-5" />
-                    </div>
-                    <h2 className="font-sans text-4xl lg:text-5xl font-medium tracking-tighter leading-[0.8]">Логистички манифест.</h2>
-                 </div>
-              </div>
-              <div className="flex flex-col items-end gap-1">
-                 <span className="font-mono text-[9px] tracking-[0.5em] text-white/40 uppercase">Mode: Active</span>
-                 <span className="font-mono text-[9px] tracking-[0.3em] text-white/20 uppercase">Form_v06.3 // Final</span>
-              </div>
-           </div>
+          {/* ── LEFT COLUMN: STICKY GLOBE VISUAL ── */}
+          <div className="lg:col-span-5 man-visual opacity-0 sticky top-32 self-start">
+             <div className="relative aspect-[4/5] w-full overflow-hidden border border-black/5 bg-black/[0.02] flex items-center justify-center">
+                <Image 
+                  src="/kontrans-globe.png" 
+                  alt="Global Logistics Network" 
+                  width={1000} 
+                  height={1200}
+                  className="w-full h-full object-cover opacity-90 mix-blend-multiply"
+                />
+                
+                {/* Visual Label */}
+                <div className="absolute top-10 left-10 flex flex-col gap-2">
+                   <div className="w-12 h-px bg-[#D42B2B]" />
+                   <span className="font-mono text-[10px] text-black/40 tracking-[0.4em] uppercase font-bold">NODE_VIS_ALPHA_01</span>
+                </div>
+             </div>
+          </div>
 
-          {/* MANIFEST CONTENT */}
-          <div className="flex flex-col bg-white">
-              
-              {/* ROW 1: MODE */}
-              <div className="man-reveal grid grid-cols-1 md:grid-cols-12 border-b border-black/10 hover:bg-black/[0.02] transition-colors">
-                 <div className="md:col-span-3 p-10 font-mono text-[10px] font-medium text-black/40 border-r border-black/10 flex items-center justify-between bg-[#F2F2F2]">
-                    <span className="tracking-widest capitalize">01_Вид_на_транспорт</span>
-                    <div className="w-1.5 h-1.5 bg-[#D42B2B]" />
-                 </div>
-                 <div className="md:col-span-9 p-8 flex gap-4 flex-wrap items-center">
-                    {[
-                      { id: "Бродски", icon: <Anchor className="w-4 h-4" /> },
-                      { id: "Авионски", icon: <Wind className="w-4 h-4" /> },
-                      { id: "Патен", icon: <MoveHorizontal className="w-4 h-4" /> }
-                    ].map((s) => (
-                      <button
-                        key={s.id}
-                        onClick={() => setService(s.id)}
-                        className={`flex items-center gap-4 px-10 py-4 border transition-all font-medium text-xs tracking-widest
-                          ${service === s.id ? "bg-[#D42B2B] border-[#D42B2B] text-white shadow-lg shadow-[#D42B2B]/20" : "border-black/5 text-black/40 hover:border-black hover:text-black"}`}
-                      >
-                        {s.icon} <span className="uppercase">{s.id}</span>
-                      </button>
-                    ))}
-                 </div>
-              </div>
+          {/* ── RIGHT COLUMN: HIGH-IMPACT MANIFEST FORM ── */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
+             
+             {/* HEADER */}
+             <div className="man-reveal-h opacity-0 mb-16">
+                <div className="flex items-center gap-4 mb-8">
+                   <span className="font-mono text-[10px] font-bold tracking-[0.4em] text-[#D42B2B] uppercase">LOG_DOC_REF: KNT-2026-X</span>
+                   <div className="w-1.5 h-1.5 bg-[#D42B2B] rounded-full" />
+                </div>
+                <h2 className="font-[family-name:var(--font-jost)] text-5xl lg:text-7xl text-[#111111] leading-[0.8] tracking-tighter font-medium uppercase md:normal-case">
+                  Логистички <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] lowercase font-normal px-2">манифест.</span>
+                </h2>
+             </div>
 
-              {/* ROW 2: ORIGIN */}
-              <div className="man-reveal grid grid-cols-1 md:grid-cols-12 border-b border-black/10 hover:bg-black/[0.02] transition-colors">
-                 <div className="md:col-span-3 p-10 font-mono text-[10px] font-medium text-black/40 border-r border-black/10 flex items-center justify-between bg-[#F2F2F2]">
-                    <span className="tracking-widest capitalize">02_ЛОКАЦИЈА_ПРЕЗЕМАЊЕ</span>
-                    <div className="w-1.5 h-1.5 bg-black/10" />
-                 </div>
-                 <div className="md:col-span-9 flex items-center">
-                    <input type="text" placeholder="Локација на преземање..." className="w-full bg-transparent px-10 py-12 text-3xl font-light tracking-tighter outline-none placeholder:text-black/20 focus:text-[#D42B2B] transition-colors" />
-                 </div>
-              </div>
+             <div className="flex flex-col">
+                <div className="man-line w-full h-px bg-black/10 origin-left" />
 
-              {/* ROW 3: DESTINATION */}
-              <div className="man-reveal grid grid-cols-1 md:grid-cols-12 border-b border-black/10 hover:bg-black/[0.02] transition-colors">
-                 <div className="md:col-span-3 p-10 font-mono text-[10px] font-medium text-black/40 border-r border-black/10 flex items-center justify-between bg-[#F2F2F2]">
-                    <span className="tracking-widest capitalize">03_КРАЈНА_ДЕСТИНАЦИЈА</span>
-                    <div className="w-1.5 h-1.5 bg-black/10" />
-                 </div>
-                 <div className="md:col-span-9 flex items-center">
-                    <input type="text" placeholder="Крајна дестинација..." className="w-full bg-transparent px-10 py-12 text-3xl font-light tracking-tighter outline-none placeholder:text-black/20 focus:text-[#D42B2B] transition-colors" />
-                 </div>
-              </div>
+                {/* MODE */}
+                <div className="man-field opacity-0 grid grid-cols-1 md:grid-cols-12 items-center min-h-[120px]">
+                   <span className="md:col-span-4 font-mono text-[10px] font-bold text-black/40 tracking-[0.4em] uppercase">01/ ТРАНСПОРТ_МОД</span>
+                   <div className="md:col-span-8 py-8 flex gap-3 flex-wrap">
+                      {SERVICES.map((s) => (
+                        <button
+                          key={s.id}
+                          onClick={() => setService(s.id)}
+                          className={`flex items-center gap-4 px-10 py-5 border transition-all duration-500 font-medium text-xs tracking-widest uppercase
+                            ${service === s.id 
+                              ? "bg-[#111111] border-[#111111] text-white shadow-xl shadow-black/10" 
+                              : "border-black/5 text-black/30 hover:border-black/30 hover:text-black"}`}
+                        >
+                          {s.icon} <span>{s.label}</span>
+                        </button>
+                      ))}
+                   </div>
+                </div>
 
-              {/* ROW 4: SPECS */}
-              <div className="man-reveal grid grid-cols-1 md:grid-cols-12 border-b border-black hover:bg-black/[0.02] transition-colors">
-                 <div className="md:col-span-3 p-10 font-mono text-[10px] font-medium text-black/40 border-r border-black/10 flex items-center justify-between bg-[#F2F2F2]">
-                    <span className="tracking-widest capitalize">04_СПЕЦИФИКАЦИЈА_СТОКА</span>
-                    <div className="w-1.5 h-1.5 bg-black/10" />
-                 </div>
-                 <div className="md:col-span-9 p-10">
-                    <textarea rows={4} placeholder="Внесете тежина, волумен и вид на стока (пр. 24t, 80m3, Палети)..." className="w-full bg-transparent text-xl font-normal tracking-tight outline-none placeholder:text-black/20 focus:text-[#D42B2B] transition-all resize-none" />
-                 </div>
-              </div>
+                <div className="man-line w-full h-px bg-black/10 origin-left" />
+
+                {/* ORIGIN */}
+                <div className="man-field opacity-0 grid grid-cols-1 md:grid-cols-12 items-center min-h-[140px]">
+                   <span className="md:col-span-4 font-mono text-[10px] font-bold text-black/40 tracking-[0.4em] uppercase">02/ ПРЕЗЕМАЊЕ_ОД</span>
+                   <div className="md:col-span-8 relative flex items-center">
+                      <MapPin className="absolute left-0 text-black/10 w-8 h-8 pointer-events-none" />
+                      <input 
+                        type="text" 
+                        placeholder="Vnesete lokacija..." 
+                        className="w-full bg-transparent pl-14 py-8 text-2xl lg:text-4xl font-normal text-[#111111] tracking-tighter outline-none placeholder:text-black/5 focus:text-[#D42B2B] transition-colors" 
+                      />
+                   </div>
+                </div>
+
+                <div className="man-line w-full h-px bg-black/10 origin-left" />
+
+                {/* DESTINATION */}
+                <div className="man-field opacity-0 grid grid-cols-1 md:grid-cols-12 items-center min-h-[140px]">
+                   <span className="md:col-span-4 font-mono text-[10px] font-bold text-black/40 tracking-[0.4em] uppercase">03/ ИСПОРАКА_ДО</span>
+                   <div className="md:col-span-8 relative flex items-center">
+                      <MapPin className="absolute left-0 text-black/10 w-8 h-8 pointer-events-none" />
+                      <input 
+                        type="text" 
+                        placeholder="Krajna destinacija..." 
+                        className="w-full bg-transparent pl-14 py-8 text-2xl lg:text-4xl font-normal text-[#111111] tracking-tighter outline-none placeholder:text-black/5 focus:text-[#D42B2B] transition-colors" 
+                      />
+                   </div>
+                </div>
+
+                <div className="man-line w-full h-px bg-black/10 origin-left" />
+
+                {/* SPECS */}
+                <div className="man-field opacity-0 grid grid-cols-1 md:grid-cols-12 items-start py-12">
+                   <span className="md:col-span-4 font-mono text-[10px] font-bold text-black/40 tracking-[0.4em] uppercase py-2">04/ СПЕЦИФИКАЦИЈА</span>
+                   <div className="md:col-span-8">
+                      <textarea 
+                        rows={3} 
+                        placeholder="Тежина, волумен, вид на стока (пр. 24t, 80m3, Палети)..." 
+                        className="w-full bg-transparent text-xl font-normal text-[#111111] tracking-tight outline-none placeholder:text-black/10 focus:text-[#D42B2B] transition-all resize-none" 
+                      />
+                   </div>
+                </div>
+
+                <div className="man-line w-full h-px bg-black/10 origin-left" />
+
+             </div>
+
+             {/* ACTIONS */}
+             <div className="mt-16 flex flex-col sm:flex-row justify-between items-center gap-12">
+                <div className="man-reveal-h opacity-0 flex flex-col gap-2">
+                   <span className="font-mono text-[9px] text-black/30 tracking-[0.4em] uppercase">Logistic_System_Node // verified</span>
+                   <span className="font-mono text-[9px] text-black/10 tracking-[0.3em] uppercase">{timestamp}</span>
+                </div>
+
+                <button className="man-reveal-h opacity-0 group relative flex items-center gap-10 px-14 py-8 bg-[#111111] overflow-hidden transition-all duration-700 w-full sm:w-auto">
+                   <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
+                   <span className="relative z-10 text-2xl font-medium tracking-tighter text-white uppercase sm:normal-case">Пресметај рута</span>
+                   <div className="relative z-10 w-12 h-12 border border-white/10 flex items-center justify-center group-hover:bg-[#D42B2B] group-hover:border-[#D42B2B] transition-all duration-500">
+                      <MoveRight className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform" />
+                   </div>
+                </button>
+             </div>
 
           </div>
 
-          {/* MANIFEST FOOTER */}
-          <div className="man-reveal p-12 flex flex-col md:flex-row justify-between items-center gap-12 bg-white">
-              <div className="text-[9px] font-medium font-mono text-black/30 space-y-2 uppercase tracking-widest">
-                  <div>Автентикација: Validated_System</div>
-                  <div>Ниво_на_прецизност: Engineering_v04</div>
-                  <div>Временски_печат: {new Date().toISOString().split('T')[0]} // Local_Time</div>
-              </div>
-              <button className="group relative pr-20 py-8 bg-[#111111] border border-black overflow-hidden transition-all duration-500 w-fit">
-                  <div className="absolute inset-0 bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  <div className="relative z-10 flex items-center gap-8 pl-12">
-                    <span className="text-xl font-medium tracking-tighter text-white group-hover:text-white transition-colors duration-500">Пресметај рута</span>
-                    <MoveRight className="w-8 h-8 text-[#D42B2B] group-hover:text-white group-hover:translate-x-4 transition-all duration-500" />
-                  </div>
-              </button>
-          </div>
         </div>
 
       </div>

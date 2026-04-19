@@ -29,13 +29,14 @@ export default function Home() {
       <Commitment />
       <VideoPortal />
       <AboutTeam />
+     
       
       {/* ── PHASE 3: LOGIC ── */}
       <StrategicPillars />
       {/* <InfrastructureGridWhitespace /> */}
       
       {/* ── PHASE 4: PROOF & CLOSURE ── */}
-      <TechnicalAnatomy />
+      {/* <TechnicalAnatomy /> */}
       <RFQSystem />
       
       
