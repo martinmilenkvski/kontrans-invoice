@@ -4,6 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { KineticButton } from "./ui/KineticButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -38,8 +39,8 @@ export function VideoPortal() {
       { r: 1500, duration: 4, ease: "power2.in" }, 0
     );
 
-    // Light wash on kinetic video
-    tl.to(".v-video-overlay", { opacity: 0.15, duration: 2 }, 2.5);
+    // Darker wash on kinetic video for white text legibility
+    tl.to(".v-video-overlay", { opacity: 0.7, duration: 2 }, 2.5);
 
     // Orbital Messages
     tl.fromTo(".v-msg-1", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.5, ease: heroEase }, 4);
@@ -51,14 +52,14 @@ export function VideoPortal() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#FAFAFA]">
+    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#080808]">
       
       {/* ── KINETIC VIDEO LAYER ── */}
       <div className="absolute inset-0 z-0">
         <video autoPlay loop muted playsInline className="w-full h-full object-cover">
           <source src="/bg-kontrans.mp4" type="video/mp4" />
         </video>
-        <div className="v-video-overlay absolute inset-0 bg-white/40" />
+        <div className="v-video-overlay absolute inset-0 bg-black/50" />
       </div>
 
       {/* ── THE WHITE IRIS MASK ── */}
@@ -71,23 +72,26 @@ export function VideoPortal() {
               <circle cx="500" cy="500" r="0" fill="black" className="v-iris" />
             </mask>
           </defs>
-          <rect width="1000" height="1000" fill="#FAFAFA" mask="url(#kineticPortalMask)" />
+          <rect width="1000" height="1000" fill="#080808" mask="url(#kineticPortalMask)" />
         </svg>
       </div>
 
       {/* ── EDITORIAL ORBITAL MESSAGES ── */}
       <div className="absolute inset-0 z-20 flex items-center justify-center p-8 text-center pointer-events-none">
-        <div className="v-msg-1 absolute flex flex-col items-center opacity-0">
-           <h2 className="font-sans text-[clamp(2.5rem,8vw,7.5rem)] text-[#111111] leading-[0.85] tracking-tighter uppercase font-black">
+        <div className="v-msg-1 absolute flex flex-col items-center opacity-0 group">
+           <h2 className="font-sans text-[clamp(2.5rem,8vw,7.5rem)] text-white lg:text-white leading-[0.8] tracking-tighter font-medium text-center">
               Движење кое <br /> 
               <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] lowercase font-normal px-2">не застанува.</span>
            </h2>
         </div>
-        <div className="v-msg-2 absolute flex flex-col items-center opacity-0">
-           <h2 className="font-sans text-[clamp(2.5rem,8vw,7.5rem)] text-[#111111] leading-[0.85] tracking-tighter uppercase font-black">
+        <div className="v-msg-2 absolute flex flex-col items-center gap-12 opacity-0">
+           <h2 className="font-sans text-[clamp(2.5rem,8vw,7.5rem)] text-white lg:text-white leading-[0.8] tracking-tighter font-medium text-center">
               Глобална мрежа <br /> 
               <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] lowercase font-normal px-2">на доверба.</span>
            </h2>
+           <div className="pointer-events-auto">
+              <KineticButton text="Види повеќе" href="#network" />
+           </div>
         </div>
       </div>
 

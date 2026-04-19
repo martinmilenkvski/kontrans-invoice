@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
+import { KineticButton } from "./ui/KineticButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -68,7 +69,7 @@ export function Commitment() {
       { y: 0, opacity: 1, duration: 1.5, ease: heroEase }, 0
     );
 
-    tl.fromTo([".comm-tag", ".comm-text", ".comm-link", ".comm-counter", ".comm-footer-text"], 
+    tl.fromTo([".comm-tag", ".comm-text", ".comm-btn", ".comm-counter", ".comm-footer-text"], 
       { y: 30, opacity: 0 }, 
       { y: 0, opacity: 1, duration: 1.2, ease: heroEase, stagger: 0.1 }, 
       0.5
@@ -91,16 +92,16 @@ export function Commitment() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative bg-[#FAFAFA] pt-32 pb-24 overflow-hidden border-b border-black/5">
+    <section ref={containerRef} className="relative bg-[#FFFFFF] pt-32 pb-24 overflow-hidden border-b border-black/10">
       
       <div className="max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col gap-24 lg:gap-32">
         
         {/* TOP: LARGE EDITORIAL HEADLINE */}
         <div className="max-w-5xl">
-          <h2 className="comm-headline font-sans text-[clamp(2.2rem,5vw,3rem)] text-[#111111] leading-[1.05] tracking-tight font-medium opacity-0">
+          <h2 className="comm-headline font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-[#111111] leading-[1.05] tracking-tight font-normal opacity-0">
             Се посветуваме целосно на нашите <br className="hidden lg:block" />
             партнери и решенијата што ги нудиме, <br className="hidden lg:block" />
-            носејќи <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-normal">највисока експертиза.</span>
+            носејќи <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-medium">највисока експертиза.</span>
           </h2>
         </div>
 
@@ -109,20 +110,22 @@ export function Commitment() {
            
            {/* Left: Tag */}
            <div className="comm-tag opacity-0">
-              <span className="inline-block px-4 py-2 bg-black/[0.03] border border-black/5 text-[0.6rem] font-black text-black/40 tracking-[0.2em] uppercase">
-                НАШИОТ ИДЕНТИТЕТ
-              </span>
+              <span className="font-mono text-[10px] font-black tracking-[0.4em] text-[#D42B2B] uppercase mb-4 block">002 // Нашата посветеност</span>
            </div>
 
            {/* Middle: Paragraph + CTA */}
            <div className="flex flex-col gap-10">
-              <p className="comm-text text-[#111111]/60 font-[family-name:var(--font-jost)] text-lg lg:text-xl font-medium leading-relaxed max-w-lg opacity-0">
+              <p className="comm-text text-[#111111] font-[family-name:var(--font-jost)] text-lg lg:text-xl font-normal leading-relaxed max-w-lg opacity-0">
                 Ние сме сеопфатен логистички партнер специјализиран за глобален патен, авионски и бродски транспорт. Со длабок увид во индустријата и филозофија насочена кон партнерот, ги водиме клиентите низ секоја фаза од транспортниот циклус.
               </p>
-              <Link href="/contact" className="comm-link group inline-flex items-center gap-3 text-[0.7rem] font-black text-black tracking-[0.2em] uppercase border-b border-black/10 pb-2 w-fit opacity-0 transition-all hover:border-[#D42B2B] hover:text-[#D42B2B]">
-                ПОВРЗЕТЕ СЕ СО НАС
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
+              <div className="comm-btn opacity-0">
+                <KineticButton 
+                  text="Види повеќе" 
+                  href="/about" 
+                  variant="red"
+                  hoverColor="#080808"
+                />
+              </div>
            </div>
 
            {/* Right: Counter */}
@@ -133,7 +136,7 @@ export function Commitment() {
                 <SlotDigit digit={0} delay={0.8} />
                 <span className="text-[#D42B2B] ml-2">+</span>
               </div>
-              <span className="text-[0.6rem] font-bold text-black/30 tracking-widest uppercase mt-4">УСПЕШНИ ПРОЕКТИ</span>
+              <span className="text-[0.7rem] font-normal text-black tracking-widest mt-4">Успешни проекти</span>
            </div>
         </div>
 
@@ -158,12 +161,22 @@ export function Commitment() {
                    <span className="font-mono text-[0.6rem] text-white/40 tracking-widest uppercase italic">003 // CTA</span>
                 </div>
                 
-                <div className="flex flex-col gap-2">
-                   <span className="text-white/60 text-[0.65rem] font-bold tracking-widest uppercase">ПОЧНЕТЕ ТУКА</span>
-                   <h3 className="text-white font-[family-name:var(--font-jost)] font-black text-3xl lg:text-4xl leading-tight uppercase tracking-tighter">
-                      ПОБАРАЈ <br /> ПОНУДА.
-                   </h3>
-                </div>
+                <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
+                       <span className="text-white/60 text-[0.65rem] font-bold tracking-widest uppercase">ПОЧНЕТЕ ТУКА</span>
+                       <h3 className="text-white font-[family-name:var(--font-jost)] font-black text-3xl lg:text-4xl leading-tight uppercase tracking-tighter">
+                          ПОБАРАЈ <br /> ПОНУДА.
+                       </h3>
+                    </div>
+                    <div className="mt-2">
+                       <KineticButton 
+                          text="Види повеќе" 
+                          href="#contact" 
+                          hoverColor="#080808"
+                          isDecorative={true}
+                       />
+                    </div>
+                 </div>
 
                 {/* ABSTRACT DECORATIVE CIRCLE */}
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 border border-white/5 rounded-full" />
@@ -171,10 +184,10 @@ export function Commitment() {
            </div>
            
            <div className="flex justify-between items-center px-2">
-              <span className="comm-footer-text font-mono text-[0.55rem] text-black/20 tracking-[0.4em] uppercase opacity-0">
+              <span className="comm-footer-text font-mono text-[0.65rem] text-black/60 font-black tracking-[0.4em] uppercase opacity-0">
                  BEYOND CONVENTIONAL LOGISTICS.
               </span>
-              <span className="comm-footer-text font-mono text-[0.55rem] text-black/20 tracking-[0.4em] uppercase opacity-0 text-right">
+              <span className="comm-footer-text font-mono text-[0.65rem] text-black/60 font-black tracking-[0.4em] uppercase opacity-0 text-right">
                  НИЕ ГРАДИМЕ ДОВЕРБА.
               </span>
            </div>

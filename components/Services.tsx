@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
+import { KineticButton } from "./ui/KineticButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -16,7 +17,7 @@ const serviceStacks = [
   {
     id: "001",
     label: "OCEAN",
-    title: "ОКЕАНСКИ\nтранспорт.",
+    title: "Бродски\nтранспорт.",
     subtitle: "ПОЧНЕТЕ ТУКА",
     tags: ["FCL / LCL", "DDP", "HUB_GREECE"],
     desc: "Сеопфатен бродски транспорт со фокус на Азискиот и Европскиот пазар. Оптимизирани рути преку Солунското пристаниште за максимална ефикасност.",
@@ -27,7 +28,7 @@ const serviceStacks = [
   {
     id: "002",
     label: "AIR",
-    title: "АВИОНСКИ\nТРАНСПОРТ.",
+    title: "Авионски\nтранспорт.",
     subtitle: "ЕКСПРЕСНА ДОСТАВА",
     tags: ["EXPRESS", "CHARTER", "DGR"],
     desc: "Кога брзината е императив. Експресна достава на деликатни и итни пратки преку најголемите светски авио-центтар.",
@@ -38,7 +39,7 @@ const serviceStacks = [
   {
     id: "003",
     label: "LAND",
-    title: "КОПНЕН\nТРАНСПОРТ.",
+    title: "Копнен\nтранспорт.",
     subtitle: "ДИРЕКТНА ЛИНИЈА",
     tags: ["FTL / LTL", "DISTRIBUTION", "GPS"],
     desc: "Развиена патна мрежа која ја поврзува Македонија и Балканот со цела Европа. Дистрибуција од врата до врата со целосен надзор.",
@@ -107,11 +108,11 @@ export function Services() {
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col pt-[8vh] lg:pt-[10vh]">
         
         {/* Editorial Heading Section */}
-        <div className="w-full max-w-6xl mx-auto px-10 lg:px-20 mb-6 flex justify-between items-start">
+        <div className="w-full max-w-[1600px] mx-auto px-4 mb-6 flex justify-between items-start">
           {/* Identity Tag (Left) */}
-          <div className="s-header-reveal bg-[#EBEBEC] py-1.5 px-4 rounded-none border border-black/5">
-             <span className="font-sans text-[9px] lg:text-[10px] font-black tracking-[0.4em] text-black/60 uppercase">
-                НАШИОТ ИДЕНТИТЕТ
+          <div className="s-header-reveal bg-black/5 py-1.5 px-4 rounded-none border border-black/5">
+             <span className="font-mono text-[9px] lg:text-[10px] font-black tracking-[0.4em] text-black/60 uppercase">
+                001 // Нашите услуги
              </span>
           </div>
 
@@ -121,7 +122,7 @@ export function Services() {
           </p>
         </div>
 
-        <div className="relative h-[62vh] lg:h-[65vh] w-full max-w-6xl mx-auto px-4 lg:px-0">
+        <div className="relative h-[62vh] lg:h-[65vh] w-full max-w-[1600px] mx-auto px-4">
           
           {serviceStacks.map((service, i) => {
             let yPercent = 120;
@@ -158,7 +159,7 @@ export function Services() {
             return (
               <div 
                 key={i} 
-                className={`service-card absolute inset-0 w-full h-full rounded-none shadow-lg border border-white/5 overflow-hidden flex flex-col justify-between p-10 lg:p-20 ${service.color} ${service.textColor} will-change-transform shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]`}
+                className={`service-card absolute inset-0 w-full h-full rounded-none border border-white/10 overflow-hidden flex flex-col justify-between p-10 lg:p-20 ${service.color} ${service.textColor} will-change-transform shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]`}
                 style={{ 
                   zIndex: i + 1,
                   transform: `translateY(${yPercent}%) scale(${scale})`,
@@ -179,67 +180,74 @@ export function Services() {
 
                 {/* 1. TOP BAR */}
                 <div 
-                  className="flex justify-between items-start w-full relative z-10 border-b border-white/10 pb-8"
+                  className="flex justify-between items-start w-full relative z-10"
                   style={{ opacity: contentOpacity, transform: `translateY(${contentY * 0.5}px)` }}
                 >
-                   <div className="w-14 h-14 lg:w-16 lg:h-16 border border-white/20 rounded-none flex items-center justify-center group hover:bg-white transition-all duration-500 cursor-pointer">
-                      <ArrowUpRight className="w-6 h-6 lg:w-7 lg:h-7 text-white group-hover:text-black group-hover:rotate-45 transition-all" />
+                   <div className="flex flex-col gap-2">
+                      <span className="font-mono text-[9px] lg:text-[10px] font-black tracking-[0.4rem] opacity-30">
+                         STK_{service.id} // 00{i+1}
+                      </span>
+                      <div className="w-12 h-px bg-current opacity-20" />
                    </div>
                    
-                   <div className="flex flex-col items-end">
-                      <span className="font-mono text-[10px] lg:text-[11px] font-black tracking-[0.4rem] opacity-30">
-                         {service.id} // {service.label}
-                      </span>
+                   <div className="flex gap-2">
+                      {service.tags?.map((tag, idx) => (
+                        <div key={idx} className="px-3 py-1 border border-white/20 bg-white/[0.05] text-[8px] font-black tracking-widest text-white/50 uppercase backdrop-blur-md">
+                           {tag}
+                        </div>
+                      ))}
                    </div>
                 </div>
 
-                {/* 2. SPLIT CONTENT BODY */}
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-end flex-1 pt-12">
-                   {/* Left side: Title & Pills */}
+                {/* 2. MAIN HUB CONTENT */}
+                <div className="relative z-10 flex-1 flex flex-col justify-center">
                    <div 
-                      className="flex flex-col items-start gap-6"
+                      className="max-w-4xl"
                       style={{ opacity: contentOpacity, transform: `translateY(${contentY}px)` }}
                    >
-                      <div className="flex gap-3">
-                         {service.tags?.map((tag, idx) => (
-                           <div key={idx} className="px-4 py-1 rounded-full border border-white/20 bg-white/[0.05] text-[9px] font-black tracking-widest text-white/70 uppercase">
-                              {tag}
-                           </div>
-                         ))}
-                      </div>
-                      <h2 className="font-sans text-[clamp(2rem,6vw,5.5rem)] leading-[0.85] tracking-tighter uppercase font-black whitespace-pre-line text-left">
-                         {service.title}
+                      <h2 className="font-sans text-[clamp(2.5rem,7.5vw,5.5rem)] leading-[0.8] tracking-tighter font-medium whitespace-pre-line text-left">
+                         {service.title.split(/([\s\n]транспорт\.?)/gi).map((part, index) => {
+                           if (part.toLowerCase().includes("транспорт")) {
+                             return (
+                               <span key={index} className="opacity-70">
+                                 {part}
+                               </span>
+                             );
+                           }
+                           return part;
+                         })}
                       </h2>
                    </div>
+                </div>
 
-                   {/* Right side: Description & Action */}
-                   <div 
-                      className="flex flex-col items-end text-right gap-8"
-                      style={{ opacity: contentOpacity, transform: `translateY(${contentY * 0.8}px)` }}
-                   >
-                      <p className="text-white/60 font-[family-name:var(--font-jost)] text-[clamp(0.9rem,1.2vw,1.1rem)] font-medium leading-relaxed max-w-sm ml-auto">
+                {/* 3. BOTTOM HUD BLOCK */}
+                <div 
+                  className="relative z-10 flex flex-col lg:flex-row justify-between items-end gap-12 pt-12 border-t border-white/10"
+                  style={{ opacity: contentOpacity, transform: `translateY(${contentY * 0.8}px)` }}
+                >
+                   {/* Decorative ID mark */}
+                   <div className="hidden lg:flex flex-col">
+                      <div className="w-16 h-16 border border-white/20 flex items-center justify-center group hover:bg-white transition-all duration-500 cursor-pointer mb-2">
+                        <ArrowUpRight className="w-6 h-6 text-white group-hover:text-black group-hover:rotate-45 transition-all" />
+                      </div>
+                      <span className="font-mono text-[8px] opacity-20 uppercase tracking-widest">ACTION_REQUIRED // {service.label}</span>
+                   </div>
+
+                   <div className="flex flex-col items-end text-right gap-8 max-w-sm">
+                      <p className="text-white/60 font-[family-name:var(--font-jost)] text-[clamp(0.9rem,1.1vw,1rem)] font-medium leading-relaxed">
                          {service.desc}
                       </p>
 
-                      {service.isCTA ? (
-                        <Link href="/contact" className="px-8 lg:px-10 py-4 lg:py-5 bg-white text-black font-black tracking-[0.4rem] text-[9px] lg:text-[10px] uppercase hover:bg-black hover:text-white transition-all shadow-xl block">
-                           INITIATE_PROJECT
-                        </Link>
-                      ) : (
-                         <div className="group/btn flex items-center gap-6 cursor-pointer">
-                            <span className="font-sans text-[10px] font-black tracking-[0.4rem] opacity-40 uppercase border-b border-white/10 pb-2 group-hover:opacity-100 transition-all">
-                               VIEW_DETAILS
-                            </span>
-                         </div>
-                      )}
+                      <KineticButton 
+                        text="Види повеќе" 
+                        href={service.isCTA ? "/contact" : "#details"} 
+                        hoverColor={service.color === "bg-[#D42B2B]" ? "#080808" : "#D42B2B"}
+                      />
                    </div>
                 </div>
 
                 {/* 4. DECORATIVE ELEMENTS */}
                 <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[60%] border border-white/5 rounded-full pointer-events-none" />
-                <div className="absolute top-[20%] right-10 opacity-[0.03] text-[12rem] lg:text-[15rem] font-black leading-none pointer-events-none select-none">
-                    {service.id.slice(-1)}
-                </div>
 
               </div>
             );

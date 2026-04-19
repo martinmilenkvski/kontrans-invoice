@@ -39,7 +39,7 @@ export default function RootLayout({
       >
         <Preloader />
         <SmoothScroll>{children}</SmoothScroll>
-        <GradualBlurOverlay />
+        
       </body>
     </html>
   );

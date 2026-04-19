@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { KineticButton } from "./ui/KineticButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -209,9 +210,11 @@ export function TechnicalAnatomy() {
                 <div className="w-16 h-[2px] bg-[#D42B2B]/20 mb-8" />
 
                 {/* Body */}
-                <p className="font-[family-name:var(--font-jost)] text-[0.95rem] lg:text-[1.05rem] text-[#111111]/60 font-normal leading-[1.8] max-w-md">
+                <p className="font-[family-name:var(--font-jost)] text-[0.95rem] lg:text-[1.05rem] text-[#111111]/60 font-normal leading-[1.8] max-w-md mb-10">
                   {p.body}
                 </p>
+
+                <KineticButton text="Види повеќе" href={`#details-${p.id}`} />
 
                 {/* Decorative corner frame */}
                 <div className="absolute top-12 right-10 w-12 h-12 border-t border-r border-[#111111]/05 pointer-events-none" />
@@ -224,6 +227,13 @@ export function TechnicalAnatomy() {
 
       {/* ── GHOST NUMBER (morphs 01→02→03) ── */}
       <div className="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 z-20 pointer-events-none select-none">
+        {/* Header Block */}
+        <div className="mb-24 lg:mb-40 max-w-4xl section-reveal">
+          <span className="font-mono text-[11px] font-black tracking-[0.4em] text-[#D42B2B] uppercase mb-6 block">006 // Technical specifications</span>
+          <h2 className="font-sans text-[clamp(2.5rem,6vw,5.5rem)] font-black text-white leading-[0.9] tracking-tighter mb-10">
+            Анатомија на<br />перформансите.
+          </h2>
+        </div>
         <span
           ref={numberRef}
           className="font-sans text-[10rem] lg:text-[16rem] font-black text-[#111111]/05 leading-none tracking-tighter"

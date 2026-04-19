@@ -1,26 +1,44 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { LogosMarquee } from "@/components/LogosMarquee";
-import { Commitment } from "@/components/Commitment";
 import { Services } from "@/components/Services";
+import { LogosMarquee } from "@/components/LogosMarquee";
+
+import { Commitment } from "@/components/Commitment";
+import { AboutSection } from "@/components/AboutSection";
 import { VideoPortal } from "@/components/VideoPortal";
+
+import { StrategicPillars } from "@/components/StrategicPillars";
+import { InfrastructureGridWhitespace } from "@/components/InfrastructureGridWhitespace";
+
 import { TechnicalAnatomy } from "@/components/TechnicalAnatomy";
-import { GlobalCoverage } from "@/components/GlobalCoverage";
-import { Contact } from "@/components/Contact";
+import { RFQSystem } from "@/components/RFQSystem";
+import { AboutTeam } from "@/components/AboutTeam";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#080808] overflow-x-clip">
       <Header />
+      
+      {/* ── PHASE 1: ENTRY ── */}
       <Hero />
-      <LogosMarquee />
-      <Commitment />
       <Services />
+      <LogosMarquee />
+      
+      {/* ── PHASE 2: IDENTITY ── */}
+      <Commitment />
       <VideoPortal />
+      <AboutTeam />
+      
+      {/* ── PHASE 3: LOGIC ── */}
+      <StrategicPillars />
+      {/* <InfrastructureGridWhitespace /> */}
+      
+      {/* ── PHASE 4: PROOF & CLOSURE ── */}
       <TechnicalAnatomy />
-      <GlobalCoverage />
-      <Contact />
+      <RFQSystem />
+      
+      
       <Footer />
     </main>
   );

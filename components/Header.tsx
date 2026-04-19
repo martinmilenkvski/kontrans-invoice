@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import Image from "next/image";
 
 const container: Variants = {
   hidden: {},
@@ -56,12 +57,20 @@ export function Header() {
         variants={container}
         initial="hidden"
         animate={isPreloaderDone ? "show" : "hidden"}
-        className="max-w-[1600px] mx-auto px-8 lg:px-16 h-[80px] flex items-center justify-between"
+        className="max-w-[1600px] mx-auto px-4 lg:px-4 h-[80px] flex items-center justify-between"
       >
         {/* Logo */}
         <motion.div variants={item}>
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-[1.7rem] font-black tracking-[0.12em] uppercase text-white">
+          <Link href="/" className="flex items-center gap-4 shrink-0 h-10 lg:h-12">
+            <Image 
+              src="/kontrans logo.svg" 
+              alt="KONTRANS" 
+              width={40} 
+              height={40} 
+              className="h-full w-auto object-contain invert"
+              priority
+            />
+            <span className="text-2xl lg:text-[1.7rem] font-black tracking-[0.05em] text-white leading-none">
               KON<span className="text-[#D42B2B]">TRANS</span>
             </span>
           </Link>
@@ -114,7 +123,7 @@ export function Header() {
               href="/login"
               className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-none text-sm font-bold tracking-wide transition-all duration-300 group bg-white/10 border border-white/15 text-white hover:bg-white/20"
             >
-              Пријави се
+              Најави се
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </motion.div>

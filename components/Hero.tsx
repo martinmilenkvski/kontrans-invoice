@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 // ── Slot-machine digit ───────────────────────────────────────────────────────
 
@@ -128,13 +129,6 @@ export function Hero() {
   }, []);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
 
   // counterDelay = card's delayChildren + (index * staggerChildren)
   const stats = [
@@ -150,8 +144,7 @@ export function Hero() {
     >
       {/* ── Full-bleed background video ── */}
       <motion.div
-        style={{ y: videoY }}
-        className="absolute inset-0 z-0 h-[120%]"
+        className="absolute inset-0 z-0 h-full"
       >
         <video
           autoPlay
@@ -170,7 +163,6 @@ export function Hero() {
       {/* ── Content layer ── */}
       {isPreloaderDone && (
         <motion.div
-          style={{ y: contentY }}
           className="relative z-10 h-full max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col"
         >
         <div className="mt-auto pb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-24 items-end">
@@ -184,7 +176,7 @@ export function Hero() {
           >
             <motion.h1
               variants={slideUp}
-              className="font-sans text-[clamp(2.8rem,6vw,5.5rem)] text-white leading-[0.9] tracking-tight"
+              className="font-sans text-[clamp(2.8rem,8vw,6.5rem)] font-medium text-white leading-[0.8] tracking-tighter"
             >
               Глобален транспорт{" "}
               <br className="hidden sm:block" />
@@ -204,23 +196,36 @@ export function Hero() {
 
             <motion.div
               variants={slideUp}
-              className="flex items-center gap-6 pt-2"
+              className="flex flex-wrap items-center gap-8 pt-8"
             >
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-3 text-white text-sm uppercase tracking-widest hover:gap-5 transition-all duration-300 group"
-              >
-                Побарај понуда
-                <div className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white transition-all duration-300">
-                  <Image src="/upper-right-arrow.png" alt="Arrow" width={16} height={16} className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 invert group-hover:invert-0" />
-                </div>
-              </Link>
-              <div className="w-px h-4 bg-white/30" />
+                <Link
+                  href="#contact"
+                  className="group relative flex items-center gap-4 bg-white px-8 py-5 transition-all duration-500"
+                >
+                  {/* Background Slide Effect */}
+                  <div className="absolute inset-0 bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  
+                  <span className="relative z-10 font-sans text-xs font-black uppercase tracking-[0.2em] text-black group-hover:text-white transition-colors duration-500">
+                    Побарај понуда
+                  </span>
+
+                  <div className="relative z-10 flex items-center justify-center">
+                    <ArrowUpRight className="w-5 h-5 text-black group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-500" />
+                  </div>
+                </Link>
+
+              <div className="hidden sm:block w-px h-10 bg-white/10" />
+
               <Link
                 href="#services"
-                className="text-white/40 hover:text-white text-sm uppercase tracking-widest transition-colors"
+                className="group relative flex flex-col py-2"
               >
-                Нашите услуги
+                <span className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-white/40 group-hover:text-white transition-colors duration-300">
+                  Истражи ги
+                </span>
+                <span className="font-sans text-xs font-black uppercase tracking-[0.2em] text-white">
+                  Нашите услуги
+                </span>
               </Link>
             </motion.div>
           </motion.div>
@@ -230,7 +235,7 @@ export function Hero() {
             variants={statsContainer}
             initial="hidden"
             animate="show"
-            className="hidden lg:flex flex-col w-[260px] divide-y divide-white/10"
+            className="hidden lg:flex flex-col w-[260px] divide-y divide-white/10 border border-white/10 px-6"
           >
             {stats.map((stat, i) => (
               <motion.div
@@ -251,19 +256,6 @@ export function Hero() {
                 <span className="text-white/20 text-xs">···</span>
               </motion.div>
             ))}
-
-            {/* Learn More */}
-            <motion.div variants={slideLeft} className="pt-5 flex justify-end">
-              <Link
-                href="#services"
-                className="text-white/40 hover:text-white text-xs uppercase tracking-[0.2em] transition-colors flex items-center gap-2 group"
-              >
-                Повеќе
-                <div className="w-8 h-8 bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white transition-all duration-300">
-                  <Image src="/upper-right-arrow.png" alt="Arrow" width={12} height={12} className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300 invert group-hover:invert-0" />
-                </div>
-              </Link>
-            </motion.div>
           </motion.div>
 
         </div>
