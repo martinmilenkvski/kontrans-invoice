@@ -39,7 +39,7 @@ export function Header() {
         { label: "Авионски транспорт", href: "/services/air" },
       ],
     },
-    { label: "Контакт", href: "/contact" },
+    { label: "Контакт", href: "/#contact" },
   ];
 
   return (
@@ -179,7 +179,7 @@ export function Header() {
             </div>
           ))}
           <Link
-            href="/contact"
+            href="/#contact"
             onClick={() => setIsMenuOpen(false)}
             className="mt-4 mb-2 flex items-center justify-center gap-3 px-6 py-4 bg-[#D42B2B] text-white text-lg font-bold tracking-widest uppercase rounded-lg transition-all"
           >

@@ -24,7 +24,6 @@ export const metadata: Metadata = {
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
-import { GradualBlurOverlay } from "@/components/GradualBlurOverlay";
 import { Preloader } from "@/components/Preloader";
 import { Header } from "@/components/Header";
 import { PreloaderProvider } from "@/lib/PreloaderContext";
