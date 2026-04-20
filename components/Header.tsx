@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
+import { usePreloader } from "@/lib/PreloaderContext";
+
 
 const container: Variants = {
   hidden: {},
@@ -18,37 +20,26 @@ const container: Variants = {
 
 const item: Variants = {
   hidden: { opacity: 0, y: -12 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPreloaderDone, setIsPreloaderDone] = useState(false);
+  const { isComplete: isPreloaderDone } = usePreloader();
 
-  useEffect(() => {
-    const handlePreloader = () => setIsPreloaderDone(true);
-    window.addEventListener("preloaderComplete", handlePreloader);
-
-    const timer = setTimeout(() => setIsPreloaderDone(true), 8000); // 8s fallback
-    
-    return () => {
-      window.removeEventListener("preloaderComplete", handlePreloader);
-      clearTimeout(timer);
-    };
-  }, []);
 
   const navLinks = [
-    { label: "За нас",     href: "/about" },
+    { label: "За нас", href: "/about" },
     {
       label: "Услуги",
       href: "/#services",
       dropdown: [
-        { label: "Бродски транспорт",  href: "/services/sea" },
+        { label: "Бродски транспорт", href: "/services/sea" },
         { label: "Камионски транспорт", href: "/services/road" },
         { label: "Авионски транспорт", href: "/services/air" },
       ],
     },
-    { label: "Контакт",    href: "/contact" },
+    { label: "Контакт", href: "/contact" },
   ];
 
   return (
@@ -62,11 +53,11 @@ export function Header() {
         {/* Logo */}
         <motion.div variants={item}>
           <Link href="/" className="flex items-center gap-4 shrink-0 h-10 lg:h-12">
-            <Image 
-              src="/kontrans logo.svg" 
-              alt="KONTRANS" 
-              width={40} 
-              height={40} 
+            <Image
+              src="/kontrans logo.svg"
+              alt="KONTRANS"
+              width={40}
+              height={40}
               className="h-full w-auto object-contain invert"
               priority
             />

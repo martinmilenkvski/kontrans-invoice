@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { usePreloader } from "@/lib/PreloaderContext";
+
 
 // ── Slot-machine digit ───────────────────────────────────────────────────────
 
@@ -114,19 +116,8 @@ const statsContainer: Variants = {
 // ────────────────────────────────────────────────────────────────────────────
 
 export function Hero() {
-  const [isPreloaderDone, setIsPreloaderDone] = useState(false);
+  const { isComplete: isPreloaderDone } = usePreloader();
 
-  useEffect(() => {
-    const handlePreloader = () => setIsPreloaderDone(true);
-    window.addEventListener("preloaderComplete", handlePreloader);
-
-    const timer = setTimeout(() => setIsPreloaderDone(true), 8000); // 8s fallback
-    
-    return () => {
-      window.removeEventListener("preloaderComplete", handlePreloader);
-      clearTimeout(timer);
-    };
-  }, []);
 
   const containerRef = useRef<HTMLDivElement>(null);
 

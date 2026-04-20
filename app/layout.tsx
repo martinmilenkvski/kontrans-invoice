@@ -26,6 +26,8 @@ export const metadata: Metadata = {
 import SmoothScroll from "@/components/SmoothScroll";
 import { GradualBlurOverlay } from "@/components/GradualBlurOverlay";
 import { Preloader } from "@/components/Preloader";
+import { Header } from "@/components/Header";
+import { PreloaderProvider } from "@/lib/PreloaderContext";
 
 export default function RootLayout({
   children,
@@ -37,10 +39,13 @@ export default function RootLayout({
       <body
         className={`${jost.variable} ${spaceGrotesk.variable} ${caveat.variable} antialiased bg-[#080808] text-white`}
       >
-        <Preloader />
-        <SmoothScroll>{children}</SmoothScroll>
-        
+        <PreloaderProvider>
+          <Header />
+          <Preloader />
+          <SmoothScroll>{children}</SmoothScroll>
+        </PreloaderProvider>
       </body>
+
     </html>
   );
 }

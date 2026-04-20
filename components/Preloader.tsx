@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import { usePreloader } from "@/lib/PreloaderContext";
+
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(CustomEase, useGSAP);
@@ -27,12 +29,13 @@ const images = [
 
 export function Preloader() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isComplete, setIsComplete] = useState(false);
+  const { isComplete, setComplete } = usePreloader();
+
 
   useGSAP(
     () => {
       const chars = document.querySelectorAll(".char-inner");
-      
+
       const initialChar = chars[0];
       const lastChar = chars[chars.length - 1];
 
@@ -45,13 +48,14 @@ export function Preloader() {
       const preloaderImagesInner = gsap.utils.toArray(".preloader-img-inner");
 
       // Timeline Creation
-      const tl = gsap.timeline({ 
+      const tl = gsap.timeline({
         delay: 0.25,
         onComplete: () => {
-          setIsComplete(true);
+          setComplete(true);
           window.dispatchEvent(new Event("preloaderComplete"));
         }
       });
+
 
       // Phase 1: Progress Bar
       tl.to(".progress-bar", {
@@ -149,28 +153,28 @@ export function Preloader() {
   return (
     <div ref={containerRef} className="fixed inset-0 z-[100] touch-none pointer-events-none font-['Manrope',sans-serif]">
       {/* Preloader Layer */}
-      <div 
+      <div
         className="preloader-overlay fixed inset-0 w-full h-screen bg-black"
         style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", willChange: "clip-path" }}
       >
-        <div 
+        <div
           className="progress-bar absolute top-0 left-0 w-full h-[7px] bg-white origin-left"
           style={{ transform: "scaleX(0)", willChange: "transform" }}
         ></div>
 
-        <div 
+        <div
           className="preloader-images absolute top-[45%] lg:top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[15rem] h-[15rem] lg:w-[25rem] lg:h-[25rem]"
           style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", willChange: "clip-path" }}
         >
           {images.map((src, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="preloader-img absolute w-full h-full"
               style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)", willChange: "clip-path" }}
             >
-              <img 
-                src={src} 
-                alt={`Preloader ${idx + 1}`} 
+              <img
+                src={src}
+                alt={`Preloader ${idx + 1}`}
                 className="preloader-img-inner relative w-full h-full object-cover"
                 style={{ transform: "scale(2)", willChange: "transform" }}
               />
@@ -180,7 +184,7 @@ export function Preloader() {
       </div>
 
       {/* Sticky Header that moves after loading */}
-      <div 
+      <div
         className="preloader-header fixed w-full flex justify-center items-center translate-y-[50vh] lg:translate-y-[60vh] z-10 origin-top"
         style={{ willChange: "transform" }}
       >
