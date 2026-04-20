@@ -169,7 +169,7 @@ export function Services() {
                 }}
               >
                 {/* Background Texture Image - Reduced Intensity */}
-                <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none grayscale">
+                <div className="absolute inset-0 z-0 opacity-[0.15] pointer-events-none grayscale">
                     <Image 
                         src={service.image} 
                         alt="" 

@@ -10,7 +10,6 @@ import { StrategicPillars } from "@/components/StrategicPillars";
 import { InfrastructureGridWhitespace } from "@/components/InfrastructureGridWhitespace";
 
 import { TechnicalAnatomy } from "@/components/TechnicalAnatomy";
-import { RFQSystem } from "@/components/RFQSystem";
 import { AboutTeam } from "@/components/AboutTeam";
 import { Footer } from "@/components/Footer";
 
@@ -36,10 +35,10 @@ export default function Home() {
 
       {/* ── PHASE 4: PROOF & CLOSURE ── */}
       {/* <TechnicalAnatomy /> */}
-      <RFQSystem />
 
 
       <Footer />
     </main>
   );
 }
+
