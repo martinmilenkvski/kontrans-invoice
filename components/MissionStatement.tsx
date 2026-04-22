@@ -1,0 +1,82 @@
+"use client";
+
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+export function MissionStatement() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(".reveal-item", 
+      { y: 40, opacity: 0 }, 
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 1.2, 
+        ease: "power4.out", 
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 85%",
+        }
+      }
+    );
+  }, { scope: containerRef });
+
+  return (
+    <section ref={containerRef} className="relative bg-white pt-32 pb-12 md:pt-48 md:pb-16 px-6 overflow-hidden">
+      {/* Background Decorative Grid */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      </div>
+
+      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-12 lg:gap-20 items-start relative z-10">
+        
+        {/* 1. Left Column: Experience Counter */}
+        <div className="reveal-item flex flex-col items-start">
+          <div className="flex items-center gap-1">
+            <span className="text-[72px] md:text-[90px] font-black leading-none tracking-tighter font-[family-name:var(--font-jost)] text-[#1A1A1A]">15</span>
+            <span className="text-[48px] md:text-[60px] font-black leading-none text-[#D42B2B]">+</span>
+          </div>
+          <span className="text-[11px] font-bold text-[#1A1A1A] uppercase tracking-[0.3em] mt-2 block font-[family-name:var(--font-jost)]">
+            ГОДИНИ ИСКУСТВО
+          </span>
+        </div>
+
+        {/* 2. Middle Column: Mission Text */}
+        <div className="reveal-item flex flex-col gap-12">
+          <div className="max-w-[640px]">
+            <h2 className="text-[32px] md:text-[42px] font-medium leading-[1.1] tracking-tighter text-[#1A1A1A] mb-4 font-[family-name:var(--font-jost)]">
+              Се посветуваме целосно на нашите партнери и решенијата што ги нудиме, носејќи{" "}
+              <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] text-[1.1em] block mt-2">
+                највисока експертиза
+              </span>
+            </h2>
+          </div>
+          <div className="max-w-[480px]">
+            <p className="text-[16px] md:text-[18px] leading-relaxed text-[#444444] font-[family-name:var(--font-jost)] opacity-80">
+              Ние сме сеопфатен логистички партнер посветен на извонредност. 
+              Со длабока пасија кон иновациите, ги водиме нашите клиенти кон нови пазари со сигурност и прецизност.
+            </p>
+          </div>
+        </div>
+
+        {/* 3. Right Column: Identification Tag */}
+        <div className="reveal-item flex flex-col items-end">
+          <div className="flex items-center gap-4">
+            <div className="h-px w-8 bg-[#D42B2B]" />
+            <span className="text-[11px] font-bold text-[#D42B2B] uppercase tracking-[0.4em] font-[family-name:var(--font-jost)]">
+              001 // PHILOSOPHY
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

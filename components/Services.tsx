@@ -2,12 +2,10 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { ArrowRight, Globe, Wind, Truck } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight } from "lucide-react";
-import { KineticButton } from "./ui/KineticButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -15,38 +13,49 @@ if (typeof window !== "undefined") {
 
 const serviceStacks = [
   {
-    id: "001",
-    label: "OCEAN",
-    title: "Бродски\nтранспорт.",
-    subtitle: "ПОЧНЕТЕ ТУКА",
-    tags: ["FCL / LCL", "DDP", "HUB_GREECE"],
-    desc: "Сеопфатен бродски транспорт со фокус на Азискиот и Европскиот пазар. Оптимизирани рути преку Солунското пристаниште за максимална ефикасност.",
-    color: "bg-[#D42B2B]",
-    textColor: "text-white",
-    image: "/service_ocean_dark_cinematic_1775397818540.png"
+    id: "01",
+    label: "OCEAN FREIGHT",
+    title: "Бродски Транспорт",
+    description: "Комплетни решенија за контејнерски транспорт (FCL/LCL) преку најголемите светски пристаништа. Оптимизирани рути за максимална ефикасност и сигурност.",
+    tier: "Global Network",
+    duration: "20-35 Дена",
+    buttonText: "ПОВЕЌЕ ДЕТАЛИ",
+    image: "/service_ocean_bright.png",
+    color: "bg-[#F7F7F7]",
+    textColor: "text-[#1A1A1A]",
+    accent: "bg-[#D42B2B]",
+    icon: <Globe size={20} className="text-white" />,
+    isLight: true
   },
   {
-    id: "002",
-    label: "AIR",
-    title: "Авионски\nтранспорт.",
-    subtitle: "ЕКСПРЕСНА ДОСТАВА",
-    tags: ["EXPRESS", "CHARTER", "DGR"],
-    desc: "Кога брзината е императив. Експресна достава на деликатни и итни пратки преку најголемите светски авио-центтар.",
-    color: "bg-[#111111]",
-    textColor: "text-white",
-    image: "/service_air_dark_cinematic_1775397835417.png"
-  },
-  {
-    id: "003",
-    label: "LAND",
-    title: "Копнен\nтранспорт.",
-    subtitle: "ДИРЕКТНА ЛИНИЈА",
-    tags: ["FTL / LTL", "DISTRIBUTION", "GPS"],
-    desc: "Развиена патна мрежа која ја поврзува Македонија и Балканот со цела Европа. Дистрибуција од врата до врата со целосен надзор.",
+    id: "02",
+    label: "AIR FREIGHT",
+    title: "Авионски Транспорт",
+    description: "Најбрзиот начин за пренос на вашиот товар до секоја точка на планетата. Идеално за итни пратки и деликатни стоки со премиум логистика.",
+    tier: "Express Priority",
+    duration: "2-5 Дена",
+    buttonText: "ПОВЕЌЕ ДЕТАЛИ",
+    image: "/service_air_bright.png",
     color: "bg-[#D42B2B]",
     textColor: "text-white",
-    image: "/service_land_dark_cinematic_1775397850992.png",
-    isCTA: true, 
+    accent: "bg-white",
+    icon: <Wind size={20} className="text-[#D42B2B]" />,
+    isLight: false
+  },
+  {
+    id: "03",
+    label: "LAND FREIGHT",
+    title: "Копнен Транспорт",
+    description: "Развиена патна мрежа која ја поврзува Македонија со цела Европа. Дистрибуција од врата до врата со целосен GPS надзор и транспарентност.",
+    tier: "Full Coverage",
+    duration: "3-7 Дена",
+    buttonText: "ПОВЕЌЕ ДЕТАЛИ",
+    image: "/service_land_bright.png",
+    color: "bg-[#F7F7F7]",
+    textColor: "text-[#1A1A1A]",
+    accent: "bg-[#D42B2B]",
+    icon: <Truck size={20} className="text-white" />,
+    isLight: true
   }
 ];
 
@@ -54,25 +63,7 @@ export function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
-  // 1. SECTION-LEVEL REVEAL (GSAP)
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-      }
-    });
-
-    tl.from(".s-header-reveal", {
-      y: 40,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power4.out",
-      stagger: 0.2
-    });
-  }, { scope: containerRef });
-
-  // 2. SCROLL PROGRESS ENGINE
+  // 1. SCROLL PROGRESS ENGINE (for the sticky stack)
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
@@ -97,163 +88,170 @@ export function Services() {
   const totalTransitions = serviceStacks.length - 1;
   const cardProgress = progress * totalTransitions;
 
+  // 2. GSAP REVEAL STAGGERS
+  useGSAP(() => {
+    // Section Header
+    gsap.from(".s-header-reveal", {
+      y: 40,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      }
+    });
+
+    // We can't easily trigger staggers for sticky cards with standard ScrollTrigger
+    // because they are all in the viewport at once (sticky).
+    // Instead, we'll use a listener or custom logic to trigger animations 
+    // when a card's slideProgress crosses a threshold.
+  }, { scope: containerRef });
+
   return (
-    <section 
-      ref={containerRef} 
-      id="services" 
-      className="relative bg-[#F4F4F5] w-full"
-      style={{ height: `${serviceStacks.length * 100}vh` }}
-    >
-      {/* ── STICKY STAGE ── */}
-      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col pt-[8vh] lg:pt-[10vh]">
-        
-        {/* Editorial Heading Section */}
-        <div className="w-full max-w-[1600px] mx-auto px-4 mb-6 flex justify-between items-start">
-          {/* Identity Tag (Left) */}
-          <div className="s-header-reveal bg-black/5 py-1.5 px-4 rounded-none border border-black/5">
-             <span className="font-mono text-[9px] lg:text-[10px] font-black tracking-[0.4em] text-black/60 uppercase">
-                001 // Нашите услуги
-             </span>
-          </div>
-
-          {/* Mission Statement (Right) */}
-          <p className="s-header-reveal font-sans text-[clamp(0.9rem,1.2vw,1.1rem)] font-medium leading-[1.4] text-right max-w-lg text-[#111111] opacity-80">
-             Се посветуваме целосно на нашите партнери и решенијата што ги нудиме, носејќи <span className="text-[#D42B2B] italic">највисока експертиза.</span>
-          </p>
-        </div>
-
-        <div className="relative h-[62vh] lg:h-[65vh] w-full max-w-[1600px] mx-auto px-4">
+    <>
+      <section 
+        ref={containerRef} 
+        id="services" 
+        className="relative bg-white pt-12 pb-0 px-0 font-[family-name:var(--font-jost)] text-[#1A1A1A]"
+        style={{ height: `${serviceStacks.length * 100}vh` }}
+      >
+        {/* STICKY STAGE */}
+        <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col pt-[8vh] lg:pt-[10vh]">
           
-          {serviceStacks.map((service, i) => {
-            let yPercent = 120;
-            let scale = 1;
-            let brightness = 1;
-            let opacity = 1;
+          <div className="max-w-[1400px] mx-auto w-full px-6">
+            {/* Stack Stage */}
+            <div className="relative h-[65vh] lg:h-[70vh] w-full">
+              {serviceStacks.map((service, i) => {
+                let yPercent = 120;
+                let scale = 1;
+                let brightness = 1;
+                let opacity = 1;
 
-            // KINETIC TEXT ANIMATION LOGIC
-            let slideProgress = 0;
+                let slideProgress = 0;
 
-            if (i === 0) {
-              yPercent = 0;
-              slideProgress = 1; // Base card always fully active
-              const shrinkProgress = Math.max(0, Math.min(1, cardProgress - 0));
-              scale = 1 - (0.05 * shrinkProgress);
-              brightness = 1 - (0.6 * shrinkProgress);
-              opacity = 1 - (0.3 * shrinkProgress);
-            } else {
-              slideProgress = Math.max(0, Math.min(1, cardProgress - (i - 1)));
-              yPercent = 130 * (1 - slideProgress);
+                if (i === 0) {
+                  yPercent = 0;
+                  slideProgress = 1;
+                  const shrinkProgress = Math.max(0, Math.min(1, cardProgress - 0));
+                  scale = 1 - (0.05 * shrinkProgress);
+                  brightness = 1 - (0.1 * shrinkProgress);
+                  opacity = 1 - (0.1 * shrinkProgress);
+                } else {
+                  slideProgress = Math.max(0, Math.min(1, cardProgress - (i - 1)));
+                  yPercent = 130 * (1 - slideProgress);
 
-              const shrinkProgress = Math.max(0, Math.min(1, cardProgress - i));
-              scale = 1 - (0.05 * shrinkProgress);
-              brightness = 1 - (0.6 * shrinkProgress);
-              opacity = 1 - (0.3 * shrinkProgress);
-            }
+                  const shrinkProgress = Math.max(0, Math.min(1, cardProgress - i));
+                  scale = 1 - (0.05 * shrinkProgress);
+                  brightness = 1 - (0.1 * shrinkProgress);
+                  opacity = 1 - (0.1 * shrinkProgress);
+                }
 
-            // Staggered Text Reveal based on slideProgress
-            // Starts revealing at 70% of the card's slide-complete
-            const revealStart = 0.7;
-            const contentOpacity = Math.max(0, Math.min(1, (slideProgress - revealStart) / (1 - revealStart)));
-            const contentY = 30 * (1 - contentOpacity);
+                // Inner content reveal logic based on slide progress
+                const revealStart = 0.85;
+                const contentOpacity = i === 0 ? 1 : Math.max(0, Math.min(1, (slideProgress - revealStart) / (1 - revealStart)));
+                const contentY = 20 * (1 - contentOpacity);
 
-            return (
-              <div 
-                key={i} 
-                className={`service-card absolute inset-0 w-full h-full rounded-none border border-white/10 overflow-hidden flex flex-col justify-between p-10 lg:p-20 ${service.color} ${service.textColor} will-change-transform shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]`}
-                style={{ 
-                  zIndex: i + 1,
-                  transform: `translateY(${yPercent}%) scale(${scale})`,
-                  opacity: opacity,
-                  filter: `brightness(${brightness})`,
-                  transition: 'opacity 0.3s ease-out, filter 0.3s ease-out'
-                }}
-              >
-                {/* Background Texture Image - Reduced Intensity */}
-                <div className="absolute inset-0 z-0 opacity-[0.15] pointer-events-none grayscale">
-                    <Image 
-                        src={service.image} 
-                        alt="" 
-                        fill 
-                        className="object-cover"
-                    />
-                </div>
-
-                {/* 1. TOP BAR */}
-                <div 
-                  className="flex justify-between items-start w-full relative z-10"
-                  style={{ opacity: contentOpacity, transform: `translateY(${contentY * 0.5}px)` }}
-                >
-                   <div className="flex flex-col gap-2">
-                      <span className="font-mono text-[9px] lg:text-[10px] font-black tracking-[0.4rem] opacity-30">
-                         STK_{service.id} // 00{i+1}
-                      </span>
-                      <div className="w-12 h-px bg-current opacity-20" />
-                   </div>
-                   
-                   <div className="flex gap-2">
-                      {service.tags?.map((tag, idx) => (
-                        <div key={idx} className="px-3 py-1 border border-white/20 bg-white/[0.05] text-[8px] font-black tracking-widest text-white/50 uppercase backdrop-blur-md">
-                           {tag}
-                        </div>
-                      ))}
-                   </div>
-                </div>
-
-                {/* 2. MAIN HUB CONTENT */}
-                <div className="relative z-10 flex-1 flex flex-col justify-center">
-                   <div 
-                      className="max-w-4xl"
+                return (
+                  <div 
+                    key={i} 
+                    className={`absolute inset-0 w-full h-full rounded-none overflow-hidden flex flex-col lg:flex-row border border-black/5 ${service.color} will-change-transform`}
+                    style={{ 
+                      zIndex: i + 1,
+                      transform: `translateY(${yPercent}%) scale(${scale})`,
+                      opacity: opacity,
+                      filter: `brightness(${brightness})`,
+                    }}
+                  >
+                    {/* Text Side (Left) */}
+                    <div 
+                      className={`flex-1 flex flex-col justify-between p-8 lg:p-12 ${service.textColor}`}
                       style={{ opacity: contentOpacity, transform: `translateY(${contentY}px)` }}
-                   >
-                      <h2 className="font-sans text-[clamp(2.5rem,7.5vw,5.5rem)] leading-[0.8] tracking-tighter font-medium whitespace-pre-line text-left">
-                         {service.title.split(/([\s\n]транспорт\.?)/gi).map((part, index) => {
-                           if (part.toLowerCase().includes("транспорт")) {
-                             return (
-                               <span key={index} className="opacity-70">
-                                 {part}
-                               </span>
-                             );
-                           }
-                           return part;
-                         })}
-                      </h2>
-                   </div>
-                </div>
-
-                {/* 3. BOTTOM HUD BLOCK */}
-                <div 
-                  className="relative z-10 flex flex-col lg:flex-row justify-between items-end gap-12 pt-12 border-t border-white/10"
-                  style={{ opacity: contentOpacity, transform: `translateY(${contentY * 0.8}px)` }}
-                >
-                   {/* Decorative ID mark */}
-                   <div className="hidden lg:flex flex-col">
-                      <div className="w-16 h-16 border border-white/20 flex items-center justify-center group hover:bg-white transition-all duration-500 cursor-pointer mb-2">
-                        <ArrowUpRight className="w-6 h-6 text-white group-hover:text-black group-hover:rotate-45 transition-all" />
+                    >
+                      <div>
+                        <div className="flex items-center gap-3 mb-6">
+                           <div className="w-8 h-8 rounded-none flex items-center justify-center bg-transparent">
+                              {/* Icon color is handled in serviceStacks data or via cloneElement */}
+                              {React.cloneElement(service.icon as React.ReactElement, { 
+                                size: 24, 
+                                className: service.isLight ? "text-[#D42B2B]" : "text-white" 
+                              })}
+                           </div>
+                           <span className="text-[12px] font-bold tracking-widest uppercase opacity-60">
+                              {service.label}
+                           </span>
+                        </div>
+                        <h3
+                          className="text-[32px] lg:text-[48px] font-semibold mb-6 tracking-tight leading-tight"
+                        >
+                          {service.title}
+                        </h3>
+                        <p
+                          className="opacity-70 text-[16px] lg:text-[18px] leading-relaxed mb-8 max-w-[520px]"
+                        >
+                          {service.description}
+                        </p>
                       </div>
-                      <span className="font-mono text-[8px] opacity-20 uppercase tracking-widest">ACTION_REQUIRED // {service.label}</span>
-                   </div>
 
-                   <div className="flex flex-col items-end text-right gap-8 max-w-sm">
-                      <p className="text-white/60 font-[family-name:var(--font-jost)] text-[clamp(0.9rem,1.1vw,1rem)] font-medium leading-relaxed">
-                         {service.desc}
-                      </p>
+                      <div className="space-y-8">
+                        {/* Divider */}
+                        <div className={`w-full border-t border-dashed ${service.isLight ? 'border-black/10' : 'border-white/20'}`} />
 
-                      <KineticButton 
-                        text="Види повеќе" 
-                        href={service.isCTA ? "/contact" : "#details"} 
-                        hoverColor={service.color === "bg-[#D42B2B]" ? "#080808" : "#D42B2B"}
-                      />
-                   </div>
-                </div>
+                        {/* Metadata Grid */}
+                        <div className="grid grid-cols-2 gap-8">
+                          <div>
+                            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-2 ${service.isLight ? 'text-black/40' : 'opacity-40'}`}>МРЕЖА:</span>
+                            <span className="text-[18px] lg:text-[20px] font-bold">{service.tier}</span>
+                          </div>
+                          <div>
+                            <span className={`text-[11px] font-bold uppercase tracking-widest block mb-2 ${service.isLight ? 'text-black/40' : 'opacity-40'}`}>ТРАНЗИТ:</span>
+                            <span className="text-[18px] lg:text-[20px] font-bold">{service.duration}</span>
+                          </div>
+                        </div>
 
-                {/* 4. DECORATIVE ELEMENTS */}
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[60%] border border-white/5 rounded-full pointer-events-none" />
+                        {/* Divider */}
+                        <div className={`w-full border-t border-dashed ${service.isLight ? 'border-black/10' : 'border-white/20'}`} />
 
-              </div>
-            );
-          })}
+                        {/* CTA Button */}
+                        <button
+                          className="group relative flex items-center gap-4 bg-white px-6 py-4 transition-all duration-500 w-fit overflow-hidden border border-black/5"
+                        >
+                          {/* Background Slide Effect */}
+                          <div className="absolute inset-0 bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                          
+                          <span className="relative z-10 text-[11px] font-black uppercase tracking-[0.2em] text-black group-hover:text-white transition-colors duration-500">
+                            {service.buttonText}
+                          </span>
+
+                          <div className="relative z-10 flex items-center justify-center">
+                            <ArrowRight className="w-4 h-4 text-black group-hover:text-white group-hover:translate-x-1 transition-all duration-500" />
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Image Side (Right) */}
+                    <div className="hidden lg:block lg:w-[45%] h-full relative overflow-hidden bg-white">
+                      <div 
+                        className="absolute inset-0 transition-transform duration-1000"
+                        style={{ transform: slideProgress > 0.8 ? "scale(1)" : "scale(1.1)" }}
+                      >
+                         <Image
+                           src={service.image}
+                           alt={service.title}
+                           fill
+                           className="object-cover"
+                         />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

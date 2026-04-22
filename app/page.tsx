@@ -1,4 +1,5 @@
 import { Hero } from "@/components/Hero";
+import { MissionStatement } from "@/components/MissionStatement";
 import { Services } from "@/components/Services";
 import { LogosMarquee } from "@/components/LogosMarquee";
 
@@ -21,6 +22,7 @@ export default function Home() {
 
       {/* ── PHASE 1: ENTRY ── */}
       <Hero />
+      <MissionStatement />
       <Services />
       <LogosMarquee />
 
