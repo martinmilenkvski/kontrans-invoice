@@ -145,7 +145,7 @@ export function Hero() {
           poster="/hero-cinematic.png"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/bg-kontrans.mp4" type="video/mp4" />
+          <source src="/main-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />

@@ -153,7 +153,7 @@ export function VideoPortal() {
         style={{ width: "100%", height: "100vh" }}
       >
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
-          <source src="/bg-kontrans.mp4" type="video/mp4" />
+          <source src="/process-video.mp4" type="video/mp4" />
         </video>
         <div className="vp-overlay absolute inset-0 bg-white/20" />
       </div>

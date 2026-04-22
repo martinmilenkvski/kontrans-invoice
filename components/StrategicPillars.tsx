@@ -5,7 +5,6 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { KineticButton } from "./ui/KineticButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -55,31 +54,64 @@ export function StrategicPillars() {
             start: "top top",
             end: "bottom bottom",
             scrub: 1,
-            pin: false, // Pinning is handled by the sticky-viewport wrapper logic if needed, but here we just use the 400vh container
           },
         });
 
-        // 1. Initial State
+        // 1. Header Entrance (Independent of scrub)
+        gsap.fromTo(".pillar-entrance-left", 
+          { y: 50, opacity: 0 }, 
+          { 
+            y: 0, 
+            opacity: 1, 
+            duration: 1.2, 
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+            }
+          }
+        );
+
+        gsap.fromTo(".pillar-entrance-right", 
+          { y: 50, opacity: 0 }, 
+          { 
+            y: 0, 
+            opacity: 1, 
+            duration: 1.2, 
+            ease: "power4.out",
+            delay: 0.1,
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+            }
+          }
+        );
+
+        // 2. Initial State
         gsap.set(".pillar-card", { rotationY: 0 });
 
-        // 2. Header Reveal (0% -> 20%)
-        tl.fromTo(headerRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 0);
+        // 3. Image Parallax before flip
+        tl.fromTo(".pillar-image", 
+          { scale: 1.1, y: "-5%" }, 
+          { scale: 1.1, y: "5%", ease: "none", duration: 1 }, 
+          0
+        );
 
-        // 3. Container Width Narrowing (0% -> 25%)
-        tl.to(cardContainerRef.current, { width: "65%", duration: 1 }, 0);
+        // 4. Container Width Narrowing
+        tl.to(cardContainerRef.current, { width: "70%", duration: 1 }, 0.5);
 
-        // 4. Gap Animation (30% -> 50%)
+        // 5. Gap Animation
         tl.to(
           cardContainerRef.current,
           {
-            gap: "24px",
+            gap: "32px",
             duration: 1,
             ease: "power2.inOut",
           },
-          1.2
+          1
         );
 
-        // 5. Card Flip & Spread (60% -> 90%)
+        // 6. Card Flip & Spread
         tl.to(
           ".pillar-card",
           {
@@ -88,33 +120,30 @@ export function StrategicPillars() {
             stagger: 0.2,
             ease: "power3.inOut",
           },
-          2.5
+          2
         );
 
         // Subtle Fan Effect
         tl.to(
           ".pillar-card:first-child",
           {
-            y: 40,
-            rotationZ: -8,
+            y: 30,
+            rotationZ: -4,
             duration: 2,
             ease: "power3.inOut",
           },
-          2.5
+          2
         );
         tl.to(
           ".pillar-card:last-child",
           {
-            y: 40,
-            rotationZ: 8,
+            y: 30,
+            rotationZ: 4,
             duration: 2,
             ease: "power3.inOut",
           },
-          2.5
+          2
         );
-
-        // Fade out header slightly to focus on cards
-        tl.to(headerRef.current, { opacity: 0.3, duration: 1 }, 3);
       });
 
       return () => mm.revert();
@@ -123,25 +152,36 @@ export function StrategicPillars() {
   );
 
   return (
-    <section ref={containerRef} className="relative w-full h-[400vh] bg-white z-20 border-t border-black/5">
+    <section ref={containerRef} className="relative w-full h-[400vh] bg-white z-20 border-t border-black/5 font-[family-name:var(--font-jost)]">
       <div ref={stickyRef} className="sticky top-0 h-screen w-full flex flex-col items-center justify-start pt-32 overflow-hidden">
         
-        {/* Background Decorative Grid/Mesh */}
+        {/* Background Decorative Grid */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
           <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         </div>
 
-        {/* Header Text */}
-        <div className="relative z-30 w-full text-center px-6 mb-16">
-          <h2
-            ref={headerRef}
-            className="font-sans text-[clamp(2.5rem,6vw,5rem)] text-[#111111] leading-[0.8] tracking-tighter font-medium"
-          >
-            Три столба.<br />
-            <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-normal tracking-normal lowercase text-[0.9em]">
-              една визија.
-            </span>
-          </h2>
+        {/* Header Section */}
+        <div 
+          ref={headerRef}
+          className="relative z-30 w-full max-w-[1600px] px-6 mb-20 md:mb-32 grid grid-cols-1 md:grid-cols-2 gap-12 items-end"
+        >
+          {/* Left Column: Description */}
+          <div className="pillar-entrance-left opacity-0">
+             <p className="text-[16px] md:text-[18px] leading-relaxed text-[#1A1A1A]/70 max-w-[480px]">
+                Нашите три стратешки столбови се основата на секоја успешна операција. 
+                Преку брзина, прецизност и глобална поврзаност, создаваме логистички решенија кои ја движат вашата визија напред.
+             </p>
+          </div>
+
+          {/* Right Column: Title */}
+          <div className="pillar-entrance-right opacity-0 text-right">
+            <h2 className="text-[clamp(2.5rem,6vw,5rem)] text-[#1A1A1A] leading-[0.85] tracking-tighter font-medium">
+              Три столба. <br />
+              <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-normal tracking-normal lowercase text-[1.1em] inline-block mt-2">
+                една визија.
+              </span>
+            </h2>
+          </div>
         </div>
 
         {/* Card Container */}
@@ -152,48 +192,45 @@ export function StrategicPillars() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.id}
-              className="pillar-card relative flex-1 aspect-[5/7] preserve-3d will-change-transform h-full"
+              className="pillar-card relative flex-1 aspect-[4/5] preserve-3d will-change-transform h-full"
             >
               {/* CARD FRONT: Image Only */}
-              <div className="absolute inset-0 backface-hidden overflow-hidden border border-black/5 shadow-xl flex flex-col bg-white">
-                <div className="relative flex-1">
+              <div className="absolute inset-0 backface-hidden overflow-hidden border border-black/5 flex flex-col bg-white">
+                <div className="relative flex-1 overflow-hidden">
                   <Image
                     src={pillar.image}
                     alt={pillar.title}
                     fill
-                    className="object-cover transition-all duration-700"
+                    className="pillar-image object-cover"
                   />
                 </div>
               </div>
 
               {/* CARD BACK: Light Professional Theme */}
-              <div className="absolute inset-0 backface-hidden rotate-y-180 bg-[#F9F9F9] border border-black/5 p-8 flex flex-col justify-between shadow-xl">
+              <div className="absolute inset-0 backface-hidden rotate-y-180 bg-[#F7F7F7] border border-black/5 p-8 lg:p-12 flex flex-col justify-between">
                 <div>
                    <div className="flex justify-between items-start mb-8">
-                     <span className="font-mono text-[9px] text-[#D42B2B] tracking-[0.5em] font-medium">({pillar.index})</span>
-                     <div className="w-2 h-2 bg-[#D42B2B] rounded-full" />
+                     <span className="font-mono text-[10px] text-[#D42B2B] tracking-[0.5em] font-bold uppercase">({pillar.index})</span>
+                     <div className="w-2 h-2 bg-[#D42B2B] rounded-none" />
                    </div>
-                   <h4 className="text-[#111111] font-medium text-3xl tracking-tighter mb-6 leading-none">
+                   <h4 className="text-[#1A1A1A] font-medium text-3xl md:text-4xl tracking-tighter mb-6 leading-none uppercase">
                      {pillar.title}
                    </h4>
-                   <p className="text-[#111111]/70 font-normal text-sm lg:text-base leading-relaxed font-[family-name:var(--font-jost)]">
+                   <p className="text-[#1A1A1A]/70 font-normal text-base md:text-lg leading-relaxed">
                      {pillar.description}
                    </p>
                 </div>
                 
-                <div className="flex flex-col gap-4 border-t border-black/5 pt-6">
+                <div className="flex flex-col gap-4 border-t border-black/10 pt-6">
                    <div className="flex items-center gap-3">
-                      <div className="h-[1px] w-8 bg-black/10" />
-                      <span className="font-mono text-[8px] text-black/30 tracking-widest uppercase">{pillar.subtitle}</span>
+                      <div className="h-[1px] w-8 bg-black/20" />
+                      <span className="font-mono text-[9px] text-black/40 tracking-widest uppercase font-bold">{pillar.subtitle}</span>
                    </div>
-                   <div className="w-full h-[1px] bg-gradient-to-r from-[#D42B2B] to-transparent opacity-20" />
                 </div>
               </div>
             </div>
           ))}
         </div>
-
-
       </div>
 
       <style jsx global>{`

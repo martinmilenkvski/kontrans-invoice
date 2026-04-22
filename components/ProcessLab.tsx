@@ -167,7 +167,7 @@ export function ProcessLab() {
       {/* ── BACKGROUND VIDEO LAYER ── */}
       <div className="absolute inset-0 z-0 p-cube-wrapper">
         <video autoPlay loop muted playsInline className="p-video-layer w-full h-full object-cover opacity-60">
-          <source src="/bg-kontrans.mp4" type="video/mp4" />
+          <source src="/process-video.mp4" type="video/mp4" />
         </video>
         <div className="v-overlay absolute inset-0 bg-black/40" />
       </div>

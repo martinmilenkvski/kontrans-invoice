@@ -134,7 +134,7 @@ export function LogisticsProcess() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <div className="rad-video relative w-[400px] h-[500px] bg-white shadow-2xl border border-black/5 overflow-hidden">
           <video autoPlay loop muted playsInline className="w-full h-full object-cover grayscale-[0.3]">
-            <source src="/bg-kontrans.mp4" type="video/mp4" />
+            <source src="/process-video.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/5" />
           <div className="absolute top-4 left-4 font-mono text-[7px] text-black/40 tracking-[0.3em] uppercase">Ref_Operational_Node</div>
