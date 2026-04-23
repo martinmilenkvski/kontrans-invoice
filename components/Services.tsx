@@ -173,10 +173,11 @@ export function Services() {
                         <div className="flex items-center gap-3 mb-6">
                            <div className="w-8 h-8 rounded-none flex items-center justify-center bg-transparent">
                               {/* Icon color is handled in serviceStacks data or via cloneElement */}
-                              {React.cloneElement(service.icon as React.ReactElement, { 
+                              {React.cloneElement(service.icon as any, { 
                                 size: 24, 
                                 className: service.isLight ? "text-[#D42B2B]" : "text-white" 
                               })}
+
                            </div>
                            <span className="text-[12px] font-bold tracking-widest uppercase opacity-60">
                               {service.label}
