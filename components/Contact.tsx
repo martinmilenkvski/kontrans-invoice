@@ -74,6 +74,7 @@ export function Contact() {
     phone: ""
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [apiErrors, setApiErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -90,6 +91,8 @@ export function Contact() {
     if (errors[id]) {
       setErrors(prev => { const next = { ...prev }; delete next[id]; return next; });
     }
+    // Clear API errors when user types
+    if (apiErrors.length > 0) setApiErrors([]);
   };
 
   const validate = (): boolean => {
@@ -108,25 +111,33 @@ export function Contact() {
     e.preventDefault();
     if (!validate()) return;
     setIsSubmitting(true);
+    setApiErrors([]);
+    
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transportMode, ...formData }),
       });
-      if (res.ok) {
+      
+      const data = await res.json();
+      
+      if (res.ok && data.success) {
         setSubmitStatus('success');
         setFormData({ origin: '', destination: '', weight: '', volume: '', commodity: '', email: '', phone: '' });
         setTransportMode(null);
       } else {
         setSubmitStatus('error');
+        setApiErrors(data.errors || ['Настана грешка при испраќањето.']);
       }
-    } catch {
+    } catch (err) {
       setSubmitStatus('error');
+      setApiErrors(['Мрежна грешка. Ве молиме проверете ја конекцијата.']);
     } finally {
       setIsSubmitting(false);
     }
   };
+
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -402,6 +413,21 @@ export function Contact() {
                   Успешно испратено. Нашиот тим ќе ве контактира набрзо.
                 </div>
               )}
+
+              {submitStatus === 'error' && apiErrors.length > 0 && (
+                <div className="flex flex-col gap-2 bg-red-50/50 p-4 border border-red-100 font-mono text-[0.55rem] text-red-700 tracking-widest uppercase">
+                  {apiErrors.map((err, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                      {err}
+                    </div>
+                  ))}
+                  <div className="mt-2 text-[0.45rem] opacity-70 normal-case">
+                    Проверете дали RESEND_API_KEY е додаден на Vercel и дали доменот е верификуван.
+                  </div>
+                </div>
+              )}
+
 
              </form>
           </div>

@@ -21,10 +21,10 @@ if (typeof window !== "undefined") {
 const headerText = "KONTRANS".split("");
 
 const images = [
-  "/gallery-1.png",
-  "/gallery-2.png",
-  "/gallery-3.png",
-  "/gallery-4.png",
+  "/service_ocean_bright.png",
+  "/service_air_bright.png",
+  "/service_land_bright.png",
+  "/about-highway.png",
 ];
 
 export function Preloader() {
@@ -151,14 +151,14 @@ export function Preloader() {
   if (isComplete) return null;
 
   return (
-    <div ref={containerRef} className="fixed inset-0 z-[100] touch-none pointer-events-none font-['Manrope',sans-serif]">
+    <div ref={containerRef} className="fixed inset-0 z-[100] touch-none pointer-events-none font-[family-name:var(--font-jost)]">
       {/* Preloader Layer */}
       <div
-        className="preloader-overlay fixed inset-0 w-full h-screen bg-black"
+        className="preloader-overlay fixed inset-0 w-full h-screen bg-white"
         style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", willChange: "clip-path" }}
       >
         <div
-          className="progress-bar absolute top-0 left-0 w-full h-[7px] bg-white origin-left"
+          className="progress-bar absolute top-0 left-0 w-full h-[7px] bg-[#D42B2B] origin-left"
           style={{ transform: "scaleX(0)", willChange: "transform" }}
         ></div>
 
@@ -188,7 +188,7 @@ export function Preloader() {
         className="preloader-header fixed w-full flex justify-center items-center translate-y-[50vh] lg:translate-y-[60vh] z-10 origin-top"
         style={{ willChange: "transform" }}
       >
-        <div className="flex text-white uppercase text-[4rem] lg:text-[7.5rem] font-semibold leading-[0.9]">
+        <div className="flex text-[#1A1A1A] uppercase text-[4rem] lg:text-[7.5rem] font-semibold leading-[0.9] tracking-tighter">
           {headerText.map((char, idx) => (
             <div key={idx} className="char-mask relative inline-block overflow-hidden">
               <span className={`char-inner inline-block min-w-[0.5rem] ${idx >= 3 ? 'text-[#D42B2B]' : ''}`}>
