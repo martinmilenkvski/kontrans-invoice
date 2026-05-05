@@ -37,7 +37,7 @@ function SplitFlapChar({ char, delay }: { char: string; delay: number }) {
   return (
     <span 
       ref={ref} 
-      className="inline-block perspective-[500px] opacity-0"
+      className="inline-block perspective-normal opacity-0"
       style={{ transformStyle: "preserve-3d" }}
     >
       {char === " " ? "\u00A0" : char}
@@ -207,12 +207,12 @@ export function Contact() {
       id="contact"
       className="relative bg-white pt-24 pb-24 overflow-hidden border-t border-black/5"
     >
-      <div className="max-w-[1600px] mx-auto px-4 relative z-10 w-full">
+      <div className="max-w-400 mx-auto px-4 relative z-10 w-full">
         
-        <div className="flex flex-col lg:flex-row bg-white border border-black/10 overflow-hidden shadow-2xl min-h-[850px]">
+        <div className="flex flex-col lg:flex-row bg-white border border-black/10 overflow-hidden shadow-2xl min-h-212.5">
           
           {/* ── LEFT: CINEMATIC IMAGE ── */}
-          <div className="w-full lg:w-[45%] relative min-h-[400px] lg:min-h-full overflow-hidden border-b lg:border-b-0 lg:border-r border-black/10 group">
+          <div className="w-full lg:w-[45%] relative min-h-100 lg:min-h-full overflow-hidden border-b lg:border-b-0 lg:border-r border-black/10 group">
              <div ref={imageRef} className="absolute inset-0 w-full h-full scale-110">
                 <Image 
                   src="/port-min.png" 
@@ -229,28 +229,28 @@ export function Contact() {
           <div className="w-full lg:w-[55%] flex flex-col relative px-8 py-12 lg:px-16 lg:py-20 justify-center">
             
              {/* Animated HUD Borders Inside the half-screen */}
-             <span className="hud-border-h absolute top-6 left-6 right-6 h-[1px] bg-black/5 origin-left scale-x-0" />
-             <span className="hud-border-h absolute bottom-6 left-6 right-6 h-[1px] bg-black/5 origin-right scale-x-0" />
-             <span className="hud-border-v absolute top-6 bottom-6 left-6 w-[1px] bg-black/5 origin-top scale-y-0" />
-             <span className="hud-border-v absolute top-6 bottom-6 right-6 w-[1px] bg-black/5 origin-bottom scale-y-0" />
+             <span className="hud-border-h absolute top-6 left-6 right-6 h-px bg-black/5 origin-left scale-x-0" />
+             <span className="hud-border-h absolute bottom-6 left-6 right-6 h-px bg-black/5 origin-right scale-x-0" />
+             <span className="hud-border-v absolute top-6 bottom-6 left-6 w-px bg-black/5 origin-top scale-y-0" />
+             <span className="hud-border-v absolute top-6 bottom-6 right-6 w-px bg-black/5 origin-bottom scale-y-0" />
 
              {/* Form Header */}
              <div className="mb-12 flex flex-col gap-4">
                 <div className="contact-header-meta flex items-center gap-4 opacity-0">
-                   <div className="w-8 h-[1px] bg-[#D42B2B]" />
-                   <span className="font-mono text-[0.6rem] text-[#D42B2B] tracking-[0.5em] uppercase font-bold text-nowrap">
+                   <div className="w-8 h-px bg-brand-red" />
+                   <span className="font-mono text-[0.6rem] text-brand-red tracking-[0.5em] uppercase font-bold text-nowrap">
                      БАРАЊЕ // ФОРМУЛАР
                    </span>
                 </div>
 
-                <h2 className="font-sans text-[2.5rem] lg:text-[4rem] text-[#111111] leading-[0.9] tracking-tighter font-medium">
+                <h2 className="font-sans text-[2.5rem] lg:text-[4rem] text-brand-dark leading-[0.9] tracking-tighter font-medium">
                   <SplitFlapText text="Закажете" /> <br />
-                  <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-normal text-[1em] tracking-normal lowercase block">
+                  <span className="text-brand-red italic font-(family-name:--font-caveat) font-normal text-[1em] tracking-normal lowercase block">
                      <SplitFlapText text="превоз сега." delay={0.4} />
                   </span>
                 </h2>
 
-                <p className="contact-subtitle font-[family-name:var(--font-jost)] text-black/40 text-sm lg:text-base leading-relaxed max-w-md mt-2 opacity-0">
+                <p className="contact-subtitle font-(family-name:--font-jost) text-black/40 text-sm lg:text-base leading-relaxed max-w-md mt-2 opacity-0">
                   Пополнете го формуларот за брза понуда. Нашиот тим ќе ви одговори во најкус можен рок со детален логистички план.
                 </p>
              </div>
@@ -264,7 +264,7 @@ export function Contact() {
               <div className="contact-section flex flex-col gap-5 opacity-0">
                 <div className="flex justify-between items-center border-b border-black/5 pb-3">
                    <span className="font-mono text-[0.55rem] text-black/40 tracking-[0.3em] font-bold uppercase">01 // ТРАНСПОРТ</span>
-                   {errors.transportMode && <span className="font-mono text-[0.55rem] text-[#D42B2B] font-bold uppercase tracking-widest">{errors.transportMode}</span>}
+                   {errors.transportMode && <span className="font-mono text-[0.55rem] text-brand-red font-bold uppercase tracking-widest">{errors.transportMode}</span>}
                 </div>
                 
                 <div className="grid grid-cols-4 gap-3">
@@ -276,7 +276,7 @@ export function Contact() {
                          type="button"
                          onClick={() => setTransportMode(opt.id)}
                          className={`group relative h-20 border flex flex-col items-center justify-center gap-1.5 transition-all duration-500 ${
-                           isSelected ? "bg-[#D42B2B] border-[#D42B2B]" : "bg-black/[0.02] border-black/5 hover:border-black/20"
+                           isSelected ? "bg-brand-red border-brand-red" : "bg-black/2 border-black/5 hover:border-black/20"
                          }`}
                        >
                          <opt.icon className={`w-4 h-4 transition-all duration-500 ${isSelected ? "text-white" : "text-black/30 group-hover:text-black"}`} />
@@ -301,7 +301,7 @@ export function Contact() {
                       value={formData.origin}
                       onChange={handleInputChange}
                       placeholder="ОБЈЕКТ / ГРАД / ПРИСТАНИШТЕ"
-                      className="w-full bg-transparent border-b border-black/10 pb-2 text-[#111111] text-lg font-medium placeholder-black/20 focus:outline-none focus:border-[#D42B2B] transition-all tracking-tighter"
+                      className="w-full bg-transparent border-b border-black/10 pb-2 text-brand-dark text-lg font-medium placeholder-black/20 focus:outline-none focus:border-brand-red transition-all tracking-tighter"
                     />
                  </div>
 
@@ -315,7 +315,7 @@ export function Contact() {
                       value={formData.destination}
                       onChange={handleInputChange}
                       placeholder="КРАЈНА ДЕСТИНАЦИЈА"
-                      className="w-full bg-transparent border-b border-black/10 pb-2 text-[#111111] text-lg font-medium placeholder-black/20 focus:outline-none focus:border-[#D42B2B] transition-all tracking-tighter"
+                      className="w-full bg-transparent border-b border-black/10 pb-2 text-brand-dark text-lg font-medium placeholder-black/20 focus:outline-none focus:border-brand-red transition-all tracking-tighter"
                     />
                  </div>
               </div>
@@ -330,7 +330,7 @@ export function Contact() {
                       value={formData.weight}
                       onChange={handleInputChange}
                       placeholder="0.0"
-                      className="w-full bg-transparent border-b border-black/10 pb-1 text-[#111111] text-sm font-medium focus:outline-none focus:border-[#D42B2B]"
+                      className="w-full bg-transparent border-b border-black/10 pb-1 text-brand-dark text-sm font-medium focus:outline-none focus:border-brand-red"
                     />
                  </div>
                  <div className="flex flex-col gap-3">
@@ -341,7 +341,7 @@ export function Contact() {
                       value={formData.volume}
                       onChange={handleInputChange}
                       placeholder="0.0"
-                      className="w-full bg-transparent border-b border-black/10 pb-1 text-[#111111] text-sm font-medium focus:outline-none focus:border-[#D42B2B]"
+                      className="w-full bg-transparent border-b border-black/10 pb-1 text-brand-dark text-sm font-medium focus:outline-none focus:border-brand-red"
                     />
                  </div>
                  <div className="flex flex-col gap-3">
@@ -352,7 +352,7 @@ export function Contact() {
                       value={formData.commodity}
                       onChange={handleInputChange}
                       placeholder="ТИП"
-                      className="w-full bg-transparent border-b border-black/10 pb-1 text-[#111111] text-sm font-medium focus:outline-none focus:border-[#D42B2B]"
+                      className="w-full bg-transparent border-b border-black/10 pb-1 text-brand-dark text-sm font-medium focus:outline-none focus:border-brand-red"
                     />
                  </div>
               </div>
@@ -367,7 +367,7 @@ export function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="example@mail.com"
-                      className="w-full bg-transparent border-b border-black/10 pb-2 text-[#111111] text-sm font-medium focus:outline-none focus:border-[#D42B2B]"
+                      className="w-full bg-transparent border-b border-black/10 pb-2 text-brand-dark text-sm font-medium focus:outline-none focus:border-brand-red"
                     />
                  </div>
                  <div className="flex flex-col gap-4">
@@ -378,7 +378,7 @@ export function Contact() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="+389 XX XXX XXX"
-                      className="w-full bg-transparent border-b border-black/10 pb-2 text-[#111111] text-sm font-medium focus:outline-none focus:border-[#D42B2B]"
+                      className="w-full bg-transparent border-b border-black/10 pb-2 text-brand-dark text-sm font-medium focus:outline-none focus:border-brand-red"
                     />
                  </div>
               </div>
@@ -395,9 +395,9 @@ export function Contact() {
                  <button
                    type="submit"
                    disabled={isSubmitting}
-                   className="group relative w-full sm:w-auto px-10 h-14 bg-[#111111] overflow-hidden transition-all duration-500 active:scale-[0.98] disabled:opacity-50"
+                   className="group relative w-full sm:w-auto px-10 h-14 bg-brand-dark overflow-hidden transition-all duration-500 active:scale-[0.98] disabled:opacity-50"
                  >
-                    <div className="absolute inset-0 bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                    <div className="absolute inset-0 bg-brand-red scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     <div className="relative z-10 flex items-center justify-center gap-4">
                        <span className="font-sans text-[0.6rem] font-black uppercase tracking-[0.3em] text-white">
                           {isSubmitting ? "ПОЧЕКАЈТЕ..." : "ИСПРАТИ БАРАЊЕ"}

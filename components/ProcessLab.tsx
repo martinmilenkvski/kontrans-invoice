@@ -162,7 +162,7 @@ export function ProcessLab() {
   if (!mounted) return null;
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#080808]">
+    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-background">
       
       {/* ── BACKGROUND VIDEO LAYER ── */}
       <div className="absolute inset-0 z-0 p-cube-wrapper">
@@ -183,7 +183,7 @@ export function ProcessLab() {
 
       {activeID === 6 && (
         <div className="v-lens absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
-            <div className="w-[400px] h-[400px] border-2 border-white/20 rounded-full shadow-[0_0_100px_rgba(212,43,43,0.2)]" />
+            <div className="w-100 h-100 border-2 border-white/20 rounded-full shadow-[0_0_100px_rgba(212,43,43,0.2)]" />
         </div>
       )}
 
@@ -191,14 +191,14 @@ export function ProcessLab() {
       <div className="absolute inset-0 z-20 flex items-center justify-center p-8 pointer-events-none">
         {processSteps.map((step, idx) => (
           <div key={idx} className={`p-step p-step-${idx} absolute flex flex-col items-center gap-8 max-w-4xl`}>
-             <div className="w-20 h-20 rounded-full border border-[#D42B2B]/40 flex items-center justify-center bg-black/40 backdrop-blur-md">
-                <span className="text-[#D42B2B] font-mono text-2xl font-bold">{step.id}</span>
+             <div className="w-20 h-20 rounded-full border border-brand-red/40 flex items-center justify-center bg-black/40 backdrop-blur-md">
+                <span className="text-brand-red font-mono text-2xl font-bold">{step.id}</span>
              </div>
              <div className="flex flex-col items-center text-center gap-4">
                 <h2 className="font-sans text-[clamp(2.5rem,6vw,5.5rem)] text-white leading-[0.8] tracking-tighter font-medium uppercase italic">
                   {step.title}
                 </h2>
-                <p className="font-[family-name:var(--font-jost)] text-xl text-white/60 max-w-2xl leading-relaxed">
+                <p className="font-(family-name:--font-jost) text-xl text-white/60 max-w-2xl leading-relaxed">
                   {step.desc}
                 </p>
              </div>
@@ -215,7 +215,7 @@ export function ProcessLab() {
               onClick={() => setActiveID(opt.id)}
               className={`px-4 py-2 text-[10px] font-mono tracking-widest uppercase transition-all whitespace-nowrap
                 ${activeID === opt.id 
-                  ? "bg-[#D42B2B] text-white shadow-[0_0_20px_rgba(212,43,43,0.4)]" 
+                  ? "bg-brand-red text-white shadow-[0_0_20px_rgba(212,43,43,0.4)]" 
                   : "text-white/40 hover:text-white hover:bg-white/5"}`}
             >
               {opt.id}. {opt.name}
@@ -226,7 +226,7 @@ export function ProcessLab() {
 
       {/* ── CORNER DECORATION ── */}
       <div className="absolute top-12 left-12 z-50 flex flex-col gap-2">
-         <span className="font-mono text-[9px] text-[#D42B2B] tracking-[0.4em] uppercase">Motion_Lab // v1.0</span>
+         <span className="font-mono text-[9px] text-brand-red tracking-[0.4em] uppercase">Motion_Lab // v1.0</span>
          <span className="font-mono text-[9px] text-white/20 tracking-[0.2em] uppercase">Select direction for process narrative</span>
       </div>
 

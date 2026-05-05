@@ -48,7 +48,7 @@ export function Header() {
         variants={container}
         initial="hidden"
         animate={isPreloaderDone ? "show" : "hidden"}
-        className="max-w-[1600px] mx-auto px-4 lg:px-4 h-[80px] flex items-center justify-between"
+        className="max-w-400 mx-auto px-4 lg:px-4 h-20 flex items-center justify-between"
       >
         {/* Logo */}
         <motion.div variants={item}>
@@ -62,7 +62,7 @@ export function Header() {
               priority
             />
             <span className="text-2xl lg:text-[1.7rem] font-black tracking-[0.05em] text-white leading-none">
-              KON<span className="text-[#D42B2B]">TRANS</span>
+              KON<span className="text-brand-red">TRANS</span>
             </span>
           </Link>
         </motion.div>
@@ -74,19 +74,19 @@ export function Header() {
               <motion.div key={navItem.href} variants={item} className="relative group py-6">
                 <Link
                   href={navItem.href}
-                  className="flex items-center gap-2 text-[0.95rem] font-medium text-white transition-colors duration-300 group-hover:text-[#D42B2B]"
+                  className="flex items-center gap-2 text-[0.95rem] font-medium text-white transition-colors duration-300 group-hover:text-brand-red"
                 >
                   {navItem.label}
-                  <ChevronDown className="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#D42B2B]" />
+                  <ChevronDown className="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-180 group-hover:text-brand-red" />
                 </Link>
                 {/* Dropdown */}
-                <div className="absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/[0.06] shadow-2xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
+                <div className="absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/6 shadow-2xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
                   <div className="py-2 flex flex-col">
                     {navItem.dropdown.map((drop) => (
                       <Link
                         key={drop.href}
                         href={drop.href}
-                        className="px-5 py-4 text-base font-medium text-[#111111] hover:bg-[#FAFAFA] hover:text-[#D42B2B] transition-colors"
+                        className="px-5 py-4 text-base font-medium text-brand-dark hover:bg-[#FAFAFA] hover:text-brand-red transition-colors"
                       >
                         {drop.label}
                       </Link>
@@ -98,7 +98,7 @@ export function Header() {
               <motion.div key={navItem.href} variants={item}>
                 <Link
                   href={navItem.href}
-                  className="text-[0.95rem] font-medium text-white transition-colors duration-300 hover:text-[#D42B2B] py-6"
+                  className="text-[0.95rem] font-medium text-white transition-colors duration-300 hover:text-brand-red py-6"
                 >
                   {navItem.label}
                 </Link>
@@ -135,20 +135,20 @@ export function Header() {
         animate={isPreloaderDone ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut", delay: 0.2 }}
         style={{ originX: 0 }}
-        className="h-[2px] w-full bg-white/10"
+        className="h-0.5 w-full bg-white/10"
       />
 
       {/* Mobile menu */}
-      <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? "max-h-[400px]" : "max-h-0"}`}>
-        <nav className="bg-white border-t border-black/[0.06] px-6 py-3 flex flex-col shadow-xl">
+      <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? "max-h-100" : "max-h-0"}`}>
+        <nav className="bg-white border-t border-black/6 px-6 py-3 flex flex-col shadow-xl">
           {navLinks.map((navItem) => (
-            <div key={navItem.href} className="border-b border-black/[0.04]">
+            <div key={navItem.href} className="border-b border-black/4">
               {navItem.dropdown ? (
                 <div className="flex flex-col">
                   <Link
                     href={navItem.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex justify-between items-center text-[#111111] hover:text-[#D42B2B] font-semibold text-lg py-5 transition-colors"
+                    className="flex justify-between items-center text-brand-dark hover:text-brand-red font-semibold text-lg py-5 transition-colors"
                   >
                     {navItem.label}
                     <ChevronDown className="w-4 h-4 opacity-30" />
@@ -159,9 +159,9 @@ export function Header() {
                         key={drop.href}
                         href={drop.href}
                         onClick={() => setIsMenuOpen(false)}
-                        className="text-gray-500 hover:text-[#D42B2B] text-base font-medium transition-colors flex items-center gap-3"
+                        className="text-gray-500 hover:text-brand-red text-base font-medium transition-colors flex items-center gap-3"
                       >
-                        <span className="text-[#D42B2B] text-[8px] opacity-50">■</span>
+                        <span className="text-brand-red text-[8px] opacity-50">■</span>
                         {drop.label}
                       </Link>
                     ))}
@@ -171,7 +171,7 @@ export function Header() {
                 <Link
                   href={navItem.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block text-[#111111] hover:text-[#D42B2B] font-semibold text-lg py-5 transition-colors"
+                  className="block text-brand-dark hover:text-brand-red font-semibold text-lg py-5 transition-colors"
                 >
                   {navItem.label}
                 </Link>
@@ -181,7 +181,7 @@ export function Header() {
           <Link
             href="/#contact"
             onClick={() => setIsMenuOpen(false)}
-            className="mt-4 mb-2 flex items-center justify-center gap-3 px-6 py-4 bg-[#D42B2B] text-white text-lg font-bold tracking-widest uppercase rounded-lg transition-all"
+            className="mt-4 mb-2 flex items-center justify-center gap-3 px-6 py-4 bg-brand-red text-white text-lg font-bold tracking-widest uppercase rounded-lg transition-all"
           >
             Побарај понуда <ArrowRight className="w-4 h-4" />
           </Link>

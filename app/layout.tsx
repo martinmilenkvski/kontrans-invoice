@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="mk">
       <body
-        className={`${jost.variable} ${spaceGrotesk.variable} ${caveat.variable} antialiased bg-[#080808] text-white`}
+        className={`${jost.variable} ${spaceGrotesk.variable} ${caveat.variable} antialiased bg-background text-white`}
       >
         <PreloaderProvider>
           <Header />

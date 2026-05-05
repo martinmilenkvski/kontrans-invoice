@@ -18,7 +18,7 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#080808] overflow-x-clip">
+    <main className="min-h-screen bg-background overflow-x-clip">
 
 
       {/* ── PHASE 1: ENTRY ── */}
@@ -29,7 +29,9 @@ export default function Home() {
 
       {/* ── PHASE 2: IDENTITY ── */}
       <Commitment />
-      <VideoPortal />
+      <div className="hidden lg:block">
+        <VideoPortal />
+      </div>
       <AboutTeam />
 
 

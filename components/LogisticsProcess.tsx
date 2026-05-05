@@ -132,7 +132,7 @@ export function LogisticsProcess() {
 
       {/* ── DYNAMIC VIDEO FRAME ── */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-        <div className="rad-video relative w-[400px] h-[500px] bg-white shadow-2xl border border-black/5 overflow-hidden">
+        <div className="rad-video relative w-100 h-125 bg-white shadow-2xl border border-black/5 overflow-hidden">
           <video autoPlay loop muted playsInline className="w-full h-full object-cover grayscale-[0.3]">
             <source src="/process-video.mp4" type="video/mp4" />
           </video>
@@ -147,13 +147,13 @@ export function LogisticsProcess() {
            <div key={idx} className={`rad-text rad-text-${idx} absolute p-8 bg-white border border-black/5 shadow-xl min-w-[320px]`}>
               <div className="flex flex-col gap-3">
                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-[9px] text-[#D42B2B] font-bold tracking-[0.3em] uppercase">{step.id}</span>
-                    <div className="h-[1px] w-8 bg-black/10" />
+                    <span className="font-mono text-[9px] text-brand-red font-bold tracking-[0.3em] uppercase">{step.id}</span>
+                    <div className="h-px w-8 bg-black/10" />
                  </div>
-                 <h3 className="font-sans text-3xl font-medium text-[#111111] leading-none tracking-tighter">
+                 <h3 className="font-sans text-3xl font-medium text-brand-dark leading-none tracking-tighter">
                    {step.title}
                  </h3>
-                 <p className="font-[family-name:var(--font-jost)] text-sm text-black/60 leading-relaxed">
+                 <p className="font-(family-name:--font-jost) text-sm text-black/60 leading-relaxed">
                    {step.desc}
                  </p>
               </div>
@@ -164,7 +164,7 @@ export function LogisticsProcess() {
       {/* ── RADICAL MODE SWITCHER ── */}
       <div className="absolute top-12 left-12 z-50 flex flex-col items-start gap-8 pointer-events-none">
          <div className="flex flex-col">
-            <span className="font-mono text-[10px] text-[#D42B2B] font-bold tracking-[0.5em] mb-2 uppercase italic underline decoration-1 underline-offset-4">Diverse Layout Lab</span>
+            <span className="font-mono text-[10px] text-brand-red font-bold tracking-[0.5em] mb-2 uppercase italic underline decoration-1 underline-offset-4">Diverse Layout Lab</span>
             <span className="font-mono text-[8px] text-black/30 tracking-[0.2em] uppercase">Testing radicle spatial logic</span>
          </div>
          <div className="flex gap-2 pointer-events-auto bg-white p-1 border border-black/5 shadow-sm">
@@ -174,7 +174,7 @@ export function LogisticsProcess() {
                 onClick={() => setActiveMode(opt.id)}
                 className={`px-4 py-2 text-[9px] font-mono tracking-widest uppercase transition-all
                   ${activeMode === opt.id 
-                    ? "bg-[#111111] text-white" 
+                    ? "bg-brand-dark text-white" 
                     : "text-black/40 hover:bg-black/5"}`}
               >
                 {opt.id}. {opt.name}
