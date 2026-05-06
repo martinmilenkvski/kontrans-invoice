@@ -1,9 +1,9 @@
 "use client";
 
-import { Footer } from "@/components/Footer";
-import { Contact as ContactForm } from "@/components/Contact";
-import { WebsiteHero } from "@/components/WebsiteHero";
-import { FadeIn, StaggerGroup } from "@/components/Animations";
+import { Footer } from "@/components/layout/Footer";
+import { Contact as ContactForm } from "@/components/sections/Contact";
+import { WebsiteHero } from "@/components/sections/WebsiteHero";
+import { FadeIn, StaggerGroup } from "@/components/ui/Animations";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 export function ContactPageContent() {

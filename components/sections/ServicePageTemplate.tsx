@@ -1,8 +1,8 @@
 "use client";
 
-import { Footer } from "@/components/Footer";
-import { WebsiteHero } from "@/components/WebsiteHero";
-import { FadeIn, StaggerGroup } from "@/components/Animations";
+import { Footer } from "@/components/layout/Footer";
+import { WebsiteHero } from "@/components/sections/WebsiteHero";
+import { FadeIn, StaggerGroup } from "@/components/ui/Animations";
 
 export interface ServicePageProps {
   hero: {
@@ -31,7 +31,7 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
   const title = titleParts.join(" ");
 
   return (
-    <main className="min-h-screen bg-[#FAFAFA] text-[#111111] font-sans selection:bg-[#D42B2B]/30">
+    <main className="min-h-screen bg-[#FAFAFA] text-brand-dark font-sans selection:bg-brand-red/30">
 
 
       <WebsiteHero
@@ -43,7 +43,7 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
       />
 
       {/* Overview Section */}
-      <section className="bg-white text-[#111111] overflow-hidden">
+      <section className="bg-white text-brand-dark overflow-hidden">
         <div className="max-w-[1600px] mx-auto border-x border-black/10">
           <div className="grid grid-cols-1 lg:grid-cols-2">
 
@@ -51,14 +51,14 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
               <StaggerGroup>
                 <FadeIn>
                   <div className="flex items-center gap-3 mb-8">
-                    <span className="w-4 h-[2px] bg-[#D42B2B]"></span>
+                    <span className="w-4 h-0.5 bg-brand-red"></span>
                     <span className="text-gray-500 font-bold tracking-widest text-xs uppercase">
                       Преглед на услугата
                     </span>
                   </div>
                 </FadeIn>
                 <FadeIn delay={0.1}>
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111111] tracking-tight leading-[1.1] mb-8">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-dark tracking-tight leading-[1.1] mb-8">
                     {overview.title}
                   </h2>
                 </FadeIn>
@@ -75,8 +75,8 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
                 {overview.features.map((feature, idx) => (
                   <FadeIn key={idx} delay={idx * 0.1}>
                     <div className="flex items-start gap-4 p-6 bg-white border border-black/5 hover:border-brand-red/30 hover:shadow-xl transition-all duration-300 h-full">
-                      <div className="mt-1 w-6 h-6 flex-shrink-0 flex items-center justify-center border border-[#D42B2B]/20 bg-[#D42B2B]/5">
-                        <span className="text-[#D42B2B] text-[8px] font-bold">■</span>
+                      <div className="mt-1 w-6 h-6 shrink-0 flex items-center justify-center border border-brand-red/20 bg-brand-red/5">
+                        <span className="text-brand-red text-[8px] font-bold">■</span>
                       </div>
                       <span className="text-gray-700 font-bold tracking-wide uppercase text-xs leading-relaxed mt-0.5">{feature}</span>
                     </div>
@@ -91,12 +91,12 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
 
       {/* Deep Dive Details Sections */}
       {details.map((detail, index) => (
-        <section key={index} className="bg-[#FAFAFA] text-[#111111]">
+        <section key={index} className="bg-[#FAFAFA] text-brand-dark">
           <div className="max-w-[1600px] mx-auto border-x border-black/10">
             <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-black/10">
 
               {/* Image Column */}
-              <div className={`relative min-h-[400px] lg:min-h-full border-b border-black/10 overflow-hidden group ${detail.reverse ? 'lg:order-2 lg:border-l' : 'lg:order-1 lg:border-r lg:border-b-0'}`}>
+              <div className={`relative min-h-100 lg:min-h-full border-b border-black/10 overflow-hidden group ${detail.reverse ? 'lg:order-2 lg:border-l' : 'lg:order-1 lg:border-r lg:border-b-0'}`}>
                 <img
                   src={detail.imageSrc}
                   alt={detail.title}
@@ -109,10 +109,10 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
               <div className={`p-10 md:p-12 lg:p-24 flex flex-col justify-center border-b border-black/10 lg:border-b-0 bg-[#FAFAFA] ${detail.reverse ? 'lg:order-1' : 'lg:order-2'}`}>
                 <StaggerGroup className="flex flex-col gap-8 h-full justify-center">
                   <FadeIn>
-                    <span className="text-[#D42B2B] font-mono tracking-widest text-sm uppercase">0{index + 1} — Детали</span>
+                    <span className="text-brand-red font-mono tracking-widest text-sm uppercase">0{index + 1} — Детали</span>
                   </FadeIn>
                   <FadeIn delay={0.2}>
-                    <h3 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight text-[#111111]">
+                    <h3 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight text-brand-dark">
                       {detail.title}
                     </h3>
                   </FadeIn>
@@ -125,7 +125,7 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
                     <ul className="flex flex-col gap-5 mt-4">
                       {detail.bullets.map((item, idx) => (
                         <li key={idx} className="flex items-center gap-4 font-bold uppercase tracking-wider text-xs md:text-sm text-gray-700">
-                          <span className="text-[10px] text-[#D42B2B] mr-2">■</span>
+                          <span className="text-[10px] text-brand-red mr-2">■</span>
                           {item}
                         </li>
                       ))}

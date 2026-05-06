@@ -1,12 +1,12 @@
 "use client";
 
-import { Footer } from "@/components/Footer";
+import { Footer } from "@/components/layout/Footer";
 import {
   AboutHero,
   AboutHistory,
   AboutValues,
   AboutFlexibility
-} from "@/components/AboutSections";
+} from "@/components/sections/AboutSections";
 
 export function AboutContent() {
   return (

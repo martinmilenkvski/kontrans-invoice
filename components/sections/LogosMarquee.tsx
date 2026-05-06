@@ -15,13 +15,13 @@ const logos = [
 export function LogosMarquee() {
   return (
     <section className="bg-[#FAFAFA] py-18 border-b border-black/5 overflow-hidden">
-      <div className="max-w-[1600px] mx-auto px-4 lg:px-10 mb-8 flex justify-end">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-12 mb-8 flex justify-end">
         <span className="font-mono text-[0.6rem] text-black/20 tracking-[0.4em] uppercase font-black text-right">
            GLOBAL_PARTNERS // NETWORK_NODES
         </span>
       </div>
 
-      <div className="relative flex overflow-hidden group [mask-image:_linear-gradient(to_right,transparent_0,_black_256px,_black_calc(100%-256px),transparent_100%)]">
+      <div className="relative flex overflow-hidden group mask-[linear-gradient(to_right,transparent_0,black_256px,black_calc(100%-256px),transparent_100%)]">
         {/* First list */}
         <div className="flex animate-marquee whitespace-nowrap items-center gap-20 lg:gap-32 px-10">
           {logos.map((logo, i) => (

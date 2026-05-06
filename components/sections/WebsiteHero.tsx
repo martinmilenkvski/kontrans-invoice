@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { FadeIn, StaggerGroup } from "./Animations";
+import { FadeIn, StaggerGroup } from "../ui/Animations";
 
 interface WebsiteHeroProps {
   eyebrow: string;
@@ -24,7 +24,7 @@ export function WebsiteHero({
 }: WebsiteHeroProps) {
   return (
     <section
-      className={`relative bg-[#080808] border-b border-white/10 ${minHeight} flex flex-col justify-end pb-12 lg:pb-24 overflow-hidden pt-32`}
+      className={`relative bg-background border-b border-white/10 ${minHeight} flex flex-col justify-end pb-12 lg:pb-24 overflow-hidden pt-32`}
     >
       <div className="absolute inset-0 z-0">
         <img
@@ -33,7 +33,7 @@ export function WebsiteHero({
           aria-hidden="true"
           className="w-full h-full object-cover opacity-25 grayscale contrast-125 brightness-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/75 to-[#080808]/20" />
+        <div className="absolute inset-0 bg-linear-to-t from-background via-background/75 to-background/20" />
       </div>
 
       <div
@@ -45,7 +45,7 @@ export function WebsiteHero({
         }}
       />
 
-      <div className="max-w-[1600px] mx-auto w-full px-4 lg:px-4 relative z-10">
+      <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-12 relative z-10">
         <StaggerGroup className="flex flex-col gap-8">
           <FadeIn>
             <div className="flex items-center gap-4">

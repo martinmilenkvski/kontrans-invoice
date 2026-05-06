@@ -120,7 +120,7 @@ export function Services() {
         {/* STICKY STAGE */}
         <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col pt-[8vh] lg:pt-[10vh]">
           
-          <div className="max-w-[1400px] mx-auto w-full px-6">
+          <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-12">
             {/* Stack Stage */}
             <div className="relative h-[65vh] lg:h-[70vh] w-full">
               {serviceStacks.map((service, i) => {

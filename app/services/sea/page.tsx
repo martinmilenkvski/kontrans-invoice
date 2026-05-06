@@ -1,55 +1,56 @@
 import type { Metadata } from "next";
-import { ServicePageTemplate } from "@/components/ServicePageTemplate";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { ServiceHero, ServiceHighlight, ServiceData } from "@/components/sections/ServiceSections";
+import { Contact } from "@/components/sections/Contact";
 
 export const metadata: Metadata = {
   title: "Бродски транспорт | Kontrans",
-  description: "Контејнерски транспорт од и до било која локација на светот. Бродски транспорт прилагоден на вашите потреби.",
+  description: "Глобален контејнерски транспорт со сигурни партнери и пристанишни услуги.",
 };
+
+const seaFeatures = [
+  "Организација на FCL & LCL транспорт",
+  "Пристанишни услуги и манипулација",
+  "Директен превоз до краен примач",
+  "Комбиниран мултимодален транспорт"
+];
+
+const seaData = [
+  { label: "Годишен волумен", value: "24,000+ TEU" },
+  { label: "Регионални пристаништа", value: "12 Главни центри" },
+  { label: "Транзитно време (EU)", value: "2-5 дена" },
+  { label: "Глобални рути", value: "6 Континенти" }
+];
 
 export default function SeaTransportPage() {
   return (
-    <ServicePageTemplate 
-      hero={{
-        eyebrow: "Бродски Карго",
-        title: "Контејнерски бродски транспорт",
-        subtitle: "Бродски транспорт прилагоден на вашите потреби со мрежа на сигурни партнери.",
-        imageSrc: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&q=80&w=2000"
-      }}
-      overview={{
-        title: "Глобално поврзување",
-        description: "Во соработка со водечки бродски компании (MSC, OOCL, Cosco, Maersk, CMA, Arkas) нудиме услуга преку сите регионални пристаништа (Солун, Копер, Риека, Плоче, Бар, Драч, Варна, Бургас). Организираме транспорт со избор од повеќе превозници за да ги оптимизираме трошоците и времето.",
-        features: [
-          "Организација на бродски транспорт",
-          "Детална информација за движење",
-          "Пристанишни услуги и манипулација",
-          "Превоз до примач",
-          "Комбиниран транспорт",
-          "Транспорт на помали пратки"
-        ]
-      }}
-      details={[
-        {
-          title: "Контејнерски транспорт (FCL)",
-          description: "Ако ви треба транспорт на рефусно товарена стока, тешка или вон габаритна стока, ние ве уверуваме дека нашиот комплетен контејнерски транспорт (FCL) го нуди највисокиот квалитет. Обезбедуваме професионално управување и посветен оперативен персонал.",
-          imageSrc: "https://images.unsplash.com/photo-1586528116311-ad8ed745eb33?auto=format&fit=crop&q=80&w=2000",
-          bullets: [
-            "Врата до врата испорака",
-            "Употреба на сите типови контејнери",
-            "Оптимизација на трошоци"
-          ]
-        },
-        {
-          title: "Збирен контејнерски транспорт (LCL)",
-          description: "Ние ги поставуваме стандардите во однос на квалитетно управување, намалување на времето од порачка до спроведување на истата. За клиентите кои не поседуваат квантитет за консолидирање на карго пратки во цел контејнер, ја нудиме LCL услугата како дел од групни пратки.",
-          imageSrc: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=2000",
-          reverse: true,
-          bullets: [
-            "Намалување на залихите",
-            "Помали количини на порачки",
-            "Порачки од различни испорачатели"
-          ]
-        }
-      ]}
-    />
+    <main className="min-h-screen bg-white">
+      <Header />
+      
+      <ServiceHero 
+        number="001"
+        eyebrow="ПОМОРСКИ ТРАНСПОРТ"
+        title="Контејнерски бродски"
+        accent="транспорт"
+        description="Во соработка со водечки бродски компании (MSC, OOCL, Cosco, Maersk) нудиме услуга преку сите регионални пристаништа."
+        imageSrc="/sea_freight_hero.png"
+      />
+
+      <ServiceHighlight 
+        title="Глобално поврзување без компромис."
+        description="Организираме транспорт со избор од повеќе превозници за да ги оптимизираме трошоците и времето, обезбедувајќи максимална флексибилност."
+        features={seaFeatures}
+        imageSrc="/sea_detail.png"
+      />
+
+      <ServiceData 
+        title="Бродски Капацитети"
+        items={seaData}
+      />
+
+      <Contact />
+      <Footer />
+    </main>
   );
 }

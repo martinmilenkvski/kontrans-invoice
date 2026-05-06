@@ -80,7 +80,7 @@ export function VideoPortal() {
             opacity: isDesktop ? 1 : 0.05, // Almost hide but leave a ghost of motion
             borderRadius: isDesktop ? "2px" : "12px",
             duration: 1.5,
-            ease: "expo.inOut",
+            ease: "power4.inOut",
           },
           0
         );
@@ -97,6 +97,7 @@ export function VideoPortal() {
             0.3
           );
         }
+        // (Top Tag animation removed)
 
         // Top Header Reveal
         tl.fromTo(".vp-ed-header-container", 
@@ -121,13 +122,14 @@ export function VideoPortal() {
           const stepTime = 1.2 + i * 0.7;
           
           tl.fromTo(`.vp-step-${i}`, 
-            { opacity: 0, y: isDesktop ? 20 : 60, scale: 0.95 }, 
+            { opacity: 0, y: isDesktop ? 40 : 60, clipPath: "inset(100% 0 0 0)", scale: 0.98 }, 
             { 
               opacity: 1, 
-              y: isDesktop ? 0 : -100, // Even higher to ensure full visibility
+              y: isDesktop ? 0 : -100,
+              clipPath: "inset(0% 0 0 0)",
               scale: 1,
-              duration: 0.8, 
-              ease: "power3.out" 
+              duration: 1.2, 
+              ease: "power4.out" 
             }, 
             stepTime
           );
@@ -156,10 +158,7 @@ export function VideoPortal() {
   return (
     <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#FAFAFA] flex items-center justify-center">
       
-      {/* ── BACKGROUND LAYER: INDEX NUMBER ── */}
-      <div className="vp-ed-backdrop absolute left-4 lg:left-20 top-1/2 -translate-y-1/2 z-0 opacity-0 pointer-events-none select-none">
-        <span className="font-(family-name:--font-jost) text-[40vw] lg:text-[25vw] leading-none font-black text-black/3">01</span>
-      </div>
+      {/* ── BACKGROUND LAYER: INDEX NUMBER (Removed) ── */}
 
       {/* ── BACKGROUND VIDEO SHRINKING FRAME ── */}
       <div 
@@ -173,28 +172,21 @@ export function VideoPortal() {
         <div className="vp-overlay absolute inset-0 bg-white/20" />
       </div>
 
-      {/* ── LEFT MARGIN HAIRLINE ── */}
-      <div className="hidden lg:flex absolute left-6 lg:left-12 inset-y-0 z-20 flex-col justify-between py-20 pointer-events-none">
-         <div className="vp-vertical-divider w-px bg-black/5 flex-1 origin-top" />
-         <div className="vp-vertical-divider w-px bg-black/5 flex-1 origin-bottom" />
-      </div>
+      {/* ── LEFT MARGIN HAIRLINE (Removed) ── */}
 
       {/* ── EDITORIAL UI LAYER ── */}
       <div className="absolute inset-0 z-20 pointer-events-none p-6 lg:p-20 flex flex-col justify-between">
         
-        <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-10 max-w-md">
-           <div className="vp-ed-header opacity-0">
-             <span className="inline-block px-3 py-1 bg-brand-red text-white text-[0.6rem] lg:text-[0.7rem] font-bold tracking-[0.2em] uppercase mb-2 lg:mb-8">
-               Оперативен модел
-             </span>
-             <h2 className="font-(family-name:--font-jost) text-[1.8rem] lg:text-[clamp(2.5rem,5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
+        <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-10 max-w-sm">
+           <div className="vp-ed-header">
+             <h2 className="font-(family-name:--font-jost) text-[clamp(2.5rem,5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
                Од барање <br />
               до <span className="text-brand-red italic font-(family-name:--font-jost) lowercase font-normal">реализација.</span>
              </h2>
            </div>
            
-           <div className="vp-ed-manifesto pl-4 border-l border-black/5">
-              <p className="font-(family-name:--font-jost) text-xs lg:text-base text-brand-dark/70 leading-relaxed max-w-85 lg:max-w-none">
+           <div className="vp-ed-manifesto">
+              <p className="font-(family-name:--font-jost) text-[16px] md:text-[18px] text-brand-dark/70 leading-relaxed max-w-85 lg:max-w-none">
                  Нашиот оперативен модел е дизајниран за максимална прецизност. Секој чекор е оптимизиран за да обезбеди сигурност и брзина во глобалниот транспортен ланец.
               </p>
            </div>
@@ -202,7 +194,6 @@ export function VideoPortal() {
 
         {/* MIDDLE ROW (STEPS) */}
         <div className="relative lg:absolute lg:right-28 lg:top-1/2 lg:-translate-y-1/2 flex items-stretch gap-6 lg:gap-12 h-fit mt-6 lg:mt-0 mb-auto lg:mb-0">
-           <div className="hidden lg:block vp-vertical-divider w-px bg-black/10 origin-top h-auto min-h-100 opacity-0" />
            <div className="flex flex-col gap-6 lg:gap-12 w-full max-w-95">
               {PROCESS_STEPS.map((step, i) => (
                 <div key={i} className={`vp-step-${i} opacity-0 flex flex-col gap-2 lg:gap-3 items-start lg:pl-6 bg-white lg:bg-transparent p-5 lg:p-0 rounded-xl border border-black/5 lg:border-none shadow-xl lg:shadow-none`}>
@@ -218,11 +209,19 @@ export function VideoPortal() {
            </div>
         </div>
 
-        {/* FOOTER ROW: ONLY COORDINATES */}
+        {/* FOOTER ROW: TAG + COORDINATES */}
         <div className="vp-ed-footer opacity-0 flex justify-between items-end mt-4 lg:mt-0">
-           <div className="flex items-center gap-4">
-              <div className="w-2 h-2 bg-brand-red rounded-full" />
-              <span className="font-mono text-[11px] text-black/40 tracking-[0.3em] font-bold">41°59'56"N 21°25'44"E</span>
+           <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-4">
+                 <div className="h-px w-8 bg-brand-red" />
+                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost) whitespace-nowrap">
+                   003 // ОПЕРАТИВЕН МОДЕЛ
+                 </span>
+              </div>
+              <div className="flex items-center gap-4 pl-1">
+                 <div className="w-2 h-2 bg-brand-red rounded-full" />
+                 <span className="font-mono text-[11px] text-black/40 tracking-[0.3em] font-bold">41°59'56"N 21°25'44"E</span>
+              </div>
            </div>
            
            <div className="flex gap-3">

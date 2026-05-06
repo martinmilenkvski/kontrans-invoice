@@ -1,55 +1,56 @@
 import type { Metadata } from "next";
-import { ServicePageTemplate } from "@/components/ServicePageTemplate";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { ServiceHero, ServiceHighlight, ServiceData } from "@/components/sections/ServiceSections";
+import { Contact } from "@/components/sections/Contact";
 
 export const metadata: Metadata = {
   title: "Камионски транспорт | Kontrans",
-  description: "Обезбедуваме решенија за камионски транспорт според вашите потреби.",
+  description: "Сигурен камионски транспорт низ цела Европа со сопствен возен парк и партнерска мрежа.",
 };
+
+const roadFeatures = [
+  "Комплетни камионски пратки (FTL)",
+  "Збирен транспорт низ Европа (LTL)",
+  "Транспорт на опасни материи (ADR)",
+  "Термо-регулиран транспорт"
+];
+
+const roadData = [
+  { label: "Возен парк", value: "85+ Возила" },
+  { label: "Европски дестинации", value: "45+ Земји" },
+  { label: "Годишна километража", value: "3.5M+ км" },
+  { label: "Стандард", value: "EURO 6" }
+];
 
 export default function RoadTransportPage() {
   return (
-    <ServicePageTemplate 
-      hero={{
-        eyebrow: "Камионски Карго",
-        title: "Сигурен камионски транспорт",
-        subtitle: "Максимална сигурност и економичност за вашата логистика и компанија.",
-        imageSrc: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=2000"
-      }}
-      overview={{
-        title: "Регионален лидер",
-        description: "Обезбедуваме стратешки решенија за камионски транспорт според вашите конкретни потреби. Како воспоставен логистички партнер, нудиме транзитно време усогласено со вашите логики и барања.",
-        features: [
-          "Решенија според потребите",
-          "Загарантиран простор",
-          "Покриеност на Балканот",
-          "Оптимално транзитно време",
-          "Максимална сигурност",
-          "Висока економичност"
-        ]
-      }}
-      details={[
-        {
-          title: "Целосни товари (FTL)",
-          description: "Нашите решенија за целосни камионски товари се прилагодени за директен, брз и максимално сигурен транспорт. Оптимални рути и постојан мониторинг гарантираат беспрекорна достава на вашиот товар.",
-          imageSrc: "https://images.unsplash.com/photo-1501700493788-fa1a4fc9fe62?auto=format&fit=crop&q=80&w=2000",
-          bullets: [
-            "Директни логистички рути",
-            "Постојан мониторинг",
-            "Еколошки флоти"
-          ]
-        },
-        {
-          title: "Парцијални пратки (LTL)",
-          description: "За помали количини на товар, нашиот збирен камионски транспорт обезбедува флексибилност и намалување на трошоците преку ефективна консолидација. На овој начин се постигнува конкурентна цена при задржување на квалитетот.",
-          imageSrc: "https://images.unsplash.com/photo-1586528116311-ad8ed745eb33?auto=format&fit=crop&q=80&w=2000",
-          reverse: true,
-          bullets: [
-            "Ефективна консолидација",
-            "Конкурентни цени",
-            "Флексибилни опции"
-          ]
-        }
-      ]}
-    />
+    <main className="min-h-screen bg-white">
+      <Header />
+      
+      <ServiceHero 
+        number="003"
+        eyebrow="КОПНЕН ТРАНСПОРТ"
+        title="Европска логистичка"
+        accent="мрежа"
+        description="Со директни линии низ целиот континент, обезбедуваме сигурност и навремена испорака на секаков вид стока, од збирен до ADR транспорт."
+        imageSrc="/road_freight_hero.png"
+      />
+
+      <ServiceHighlight 
+        title="Вашиот партнер на патот."
+        description="Нашата флексибилност ни овозможува да одговориме на најсложените барања за транспорт, користејќи модерна опрема и напредно следење на возилата."
+        features={roadFeatures}
+        imageSrc="/road_detail.png"
+      />
+
+      <ServiceData 
+        title="Логистички Капацитети"
+        items={roadData}
+      />
+
+      <Contact />
+      <Footer />
+    </main>
   );
 }

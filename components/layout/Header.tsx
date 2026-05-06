@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { usePreloader } from "@/lib/PreloaderContext";
-
+import { KineticText } from "../ui/KineticText";
 
 const container: Variants = {
   hidden: {},
@@ -26,7 +27,13 @@ const item: Variants = {
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isComplete: isPreloaderDone } = usePreloader();
+  const pathname = usePathname();
 
+  // Pages that have a light background by default at the very top
+  const isLightPage = pathname === "/about" || pathname === "/contact";
+  
+  // Theme logic: If we're on a light page, use dark text
+  const isDarkTheme = isLightPage;
 
   const navLinks = [
     { label: "За нас", href: "/about" },
@@ -43,44 +50,44 @@ export function Header() {
   ];
 
   return (
-    <header className="absolute top-0 w-full z-50 font-sans bg-transparent">
+    <header className="absolute top-0 w-full z-50 font-sans py-2 bg-transparent">
       <motion.div
         variants={container}
         initial="hidden"
         animate={isPreloaderDone ? "show" : "hidden"}
-        className="max-w-400 mx-auto px-4 lg:px-4 h-20 flex items-center justify-between"
+        className="max-w-[1600px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between"
       >
         {/* Logo */}
         <motion.div variants={item}>
           <Link href="/" className="flex items-center gap-4 shrink-0 h-10 lg:h-12">
             <Image
               src="/kontrans logo.svg"
-              alt="KONTRANS"
+              alt="КОНТРАНС"
               width={40}
               height={40}
-              className="h-full w-auto object-contain invert"
+              className={`h-full w-auto object-contain transition-all duration-500 ${isDarkTheme ? "" : "invert"}`}
               priority
             />
-            <span className="text-2xl lg:text-[1.7rem] font-black tracking-[0.05em] text-white leading-none">
-              KON<span className="text-brand-red">TRANS</span>
+            <span className={`text-2xl lg:text-[1.7rem] font-black tracking-[0.05em] leading-none transition-colors duration-500 ${isDarkTheme ? "text-brand-dark" : "text-white"}`}>
+              КОН<span className="text-brand-red">ТРАНС</span>
             </span>
           </Link>
         </motion.div>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+        <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2 h-full">
           {navLinks.map((navItem) =>
             navItem.dropdown ? (
-              <motion.div key={navItem.href} variants={item} className="relative group py-6">
+              <motion.div key={navItem.href} variants={item} className="relative group h-full flex items-center">
                 <Link
                   href={navItem.href}
-                  className="flex items-center gap-2 text-[0.95rem] font-medium text-white transition-colors duration-300 group-hover:text-brand-red"
+                  className={`flex items-center gap-2 text-[0.95rem] font-medium transition-colors duration-300 group-hover:text-brand-red ${isDarkTheme ? "text-brand-dark" : "text-white"}`}
                 >
-                  {navItem.label}
-                  <ChevronDown className="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-180 group-hover:text-brand-red" />
+                  <KineticText text={navItem.label} />
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 group-hover:rotate-180 group-hover:text-brand-red ${isDarkTheme ? "text-brand-dark" : "text-white"}`} />
                 </Link>
                 {/* Dropdown */}
-                <div className="absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/6 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-56 bg-white border border-black/6 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
                   <div className="py-2 flex flex-col">
                     {navItem.dropdown.map((drop) => (
                       <Link
@@ -95,12 +102,12 @@ export function Header() {
                 </div>
               </motion.div>
             ) : (
-              <motion.div key={navItem.href} variants={item}>
+              <motion.div key={navItem.href} variants={item} className="h-full flex items-center">
                 <Link
                   href={navItem.href}
-                  className="text-[0.95rem] font-medium text-white transition-colors duration-300 hover:text-brand-red py-6"
+                  className={`flex items-center text-[0.95rem] font-medium transition-colors duration-300 hover:text-brand-red h-full ${isDarkTheme ? "text-brand-dark" : "text-white"}`}
                 >
-                  {navItem.label}
+                  <KineticText text={navItem.label} />
                 </Link>
               </motion.div>
             )
@@ -112,7 +119,11 @@ export function Header() {
           <motion.div variants={item}>
             <Link
               href="/login"
-              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-none text-sm font-bold tracking-wide transition-all duration-300 group bg-white/10 border border-white/15 text-white hover:bg-white/20"
+              className={`hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-none text-sm font-bold tracking-wide transition-all duration-300 group ${
+                isDarkTheme 
+                  ? "bg-brand-dark text-white hover:bg-brand-red shadow-lg shadow-black/5" 
+                  : "bg-white/10 border border-white/15 text-white hover:bg-white/20"
+              }`}
             >
               Најави се
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -120,7 +131,7 @@ export function Header() {
           </motion.div>
 
           <button
-            className="md:hidden p-2 transition-all text-white"
+            className={`md:hidden p-2 transition-all ${isDarkTheme ? "text-brand-dark" : "text-white"}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Menu"
           >
@@ -135,11 +146,11 @@ export function Header() {
         animate={isPreloaderDone ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut", delay: 0.2 }}
         style={{ originX: 0 }}
-        className="h-0.5 w-full bg-white/10"
+        className={`h-px w-full ${isLightPage ? "bg-black/5" : "bg-white/10"}`}
       />
 
       {/* Mobile menu */}
-      <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? "max-h-100" : "max-h-0"}`}>
+      <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? "max-h-[100vh]" : "max-h-0"}`}>
         <nav className="bg-white border-t border-black/6 px-6 py-3 flex flex-col shadow-xl">
           {navLinks.map((navItem) => (
             <div key={navItem.href} className="border-b border-black/4">

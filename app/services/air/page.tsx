@@ -1,55 +1,56 @@
 import type { Metadata } from "next";
-import { ServicePageTemplate } from "@/components/ServicePageTemplate";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { ServiceHero, ServiceHighlight, ServiceData } from "@/components/sections/ServiceSections";
+import { Contact } from "@/components/sections/Contact";
 
 export const metadata: Metadata = {
   title: "Авионски транспорт | Kontrans",
-  description: "Глобален авионски карго транспорт со целосен опсег на услуги од врата до врата.",
+  description: "Најбрз и најсигурен авионски карго транспорт до секоја дестинација во светот.",
 };
+
+const airFeatures = [
+  "Експресни карго пратки",
+  "Врата до врата (DDU/DDP)",
+  "Специјален транспорт на вредна стока",
+  "Следење во реално време"
+];
+
+const airData = [
+  { label: "Просечно време", value: "24-72 часа" },
+  { label: "Аеродромски мрежи", value: "220+ Градови" },
+  { label: "Дневни летови", value: "15+ Главни рути" },
+  { label: "Сигурност", value: "99.9% Безбедност" }
+];
 
 export default function AirTransportPage() {
   return (
-    <ServicePageTemplate 
-      hero={{
-        eyebrow: "Авионски Карго",
-        title: "Првокласен авионски транспорт",
-        subtitle: "Глобален карго транспорт за најбрза испорака по воздушна линија.",
-        imageSrc: "https://images.unsplash.com/photo-1540962220506-a6af8f47baeb?auto=format&fit=crop&q=80&w=2000"
-      }}
-      overview={{
-        title: "Брзина без компромис",
-        description: "Следејќи го проширувањето на нашиот тим со високо обучени професионалци, нудиме првокласен глобален авионски карго транспорт. Соработуваме со сите авиокомпании кои оперираат од/до Скопје и регионалните аеродроми.",
-        features: [
-          "Високо обучени професионалци",
-          "Сите Авиокомпании во Скопје",
-          "Регионални аеродроми",
-          "Услуги од врата до врата",
-          "Карго чартер летови",
-          "Редовно следење на пратки"
-        ]
-      }}
-      details={[
-        {
-          title: "Комплетна организација",
-          description: "Нашата експертиза ја покрива секоја фаза од процесот на транспорт. Од почетно советување и документација па се до најуспешно царинење и финална дистрибуција, се грижиме вашата пратка да стигне безбедно на време.",
-          imageSrc: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=2000",
-          bullets: [
-            "Прилагодени чартер летови",
-            "Подготовка на документација",
-            "Координација со царински служби"
-          ]
-        },
-        {
-          title: "Статус и информирање",
-          description: "Благодарение на активните дигитални алатки и директна комуникација со нашите агенти, редовно ги следиме пратките. Нашиот тим ги информира клиентите во секој момент за локацијата и претпоставеното време на пристигнување.",
-          imageSrc: "https://images.unsplash.com/photo-1517400508447-f8dd518b86db?auto=format&fit=crop&q=80&w=2000",
-          reverse: true,
-          bullets: [
-            "Константно информирање",
-            "Дигитални системи за транспорт",
-            "Детален увид во напредок"
-          ]
-        }
-      ]}
-    />
+    <main className="min-h-screen bg-white">
+      <Header />
+      
+      <ServiceHero 
+        number="002"
+        eyebrow="АВИОНСКИ ТРАНСПОРТ"
+        title="Најбрза глобална"
+        accent="испорака"
+        description="Кога времето е критично, Контранс обезбедува директни авионски рути кои ги поврзуваат вашите производи со глобалните пазари."
+        imageSrc="/air_freight_hero.png"
+      />
+
+      <ServiceHighlight 
+        title="Брзина која ја дефинира иднината."
+        description="Нудиме комплетно управување со авионски карго пратки, вклучувајќи царинско посредување и експресна достава до крајната дестинација."
+        features={airFeatures}
+        imageSrc="/air_detail.png"
+      />
+
+      <ServiceData 
+        title="Авионски Капацитети"
+        items={airData}
+      />
+
+      <Contact />
+      <Footer />
+    </main>
   );
 }

@@ -130,7 +130,7 @@ export function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden bg-[#080808]"
+      className="relative w-full h-screen overflow-hidden bg-background"
     >
       {/* ── Full-bleed background video ── */}
       <motion.div
@@ -146,14 +146,14 @@ export function Hero() {
         >
           <source src="/main-video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/20" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/50 via-transparent to-transparent" />
       </motion.div>
 
       {/* ── Content layer ── */}
       {isPreloaderDone && (
         <motion.div
-          className="relative z-10 h-full max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col"
+          className="relative z-10 h-full max-w-[1600px] mx-auto px-6 lg:px-12 flex flex-col"
         >
         <div className="mt-auto pb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-24 items-end">
 
@@ -225,7 +225,7 @@ export function Hero() {
             variants={statsContainer}
             initial="hidden"
             animate="show"
-            className="hidden lg:flex flex-col w-[260px] divide-y divide-white/10 border border-white/10 px-6"
+            className="hidden lg:flex flex-col w-65 divide-y divide-white/10 border border-white/10 px-6"
           >
             {stats.map((stat, i) => (
               <motion.div

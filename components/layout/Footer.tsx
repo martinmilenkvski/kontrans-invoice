@@ -8,24 +8,24 @@ export function Footer() {
 
   return (
     <div 
-      className="relative h-[800px]"
+      className="relative lg:h-[700px]"
       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
     >
-      <div className="fixed bottom-0 h-[800px] w-full">
-        <footer className="bg-[#D42B2B] h-full relative font-sans text-white overflow-hidden border-t border-white/5 flex flex-col justify-between">
+      <div className="relative lg:fixed lg:bottom-0 lg:h-[700px] w-full">
+        <footer className="bg-brand-red h-full min-h-[500px] relative font-sans text-white overflow-hidden border-t border-white/5 flex flex-col justify-between pt-12 lg:pt-0">
           
           {/* Top Divider Detail */}
-          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
           {/* ── MIDDLE SECTION: LOGO & LINKS ── */}
-          <div className="w-full flex-grow flex flex-col justify-center border-b border-white/10">
-            <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 h-full">
+          <div className="w-full grow flex flex-col justify-center border-b border-white/10">
+            <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 h-full">
               
               {/* Branding */}
               <div className="lg:col-span-5 p-8 lg:p-20 border-r border-white/10 flex flex-col justify-center gap-12">
                  <div className="flex flex-col gap-4">
                     <h1 className="text-6xl lg:text-[7rem] font-black tracking-tighter leading-none uppercase">
-                       KON<br />TRANS
+                       КОН<br />ТРАНС
                     </h1>
                     <p className="font-mono text-[0.6rem] tracking-[0.4em] uppercase opacity-60 max-w-xs leading-relaxed mt-4">
                        Вашиот доверлив партнер за меѓународен транспорт и глобална логистика низ светот.
@@ -38,7 +38,7 @@ export function Footer() {
                       { icon: Facebook, href: "#" },
                       { icon: Linkedin, href: "#" }
                     ].map((social, i) => (
-                      <Link key={i} href={social.href} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-[#D42B2B] transition-colors duration-300">
+                      <Link key={i} href={social.href} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-brand-red transition-colors duration-300">
                          <social.icon className="w-5 h-5" />
                       </Link>
                     ))}
@@ -107,9 +107,9 @@ export function Footer() {
     
           {/* ── BOTTOM SECTION: COPYRIGHT ── */}
           <div className="w-full">
-            <div className="max-w-[1700px] mx-auto p-8 lg:px-20 lg:py-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="max-w-[1400px] mx-auto p-8 lg:px-20 lg:py-8 flex flex-col md:flex-row justify-between items-center gap-8">
                <div className="font-mono text-[0.55rem] tracking-[0.5em] uppercase opacity-40">
-                  &copy; {currentYear} KONTRANS. СИТЕ ПРАВА СЕ ЗАДРЖАНИ.
+                  &copy; {currentYear} КОНТРАНС. СИТЕ ПРАВА СЕ ЗАДРЖАНИ.
                </div>
                <div className="flex gap-12 font-mono text-[0.55rem] tracking-[0.4em] uppercase opacity-40">
                   <Link href="#privacy" className="hover:opacity-100 transition-opacity">Приватност</Link>

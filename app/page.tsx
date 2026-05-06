@@ -1,26 +1,20 @@
-import { Hero } from "@/components/Hero";
-import { MissionStatement } from "@/components/MissionStatement";
-import { Services } from "@/components/Services";
-import { LogosMarquee } from "@/components/LogosMarquee";
+import { Hero } from "@/components/sections/Hero";
+import { MissionStatement } from "@/components/sections/MissionStatement";
+import { Services } from "@/components/sections/Services";
+import { LogosMarquee } from "@/components/sections/LogosMarquee";
 
-import { Commitment } from "@/components/Commitment";
-import { AboutSection } from "@/components/AboutSection";
-import { VideoPortal } from "@/components/VideoPortal";
+import { Commitment } from "@/components/sections/Commitment";
+import { VideoPortal } from "@/components/sections/VideoPortal";
 
-import { StrategicPillars } from "@/components/StrategicPillars";
-import { InfrastructureGridWhitespace } from "@/components/InfrastructureGridWhitespace";
-
-import { TechnicalAnatomy } from "@/components/TechnicalAnatomy";
-import { AboutTeam } from "@/components/AboutTeam";
-import { Contact } from "@/components/Contact";
-import { FAQ } from "@/components/FAQ";
-import { Footer } from "@/components/Footer";
+import { StrategicPillars } from "@/components/sections/StrategicPillars";
+import { AboutTeam } from "@/components/sections/AboutTeam";
+import { Contact } from "@/components/sections/Contact";
+import { FAQ } from "@/components/sections/FAQ";
+import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background overflow-x-clip">
-
-
       {/* ── PHASE 1: ENTRY ── */}
       <Hero />
       <MissionStatement />
@@ -32,11 +26,11 @@ export default function Home() {
       <div className="hidden lg:block">
         <VideoPortal />
       </div>
+      <StrategicPillars />
       <AboutTeam />
 
-
       {/* ── PHASE 3: LOGIC ── */}
-      <StrategicPillars />
+
       {/* <InfrastructureGridWhitespace /> */}
 
       {/* ── PHASE 4: PROOF & CLOSURE ── */}
