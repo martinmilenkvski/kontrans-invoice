@@ -189,7 +189,7 @@ export function VideoPortal() {
              </span>
              <h2 className="font-(family-name:--font-jost) text-[1.8rem] lg:text-[clamp(2.5rem,5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
                Од барање <br />
-               до <span className="text-brand-red italic font-(family-name:--font-caveat) lowercase font-normal">реализација.</span>
+              до <span className="text-brand-red italic font-(family-name:--font-jost) lowercase font-normal">реализација.</span>
              </h2>
            </div>
            

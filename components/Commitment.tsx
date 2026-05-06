@@ -101,7 +101,7 @@ export function Commitment() {
           <h2 className="comm-headline font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-[#111111] leading-[1.05] tracking-tight font-normal opacity-0">
             Се посветуваме целосно на нашите <br className="hidden lg:block" />
             партнери и решенијата што ги нудиме, <br className="hidden lg:block" />
-            носејќи <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-medium">највисока експертиза.</span>
+            носејќи <span className="text-brand-red italic font-(family-name:--font-jost) font-medium">највисока експертиза.</span>
           </h2>
         </div>
 

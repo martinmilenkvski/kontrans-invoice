@@ -148,7 +148,7 @@ export function StrategicPillars() {
           <div className="pillar-entrance-right opacity-0 text-center md:text-right order-1 md:order-2">
             <h2 className="text-[2.8rem] md:text-[clamp(2.5rem,6vw,5rem)] text-[#1A1A1A] leading-[0.9] md:leading-[0.85] tracking-tighter font-medium">
               Три столба. <br />
-              <span className="text-brand-red italic font-(family-name:--font-caveat) font-normal tracking-normal lowercase text-[1.1em] inline-block mt-2">
+              <span className="text-brand-red italic font-(family-name:--font-jost) font-normal tracking-normal lowercase text-[1.1em] inline-block mt-2">
                 една визија.
               </span>
             </h2>
@@ -170,10 +170,10 @@ export function StrategicPillars() {
           {PILLARS.map((pillar, idx) => (
             <div
               key={pillar.id}
-              className={`pillar-card pillar-card-${idx} absolute md:relative w-[90%] md:flex-1 aspect-[4/5] md:aspect-4/5 preserve-3d lg:preserve-3d will-change-transform h-full`}
+              className={`pillar-card pillar-card-${idx} absolute md:relative w-[90%] md:flex-1 aspect-4/5 preserve-3d lg:preserve-3d will-change-transform h-full`}
             >
               {/* CARD FRONT: Image Only (Hidden on Mobile) */}
-              <div className="absolute inset-0 backface-hidden lg:backface-hidden overflow-hidden border border-black/5 flex flex-col bg-white hidden lg:flex">
+              <div className="absolute inset-0 backface-hidden lg:backface-hidden overflow-hidden border border-black/5 flex-col bg-white hidden lg:flex">
                 <div className="relative flex-1 overflow-hidden">
                   <Image
                     src={pillar.image}

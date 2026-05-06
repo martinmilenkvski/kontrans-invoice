@@ -245,7 +245,7 @@ export function Contact() {
 
                 <h2 className="font-sans text-[2.5rem] lg:text-[4rem] text-brand-dark leading-[0.9] tracking-tighter font-medium">
                   <SplitFlapText text="Закажете" /> <br />
-                  <span className="text-brand-red italic font-(family-name:--font-caveat) font-normal text-[1em] tracking-normal lowercase block">
+                  <span className="text-brand-red italic font-(family-name:--font-jost) font-normal text-[1em] tracking-normal lowercase block">
                      <SplitFlapText text="превоз сега." delay={0.4} />
                   </span>
                 </h2>

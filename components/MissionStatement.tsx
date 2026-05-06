@@ -36,44 +36,49 @@ export function MissionStatement() {
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       </div>
 
-      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-12 lg:gap-20 items-start relative z-10">
+      <div className="max-w-[1600px] mx-auto px-4 lg:px-4 flex flex-col gap-24 lg:gap-32 relative z-10">
         
-        {/* 1. Left Column: Experience Counter */}
-        <div className="reveal-item flex flex-col items-start">
-          <div className="flex items-center gap-1">
-            <span className="text-[72px] md:text-[90px] font-black leading-none tracking-tighter font-[family-name:var(--font-jost)] text-[#1A1A1A]">15</span>
-            <span className="text-[48px] md:text-[60px] font-black leading-none text-[#D42B2B]">+</span>
-          </div>
-          <span className="text-[11px] font-bold text-[#1A1A1A] uppercase tracking-[0.3em] mt-2 block font-[family-name:var(--font-jost)]">
-            ГОДИНИ ИСКУСТВО
-          </span>
+        {/* TOP: LARGE EDITORIAL HEADLINE (full width, same as Commitment) */}
+        <div className="max-w-5xl">
+          <h2 className="reveal-item font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-[#111111] leading-[1.05] tracking-tight font-normal">
+            Се посветуваме целосно на нашите <br className="hidden lg:block" />
+            партнери и решенијата што ги нудиме, <br className="hidden lg:block" />
+            носејќи <span className="text-brand-red italic font-(family-name:--font-jost) font-medium">највисока експертиза.</span>
+          </h2>
         </div>
 
-        {/* 2. Middle Column: Mission Text */}
-        <div className="reveal-item flex flex-col gap-12">
-          <div className="max-w-[640px]">
-            <h2 className="text-[32px] md:text-[42px] font-medium leading-[1.1] tracking-tighter text-[#1A1A1A] mb-4 font-[family-name:var(--font-jost)]">
-              Се посветуваме целосно на нашите партнери и решенијата што ги нудиме, носејќи{" "}
-              <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] text-[1.1em] block mt-2">
-                највисока експертиза
-              </span>
-            </h2>
-          </div>
-          <div className="max-w-[480px]">
-            <p className="text-[16px] md:text-[18px] leading-relaxed text-[#444444] font-[family-name:var(--font-jost)] opacity-80">
-              Ние сме сеопфатен логистички партнер посветен на извонредност. 
-              Со длабока пасија кон иновациите, ги водиме нашите клиенти кон нови пазари со сигурност и прецизност.
-            </p>
-          </div>
-        </div>
-
-        {/* 3. Right Column: Identification Tag */}
-        <div className="reveal-item flex flex-col items-end">
-          <div className="flex items-center gap-4">
-            <div className="h-px w-8 bg-[#D42B2B]" />
-            <span className="text-[11px] font-bold text-[#D42B2B] uppercase tracking-[0.4em] font-[family-name:var(--font-jost)]">
-              001 // PHILOSOPHY
+        {/* BOTTOM: MULTI-COL LAYOUT */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] gap-12 lg:gap-20 items-start">
+          
+          {/* 1. Left Column: Experience Counter */}
+          <div className="reveal-item flex flex-col items-start">
+            <div className="flex items-center gap-1">
+              <span className="text-[72px] md:text-[90px] font-black leading-none tracking-tighter font-[family-name:var(--font-jost)] text-[#1A1A1A]">20</span>
+              <span className="text-[48px] md:text-[60px] font-black leading-none text-brand-red">+</span>
+            </div>
+            <span className="text-[11px] font-bold text-[#1A1A1A] uppercase tracking-[0.3em] mt-2 block font-[family-name:var(--font-jost)]">
+              ГОДИНИ ИСКУСТВО
             </span>
+          </div>
+
+          {/* 2. Middle Column: Body Text */}
+          <div className="reveal-item flex flex-col gap-10">
+            <div className="max-w-[480px]">
+              <p className="text-[16px] md:text-[18px] leading-relaxed text-[#444444] font-[family-name:var(--font-jost)] opacity-80">
+                Ние сме сеопфатен логистички партнер посветен на извонредност. 
+                Со длабока пасија кон иновациите, ги водиме нашите клиенти кон нови пазари со сигурност и прецизност.
+              </p>
+            </div>
+          </div>
+
+          {/* 3. Right Column: Identification Tag */}
+          <div className="reveal-item flex flex-col items-end">
+            <div className="flex items-center gap-4">
+              <div className="h-px w-8 bg-brand-red" />
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-[family-name:var(--font-jost)]">
+                001 // PHILOSOPHY
+              </span>
+            </div>
           </div>
         </div>
       </div>

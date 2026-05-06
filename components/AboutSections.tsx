@@ -1,59 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { FadeIn, RevealLine, StaggerGroup } from "./Animations";
+import { FadeIn, StaggerGroup } from "./Animations";
+import { WebsiteHero } from "./WebsiteHero";
 import { ArrowUpRight, CheckCircle2, Globe, History, Layout, Zap } from "lucide-react";
 
 export function AboutHero() {
   return (
-    <section className="relative bg-[#080808] border-b border-white/10 min-h-[60vh] flex flex-col justify-end pb-12 lg:pb-24 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1574127675276-80516fc989be?auto=format&fit=crop&q=80&w=2000" 
-          alt="Logistics network" 
-          className="w-full h-full object-cover opacity-20 grayscale brightness-50"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
-      </div>
-      
-      {/* Background patterns */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-        style={{ 
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '64px 64px'
-        }} 
-      />
-      <div className="absolute top-[-20%] left-[30%] w-[60%] h-[70%] bg-[#D42B2B] rounded-full blur-[180px] opacity-[0.08]" />
-
-      <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-24 relative z-10">
-        <StaggerGroup className="flex flex-col gap-8">
-          <FadeIn>
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D42B2B]"></span>
-              </span>
-              <span className="text-[#D42B2B] font-semibold tracking-wider text-xs sm:text-sm uppercase">
-                Нашата приказна
-              </span>
-            </div>
-          </FadeIn>
-          
-          <FadeIn delay={0.2}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-4">
-              Логистика со <br />
-              <span className="text-[#D42B2B] italic">лично значење.</span>
-            </h1>
-          </FadeIn>
-          
-          <FadeIn delay={0.4}>
-            <p className="max-w-2xl text-lg md:text-xl text-gray-400 font-medium leading-relaxed mt-2">
-              Од 2003 година, Контранс гради мостови меѓу индустриите, обезбедувајќи повеќе од само транспорт — обезбедуваме ветување за сигурност и раст на вашиот бизнис.
-            </p>
-          </FadeIn>
-        </StaggerGroup>
-      </div>
-    </section>
+    <WebsiteHero
+      eyebrow="Нашата приказна"
+      title="Логистика со"
+      accent="лично значење."
+      accentMode="block"
+      subtitle="Од 2003 година, Контранс гради мостови меѓу индустриите, обезбедувајќи повеќе од само транспорт - обезбедуваме ветување за сигурност и раст на вашиот бизнис."
+      imageSrc="/about-hero.png"
+    />
   );
 }
 
@@ -65,12 +25,9 @@ export function AboutHistory() {
           {/* Left Column - Large Year */}
           <div className="p-10 md:p-12 lg:p-24 border-b border-black/10 flex flex-col justify-center gap-8">
             <FadeIn>
-              <div className="flex items-center gap-3">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D42B2B]"></span>
-                </span>
-                <span className="text-[#D42B2B] font-semibold tracking-wider text-xs sm:text-sm uppercase">
+              <div className="flex items-center gap-4">
+                <span className="h-px w-8 bg-[#D42B2B]" />
+                <span className="font-mono text-[0.6rem] text-[#D42B2B] font-bold tracking-[0.45em] uppercase">
                   Традиција и Иновација
                 </span>
               </div>
@@ -96,8 +53,8 @@ export function AboutHistory() {
                 </p>
               </FadeIn>
               <FadeIn>
-                <div className="flex gap-4 p-8 bg-[#FAFAFA] border border-black/5 rounded-2xl group">
-                  <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center shrink-0 group-hover:bg-[#D42B2B] group-hover:border-[#D42B2B] transition-all duration-500">
+                <div className="flex gap-4 p-8 bg-[#FAFAFA] border border-black/5 group">
+                  <div className="w-12 h-12 border border-black/10 flex items-center justify-center shrink-0 group-hover:bg-[#D42B2B] group-hover:border-[#D42B2B] transition-all duration-500">
                     <History className="w-5 h-5 group-hover:text-white transition-colors" />
                   </div>
                   <div>
@@ -144,7 +101,7 @@ export function AboutValues() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {values.map((v, i) => (
             <div key={i} className={`p-10 md:p-12 lg:p-16 border-b border-black/10 flex flex-col gap-8 group hover:bg-white transition-colors duration-500 ${i !== values.length - 1 ? 'lg:border-r' : ''}`}>
-              <div className="w-14 h-14 rounded-full border border-black/10 flex items-center justify-center text-[#D42B2B] group-hover:scale-110 transition-transform duration-500">
+              <div className="w-14 h-14 border border-black/10 flex items-center justify-center text-[#D42B2B] group-hover:scale-110 transition-transform duration-500">
                 {v.icon}
               </div>
               <div className="flex flex-col gap-4">
@@ -154,7 +111,7 @@ export function AboutValues() {
                 </p>
               </div>
               <div className="mt-auto pt-8">
-                 <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-[#D42B2B] transition-colors duration-500">
+                 <div className="w-8 h-8 bg-black/5 flex items-center justify-center group-hover:bg-[#D42B2B] transition-colors duration-500">
                    <ArrowUpRight className="w-4 h-4 group-hover:text-white" />
                  </div>
               </div>
@@ -174,12 +131,9 @@ export function AboutFlexibility() {
           <div className="p-10 md:p-12 lg:p-24 border-b border-black/10 order-2 lg:order-1">
             <StaggerGroup className="flex flex-col gap-8 h-full justify-center">
               <FadeIn>
-                 <div className="flex items-center gap-3 mb-4">
-                    <span className="relative flex h-2 w-2">
-                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
-                       <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D42B2B]"></span>
-                    </span>
-                    <span className="text-[#D42B2B] font-semibold tracking-wider text-xs sm:text-sm uppercase">
+                 <div className="flex items-center gap-4 mb-4">
+                    <span className="h-px w-8 bg-[#D42B2B]" />
+                    <span className="font-mono text-[0.6rem] text-[#D42B2B] font-bold tracking-[0.45em] uppercase">
                        Our Approach
                     </span>
                  </div>
@@ -217,7 +171,7 @@ export function AboutFlexibility() {
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">Capacity</p>
                   <p className="text-xl font-bold">Infinite Flexibility</p>
                </div>
-               <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white">
+               <div className="w-12 h-12 bg-black flex items-center justify-center text-white">
                   <Globe className="w-5 h-5" />
                </div>
             </div>

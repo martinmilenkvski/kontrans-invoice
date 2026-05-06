@@ -1,9 +1,8 @@
 "use client";
 
 import { Footer } from "@/components/Footer";
-import { FadeIn, RevealLine, StaggerGroup } from "@/components/Animations";
-import { useEffect } from "react";
-import Lenis from "lenis";
+import { WebsiteHero } from "@/components/WebsiteHero";
+import { FadeIn, StaggerGroup } from "@/components/Animations";
 
 export interface ServicePageProps {
   hero: {
@@ -27,73 +26,21 @@ export interface ServicePageProps {
 }
 
 export function ServicePageTemplate({ hero, overview, details }: ServicePageProps) {
-  useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
-  }, []);
+  const titleParts = hero.title.trim().split(/\s+/);
+  const accent = titleParts.pop();
+  const title = titleParts.join(" ");
 
   return (
     <main className="min-h-screen bg-[#FAFAFA] text-[#111111] font-sans selection:bg-[#D42B2B]/30">
 
 
-      {/* Hero Section */}
-      <section className="relative bg-[#080808] border-b border-white/10 min-h-[60vh] flex flex-col justify-end pb-12 lg:pb-24 overflow-hidden pt-32">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={hero.imageSrc}
-            alt={hero.title}
-            className="w-full h-full object-cover opacity-20 grayscale brightness-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/50 to-transparent" />
-        </div>
-
-        {/* Background patterns */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '64px 64px'
-          }}
-        />
-        <div className="absolute top-[-20%] left-[30%] w-[60%] h-[70%] bg-[#D42B2B] rounded-full blur-[180px] opacity-[0.08]" />
-
-        <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-24 relative z-10">
-          <StaggerGroup className="flex flex-col gap-8">
-            <FadeIn>
-              <div className="flex items-center gap-3">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D42B2B] opacity-60"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D42B2B]"></span>
-                </span>
-                <span className="text-[#D42B2B] font-semibold tracking-wider text-xs sm:text-sm uppercase">
-                  {hero.eyebrow}
-                </span>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.2}>
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05] mb-4 max-w-5xl">
-                {hero.title.split(' ').map((word, i, arr) => {
-                  if (i === arr.length - 1) {
-                    return <span key={i} className="text-[#D42B2B] italic drop-shadow-lg pr-2"> {word}</span>;
-                  }
-                  return word + " ";
-                })}
-              </h1>
-            </FadeIn>
-
-            <FadeIn delay={0.4}>
-              <p className="max-w-2xl text-lg md:text-xl text-gray-400 font-medium leading-relaxed mt-2">
-                {hero.subtitle}
-              </p>
-            </FadeIn>
-          </StaggerGroup>
-        </div>
-      </section>
+      <WebsiteHero
+        eyebrow={hero.eyebrow}
+        title={title}
+        accent={accent}
+        subtitle={hero.subtitle}
+        imageSrc={hero.imageSrc}
+      />
 
       {/* Overview Section */}
       <section className="bg-white text-[#111111] overflow-hidden">
@@ -124,13 +71,11 @@ export function ServicePageTemplate({ hero, overview, details }: ServicePageProp
             </div>
 
             <div className="p-10 md:p-12 lg:p-24 flex flex-col justify-center border-b border-black/10 lg:border-b-0 relative group">
-              <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-[#D42B2B]/[0.02] rounded-full blur-[100px] pointer-events-none transition-all duration-700 group-hover:bg-[#D42B2B]/[0.05]"></div>
-
               <StaggerGroup className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-6" staggerDelay={0.1}>
                 {overview.features.map((feature, idx) => (
                   <FadeIn key={idx} delay={idx * 0.1}>
-                    <div className="flex items-start gap-4 p-6 bg-white border border-black/5 rounded-xl hover:border-black/10 hover:shadow-xl transition-all duration-300 h-full">
-                      <div className="mt-1 w-6 h-6 flex-shrink-0 flex items-center justify-center rounded-full border border-[#D42B2B]/20 bg-[#D42B2B]/5">
+                    <div className="flex items-start gap-4 p-6 bg-white border border-black/5 hover:border-brand-red/30 hover:shadow-xl transition-all duration-300 h-full">
+                      <div className="mt-1 w-6 h-6 flex-shrink-0 flex items-center justify-center border border-[#D42B2B]/20 bg-[#D42B2B]/5">
                         <span className="text-[#D42B2B] text-[8px] font-bold">■</span>
                       </div>
                       <span className="text-gray-700 font-bold tracking-wide uppercase text-xs leading-relaxed mt-0.5">{feature}</span>

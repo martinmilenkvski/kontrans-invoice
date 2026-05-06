@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
@@ -80,7 +80,7 @@ export function Header() {
                   <ChevronDown className="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-180 group-hover:text-brand-red" />
                 </Link>
                 {/* Dropdown */}
-                <div className="absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/6 shadow-2xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
+                <div className="absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 w-56 bg-white border border-black/6 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden">
                   <div className="py-2 flex flex-col">
                     {navItem.dropdown.map((drop) => (
                       <Link
@@ -120,7 +120,7 @@ export function Header() {
           </motion.div>
 
           <button
-            className="md:hidden p-2 rounded-lg transition-all text-white"
+            className="md:hidden p-2 transition-all text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Menu"
           >
@@ -181,7 +181,7 @@ export function Header() {
           <Link
             href="/#contact"
             onClick={() => setIsMenuOpen(false)}
-            className="mt-4 mb-2 flex items-center justify-center gap-3 px-6 py-4 bg-brand-red text-white text-lg font-bold tracking-widest uppercase rounded-lg transition-all"
+            className="mt-4 mb-2 flex items-center justify-center gap-3 px-6 py-4 bg-brand-red text-white text-lg font-bold tracking-widest uppercase transition-all"
           >
             Побарај понуда <ArrowRight className="w-4 h-4" />
           </Link>

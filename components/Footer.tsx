@@ -83,16 +83,19 @@ export function Footer() {
                        <div className="flex items-start gap-4 hover:opacity-100 opacity-80 transition-opacity">
                           <MapPin className="w-5 h-5 mt-0.5 text-white/50" />
                           <span className="text-xs font-bold leading-relaxed uppercase tracking-wider">
-                             Бул. Партизански <br />Одреди 15, Скопје
+                             Киро Крстевски 3/6 <br />1000 Скопје
                           </span>
                        </div>
                        <div className="flex items-start gap-4 hover:opacity-100 opacity-80 transition-opacity cursor-pointer">
                           <Phone className="w-5 h-5 mt-0.5 text-white/50" />
-                          <span className="text-xs font-bold uppercase tracking-widest">+389 2 3123 456</span>
+                          <div className="flex flex-col gap-2">
+                             <span className="text-xs font-bold uppercase tracking-widest">+389 2 3232 657</span>
+                             <span className="text-xs font-bold uppercase tracking-widest">+389 2 3215 296</span>
+                          </div>
                        </div>
                        <div className="flex items-start gap-4 hover:opacity-100 opacity-80 transition-opacity cursor-pointer">
                           <Mail className="w-5 h-5 mt-0.5 text-white/50" />
-                          <span className="text-xs font-bold uppercase tracking-widest">info@kontrans.mk</span>
+                          <span className="text-xs font-bold uppercase tracking-widest">office@kontrans.com.mk</span>
                        </div>
                     </div>
                  </div>

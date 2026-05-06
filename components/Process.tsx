@@ -147,7 +147,7 @@ export function Process() {
          </span>
          <h2 className="font-[family-name:var(--font-jost)] text-[clamp(2rem,5vw,3.5rem)] text-[#111111] leading-[1.05] tracking-tight font-black uppercase">
            Од идеја <br /> 
-           <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] lowercase font-normal">
+           <span className="text-brand-red italic font-[family-name:var(--font-jost)] lowercase font-normal">
              до реализација.
            </span>
          </h2>
@@ -182,7 +182,7 @@ export function Process() {
                          <span className="font-[family-name:var(--font-jost)] text-[0.5rem] text-black/20 uppercase tracking-[0.2em]">SYS_CTRL // NOM_100%</span>
                       </div>
                    </div>
-                   <span className="font-[family-name:var(--font-caveat)] text-[1.5rem] lg:text-[2rem] text-[#D42B2B] italic opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                   <span className="font-(family-name:--font-jost) text-[1.5rem] lg:text-[2rem] text-brand-red italic opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       {step.note}
                    </span>
                 </div>

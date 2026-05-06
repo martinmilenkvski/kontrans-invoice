@@ -1,8 +1,7 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
+import { useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { usePreloader } from "@/lib/PreloaderContext";
 
@@ -125,7 +124,7 @@ export function Hero() {
   const stats = [
     { label: "Пратки",          value: 1000, suffix: "+", counterDelay: 1.2  },
     { label: "Дестинации",      value: 50,   suffix: "+", counterDelay: 1.38 },
-    { label: "Години искуство", value: 18,   suffix: "",  counterDelay: 1.56 },
+    { label: "Години искуство", value: 20,   suffix: "+", counterDelay: 1.56 },
   ];
 
   return (
@@ -172,14 +171,14 @@ export function Hero() {
               Глобален транспорт{" "}
               <br className="hidden sm:block" />
               со{" "}
-              <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] text-[1.1em]">
+              <span className="italic font-(family-name:--font-jost) text-brand-red text-[1.1em]">
                 доверба.
               </span>
             </motion.h1>
 
             <motion.p
               variants={slideUp}
-              className="text-white/60 font-[family-name:var(--font-jost)] text-base md:text-lg leading-relaxed max-w-md"
+              className="text-white/60 font-(family-name:--font-jost) text-base md:text-lg leading-relaxed max-w-md"
             >
               Сигурен, брз и целосно следен транспорт на над 50 дестинации.
               Бродски, авионски и камионски превоз од една платформа.
@@ -194,7 +193,7 @@ export function Hero() {
                   className="group relative flex items-center gap-4 bg-white px-8 py-5 transition-all duration-500"
                 >
                   {/* Background Slide Effect */}
-                  <div className="absolute inset-0 bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  <div className="absolute inset-0 bg-brand-red scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                   
                   <span className="relative z-10 font-sans text-xs font-black uppercase tracking-[0.2em] text-black group-hover:text-white transition-colors duration-500">
                     Побарај понуда

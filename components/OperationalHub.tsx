@@ -76,7 +76,7 @@ export function OperationalHub() {
               </span>
               <h2 className="hub-text font-sans text-[clamp(2.2rem,4.5vw,4.5rem)] text-white leading-[0.88] tracking-tighter uppercase font-black opacity-0">
                 Глобално <br />
-                <span className="italic font-[family-name:var(--font-caveat)] text-[#D42B2B] font-normal lowercase">Следење.</span>
+                <span className="italic font-(family-name:--font-jost) text-brand-red font-normal lowercase">Следење.</span>
               </h2>
               <p className="hub-text text-white/40 font-[family-name:var(--font-jost)] text-lg lg:text-xl font-medium leading-relaxed max-w-lg opacity-0">
                 Централизирана платформа која ја обединува целата логистичка операција. Од бродови до индивидуални пратки, секој податок е видлив во реално време.

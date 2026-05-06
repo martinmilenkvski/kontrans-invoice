@@ -114,7 +114,7 @@ export function OperationalGrid() {
           <div className="op-f1-content relative z-10 max-w-5xl px-12 lg:px-24">
              <h2 className="font-sans text-[clamp(2.5rem,8vw,6rem)] text-[#111111] leading-[0.9] tracking-tighter font-black uppercase">
                 Платформа за <br />
-                <span className="text-[#D42B2B] italic font-[family-name:var(--font-caveat)] font-normal lower-case text-[0.8em] tracking-normal">
+                <span className="text-brand-red italic font-(family-name:--font-jost) font-normal lower-case text-[0.8em] tracking-normal">
                   целосна контрола.
                 </span>
              </h2>

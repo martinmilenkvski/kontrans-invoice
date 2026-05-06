@@ -165,11 +165,11 @@ export function AboutTeam() {
             {/* COLUMN 3: LARGE MANIFESTO */}
             <div className="md:col-span-6">
                 <div className="team-grid-reveal relative">
-                    <span className="text-brand-red font-(family-name:--font-caveat) text-6xl absolute -left-10 -top-10 pointer-events-none">&ldquo;</span>
+                    <span className="text-brand-red font-(family-name:--font-jost) text-6xl absolute -left-10 -top-10 pointer-events-none">&ldquo;</span>
                     <h3 className="font-sans text-3xl lg:text-5xl font-light text-brand-dark leading-[0.8] tracking-tighter whitespace-pre-line pb-12">
-                       Ние не само превезуваме стоки; <br /><span className="text-brand-red italic font-(family-name:--font-caveat) font-medium">ние го оркестрираме</span> физичкиот аспект на глобалната економија.
+                       Ние не само превезуваме стоки; <br /><span className="text-brand-red italic font-(family-name:--font-jost) font-medium">ние го оркестрираме</span> физичкиот аспект на глобалната економија.
                    </h3>
-                    <span className="text-brand-red font-(family-name:--font-caveat) text-6xl absolute -right-4 -bottom-4 pointer-events-none">&rdquo;</span>
+                    <span className="text-brand-red font-(family-name:--font-jost) text-6xl absolute -right-4 -bottom-4 pointer-events-none">&rdquo;</span>
                     <div className="w-full h-px bg-black/10" />
                 </div>
                 <div className="team-grid-reveal mt-12 flex justify-between items-end">
