@@ -198,7 +198,7 @@ export function Commitment() {
               {/* THIRD IMAGE -> RED CARD (Right, Parallax) */}
               <Link 
                 href="#contact" 
-                data-speed="0.5"
+                data-speed="0"
                 className="comm-card md:col-span-8 md:col-start-5 lg:col-span-3 lg:col-start-10 relative aspect-[4/5] lg:aspect-[3/4] bg-brand-red flex flex-col justify-between p-8 overflow-hidden group hover:bg-[#c02626] transition-all duration-500 z-30 lg:-mt-24"
               >
                 <div className="flex justify-between items-start">
