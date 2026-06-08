@@ -38,211 +38,122 @@ const PROCESS_STEPS = [
 
 export function VideoPortal() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoWrapperRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (!containerRef.current || !videoWrapperRef.current) return;
-
-      const mm = gsap.matchMedia();
-
-      mm.add({
-        isDesktop: "(min-width: 1024px)",
-        isMobile: "(max-width: 1023px)"
-      }, (context) => {
-        const { isDesktop, isMobile } = context.conditions as { isDesktop: boolean, isMobile: boolean };
-
-        const tl = gsap.timeline({
+      // Parallax effect on the video
+      gsap.fromTo(".video-parallax",
+        { yPercent: -10 },
+        {
+          yPercent: 10,
+          ease: "none",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top top",
-            end: "+=400%",
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-          },
-        });
-
-        // ── PHASE 1: THE SHRINK ENTRANCE ──
-        tl.fromTo(
-          videoWrapperRef.current,
-          {
-            width: "100%",
-            height: "100vh",
-            borderRadius: "0px",
-            y: 0,
-            opacity: 1,
-          },
-          {
-            width: isDesktop ? "30vw" : "80vw", 
-            height: isDesktop ? "44vh" : "30vh", 
-            y: isDesktop ? 0 : "0vh",
-            opacity: isDesktop ? 1 : 0.05,
-            borderRadius: isDesktop ? "2px" : "12px",
-            duration: 1.5,
-            ease: "power4.inOut",
-          },
-          0
-        );
-
-        tl.to(".vp-overlay", { opacity: isDesktop ? 0.45 : 1, duration: 1 }, 0);
-
-        // ── PHASE 2: EDITORIAL REVEALS ──
-        tl.set(".vp-ed-backdrop", { opacity: 0 });
-        if (isDesktop) {
-          tl.fromTo(".vp-ed-backdrop",
-            { opacity: 0, scale: 0.5 },
-            { opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
-            0.3
-          );
-        }
-
-        // Top Header Reveal
-        tl.fromTo(".vp-ed-header-container", 
-          { y: -30, opacity: 0 }, 
-          { y: 0, opacity: 1, duration: 1, ease: "power4.out" }, 
-          0.4
-        );
-
-        // Mobile specific: Lift header up as steps appear
-        if (isMobile) {
-          tl.to(".vp-ed-header-container", { 
-            y: -140, 
-            opacity: 0.2, 
-            scale: 0.9,
-            duration: 2.5, 
-            ease: "power2.inOut" 
-          }, 1.5);
-        }
-
-        // ── PHASE 3: SEQUENTIAL PROCESS STEPS ──
-        PROCESS_STEPS.forEach((_, i) => {
-          const stepTime = 1.2 + i * 0.7;
-          
-          tl.fromTo(`.vp-step-${i}`, 
-            { opacity: 0, y: isDesktop ? 40 : 60 }, 
-            { 
-              opacity: 1, 
-              y: 0,
-              duration: 1.0, 
-              ease: "power3.out" 
-            }, 
-            stepTime
-          );
-
-          tl.fromTo(`.vp-step-desc-${i}`,
-            { height: 0, opacity: 0 },
-            { 
-              height: "auto", 
-              opacity: 1, 
-              duration: 0.8,
-              ease: "power2.inOut"
-            },
-            stepTime + 0.1
-          );
-
-          if (i > 0) {
-            tl.to(`.vp-step-${i-1}`, { opacity: isDesktop ? 0.25 : 0, duration: 0.6 }, stepTime);
-            tl.to(`.vp-step-desc-${i-1}`, { height: 0, opacity: 0, duration: 0.6, ease: "power2.inOut" }, stepTime);
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
           }
-        });
+        }
+      );
 
-        // Metadata Bottom
-        tl.fromTo(".vp-ed-footer",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-          1.0
-        );
-
-        return () => {};
-      });
-
-      return () => mm.revert();
-
+      // Staggered fade in for the steps
+      gsap.fromTo(".process-step",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          stagger: 0.15,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: ".process-step-list",
+            start: "top 80%",
+          }
+        }
+      );
     },
     { scope: containerRef }
   );
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#FAFAFA] flex items-center justify-center">
-      
-      {/* ── BACKGROUND VIDEO SHRINKING FRAME ── */}
-      <div 
-        ref={videoWrapperRef} 
-        className="relative z-10 overflow-hidden border border-black/5"
-        style={{ width: "100%", height: "100vh" }}
-      >
-        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
-          <source src="/process-video.mp4" type="video/mp4" />
-        </video>
-        <div className="vp-overlay absolute inset-0 bg-white/20" />
+    <section 
+      ref={containerRef}
+      id="process"
+      className="relative bg-white pt-32 pb-48 border-t border-black/10 text-brand-dark overflow-hidden"
+    >
+      {/* Structural Background Grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+        <div className="absolute left-1/2 -translate-x-1/2 h-full w-px bg-black" />
+        <div className="absolute top-1/2 -translate-y-1/2 w-full h-px bg-black" />
       </div>
 
-      {/* ── EDITORIAL UI LAYER ── */}
-      <div className="absolute inset-0 z-20 pointer-events-none flex justify-center">
-        <div className="w-full max-w-[1600px] px-6 lg:px-12 py-12 lg:py-24 flex flex-col justify-between h-full relative">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           
-          {/* Left Column Tag + Title */}
-          <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-6 w-full lg:max-w-[360px]">
-             <div className="flex items-center gap-4">
-                <div className="h-px w-8 bg-brand-red" />
-                <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans whitespace-nowrap">
-                  003 // ОПЕРАТИВЕН МОДЕЛ
-                </span>
+          {/* 1. LEFT COLUMN: Sticky Header & Manifesto */}
+          <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start flex flex-col gap-8">
+             <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4">
+                   <div className="h-px w-8 bg-brand-red" />
+                   <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
+                     003 // ОПЕРАТИВЕН МОДЕЛ
+                   </span>
+                </div>
+                
+                <h2 className="font-sans text-4xl lg:text-5xl font-medium text-brand-dark leading-[1.05] tracking-tight">
+                   Од барање <br />
+                   до <span className="text-brand-red italic font-sans font-medium">букинг.</span>
+                </h2>
              </div>
-             <div className="vp-ed-header">
-               <h2 className="font-sans text-[clamp(2.5rem,4.5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
-                 Од барање <br />
-                 до <span className="text-brand-red italic font-sans lowercase font-normal">букинг.</span>
-               </h2>
+
+             <div className="vp-ed-manifesto max-w-sm">
+                <p className="font-sans text-base lg:text-lg text-brand-dark/60 leading-relaxed font-light">
+                   Нашиот оперативен модел е дизајниран за максимална прецизност. Секој чекор е оптимизиран за да обезбеди сигурност и брзина во глобалниот транспортен ланец.
+                </p>
+             </div>
+
+             <div className="flex items-center gap-4 pl-1 mt-2">
+                <div className="w-2 h-2 bg-brand-red rounded-full animate-pulse" />
+                <span className="font-mono text-[10px] text-black/40 tracking-[0.3em] font-bold">41°59'56"N 21°25'44"E</span>
              </div>
           </div>
 
-          {/* MIDDLE ROW (STEPS) */}
-          <div className="relative lg:absolute lg:right-12 lg:top-1/2 lg:-translate-y-1/2 flex items-stretch h-fit mt-6 lg:mt-0 mb-auto lg:mb-0 w-full lg:max-w-[360px]">
-             <div className="flex flex-col gap-5 w-full">
-                {PROCESS_STEPS.map((step, i) => (
-                  <div key={i} className={`vp-step-${i} opacity-0 border-t border-black/10 pt-4 flex flex-col gap-2`}>
-                     <div className="flex items-center justify-between w-full">
-                        <span className="font-mono text-[9px] tracking-[0.2em] text-brand-red font-bold uppercase">{step.tag}</span>
-                        <span className="font-mono text-[9px] text-black/30 font-bold">{step.id}</span>
-                     </div>
-                     <h3 className="font-sans text-lg lg:text-xl text-brand-dark font-semibold tracking-tight leading-none uppercase">
-                       {step.title}
-                     </h3>
-                     <div className={`vp-step-desc-${i} overflow-hidden h-0 opacity-0`}>
-                        <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light pt-1">
-                          {step.desc}
-                        </p>
-                     </div>
+          {/* 2. MIDDLE COLUMN: Parallax Video Frame */}
+          <div className="lg:col-span-4 relative aspect-[3/4] w-full overflow-hidden border border-black/5 rounded-2xl bg-black/5 group mt-8 lg:mt-0">
+             <div className="absolute inset-0 w-full h-[120%] -top-[10%] video-parallax">
+                <video 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline 
+                  className="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                >
+                  <source src="/process-video.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+             </div>
+          </div>
+
+          {/* 3. RIGHT COLUMN: Process Steps List */}
+          <div className="lg:col-span-4 flex flex-col gap-6 lg:gap-8 process-step-list mt-8 lg:mt-0">
+             {PROCESS_STEPS.map((step, i) => (
+               <div key={i} className="process-step border-t border-black/10 pt-6 flex flex-col gap-3 opacity-0">
+                  <div className="flex items-center justify-between w-full">
+                     <span className="font-mono text-[9px] tracking-[0.2em] text-brand-red font-bold uppercase">{step.tag}</span>
+                     <span className="font-mono text-[10px] text-black/30 font-bold">{step.id}</span>
                   </div>
-                ))}
-             </div>
-          </div>
-
-          {/* FOOTER ROW: MANIFESTO & COORDINATES */}
-          <div className="vp-ed-footer opacity-0 flex justify-between items-end w-full mt-4 lg:mt-0">
-             <div className="flex flex-col gap-6 w-full lg:max-w-[360px]">
-                <div className="vp-ed-manifesto">
-                   <p className="font-sans text-sm lg:text-base text-brand-dark/60 leading-relaxed font-light">
-                      Нашиот оперативен модел е дизајниран за максимална прецизност. Секој чекор е оптимизиран за да обезбеди сигурност и брзина во глобалниот транспортен ланец.
-                   </p>
-                </div>
-                <div className="flex items-center gap-4 pl-1">
-                   <div className="w-2 h-2 bg-brand-red rounded-full animate-pulse" />
-                   <span className="font-mono text-[10px] text-black/40 tracking-[0.3em] font-bold">41°59'56"N 21°25'44"E</span>
-                </div>
-             </div>
-             
-             <div className="flex gap-3">
-                <div className="w-1.5 h-1.5 bg-black/10" />
-                <div className="w-1.5 h-1.5 bg-black/5" />
-             </div>
+                  <h3 className="font-sans text-xl lg:text-2xl text-brand-dark font-medium tracking-tight leading-none uppercase">
+                    {step.title}
+                  </h3>
+                  <p className="font-sans text-sm lg:text-base text-brand-dark/60 font-light leading-relaxed">
+                    {step.desc}
+                  </p>
+               </div>
+             ))}
           </div>
 
         </div>
       </div>
-
     </section>
   );
 }
