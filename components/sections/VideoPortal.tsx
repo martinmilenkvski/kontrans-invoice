@@ -86,16 +86,16 @@ export function VideoPortal() {
 
       tl.to(".vp-overlay", { opacity: 0.3, duration: 1 }, 0);
 
-      // Staggered bento cards reveals
+      // Staggered bento cards reveals (subtle vertical slide and fade, no scaling)
       tl.fromTo(
         ".bento-card",
-        { opacity: 0, scale: 0.95 },
+        { opacity: 0, y: 16 },
         { 
           opacity: 1, 
-          scale: 1, 
-          stagger: 0.08, 
-          duration: 1.2, 
-          ease: "power2.out" 
+          y: 0, 
+          stagger: 0.05, 
+          duration: 1.0, 
+          ease: "power3.out" 
         },
         0.4
       );
