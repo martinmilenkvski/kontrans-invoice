@@ -87,17 +87,16 @@ export function FAQ() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 50%",
+        start: "top 60%",
       }
     });
 
     tl.fromTo(".faq-reveal", 
-      { y: 80, opacity: 0 },
+      { y: 60, opacity: 0 },
       { 
         y: 0, 
         opacity: 1, 
-        duration: 1.5, 
-        stagger: 0.15, 
+        duration: 1.2, 
         ease: "power4.out" 
       }
     );
@@ -106,12 +105,12 @@ export function FAQ() {
     gsap.to(".faq-row", {
       y: 0,
       opacity: 1,
-      duration: 1.5,
+      duration: 1.2,
       stagger: 0.1,
       ease: "power4.out",
       scrollTrigger: {
         trigger: ".faq-list",
-        start: "top 60%",
+        start: "top 70%",
       }
     });
 
@@ -121,7 +120,7 @@ export function FAQ() {
     <section 
       ref={containerRef}
       id="faq"
-      className="relative bg-white pt-32 pb-48 overflow-hidden border-t border-black/10"
+      className="relative bg-white pt-32 pb-48 border-t border-black/10 text-brand-dark"
     >
       {/* Structural Background */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
@@ -130,56 +129,51 @@ export function FAQ() {
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10 w-full">
-        
-        {/* EDITORIAL HEADER */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-32">
-           
-           {/* Left: Tag */}
-           <div className="faq-reveal opacity-0 lg:col-span-3 flex flex-col items-start pt-2">
-              <div className="flex items-center gap-4">
-                 <div className="h-px w-8 bg-brand-red" />
-                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
-                   006 // FAQ
-                 </span>
-              </div>
-           </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+          
+          {/* LEFT COLUMN: Pinned Header */}
+          <div className="lg:col-span-4 lg:sticky lg:top-36 lg:self-start flex flex-col gap-6 faq-reveal opacity-0">
+             <div className="flex items-center gap-4">
+                <div className="h-px w-8 bg-brand-red" />
+                <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
+                  006 // FAQ
+                </span>
+             </div>
+             
+             <h2 className="font-sans text-4xl lg:text-[clamp(2rem,4.5vw,4.5rem)] text-brand-dark leading-[0.95] tracking-tighter font-medium">
+                Често поставувани <span className="text-brand-red italic">прашања.</span>
+             </h2>
+          </div>
 
-           {/* Middle/Right: Massive Title */}
-           <div className="faq-reveal opacity-0 lg:col-span-9 text-left lg:text-right">
-              <h2 className="font-sans text-[clamp(2rem,5vw,4rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
-                 Често поставувани <span className="text-brand-red italic">прашања.</span>
-              </h2>
-           </div>
+          {/* RIGHT COLUMN: Free Scrolling Accordions & Redirect */}
+          <div className="lg:col-span-8">
+            <div className="faq-list border-t border-black/10">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={faq.id} faq={faq} index={index} />
+              ))}
+            </div>
+
+            {/* BOTTOM REDIRECT */}
+            <div className="mt-20 faq-row opacity-0 flex flex-col items-end">
+               <p className="font-sans text-[11px] font-bold text-black/40 uppercase tracking-[0.3em] mb-4">
+                  Имате специфично барање?
+               </p>
+               <a 
+                  href="#contact" 
+                  className="group flex items-center gap-6"
+               >
+                  <span className="font-sans text-xl lg:text-2xl font-bold text-brand-dark tracking-tight transition-colors group-hover:text-brand-red">
+                     Контактирајте го нашиот тим
+                  </span>
+                  <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-brand-red group-hover:border-brand-red transition-all duration-500">
+                     <Plus className="w-6 h-6 text-brand-dark group-hover:text-white transition-colors" />
+                  </div>
+               </a>
+            </div>
+          </div>
 
         </div>
-
-        {/* ACCORDION LIST */}
-        <div className="faq-list border-t border-black/10">
-          {faqs.map((faq, index) => (
-            <AccordionItem key={faq.id} faq={faq} index={index} />
-          ))}
-        </div>
-
-        {/* BOTTOM REDIRECT */}
-        <div className="mt-20 faq-row opacity-0 flex flex-col items-end">
-           <p className="font-sans text-[11px] font-bold text-black/40 uppercase tracking-[0.3em] mb-4">
-              Имате специфично барање?
-           </p>
-           <a 
-              href="#contact" 
-              className="group flex items-center gap-6"
-           >
-              <span className="font-sans text-xl lg:text-2xl font-bold text-brand-dark tracking-tight transition-colors group-hover:text-brand-red">
-                 Контактирајте го нашиот тим
-              </span>
-              <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-brand-red group-hover:border-brand-red transition-all duration-500">
-                 <Plus className="w-6 h-6 text-brand-dark group-hover:text-white transition-colors" />
-              </div>
-           </a>
-        </div>
-
       </div>
     </section>
   );
 }
-
