@@ -177,18 +177,18 @@ export function VideoPortal() {
       {/* ── EDITORIAL UI LAYER ── */}
       <div className="absolute inset-0 z-20 pointer-events-none p-6 lg:p-20 flex flex-col justify-between">
         
-        <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-10 max-w-sm">
+        <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-8 max-w-sm">
+           <div className="flex items-center gap-4 mb-2">
+              <div className="h-px w-8 bg-brand-red" />
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans whitespace-nowrap">
+                003 // ОПЕРАТИВЕН МОДЕЛ
+              </span>
+           </div>
            <div className="vp-ed-header">
              <h2 className="font-sans text-[clamp(2.5rem,5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
                Од барање <br />
-              до <span className="text-brand-red italic font-sans lowercase font-normal">реализација.</span>
+               до <span className="text-brand-red italic font-sans lowercase font-normal">букинг.</span>
              </h2>
-           </div>
-           
-           <div className="vp-ed-manifesto">
-              <p className="font-sans text-[16px] md:text-[18px] text-brand-dark/70 leading-relaxed max-w-85 lg:max-w-none">
-                 Нашиот оперативен модел е дизајниран за максимална прецизност. Секој чекор е оптимизиран за да обезбеди сигурност и брзина во глобалниот транспортен ланец.
-              </p>
            </div>
         </div>
 
@@ -209,14 +209,13 @@ export function VideoPortal() {
            </div>
         </div>
 
-        {/* FOOTER ROW: TAG + COORDINATES */}
+        {/* FOOTER ROW: MANIFESTO & COORDINATES */}
         <div className="vp-ed-footer opacity-0 flex justify-between items-end mt-4 lg:mt-0">
-           <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-4">
-                 <div className="h-px w-8 bg-brand-red" />
-                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans whitespace-nowrap">
-                   003 // ОПЕРАТИВЕН МОДЕЛ
-                 </span>
+           <div className="flex flex-col gap-6 max-w-xs lg:max-w-sm">
+              <div className="vp-ed-manifesto">
+                 <p className="font-sans text-sm lg:text-[16px] text-brand-dark/70 leading-relaxed">
+                    Нашиот оперативен модел е дизајниран за максимална прецизност. Секој чекор е оптимизиран за да обезбеди сигурност и брзина во глобалниот транспортен ланец.
+                 </p>
               </div>
               <div className="flex items-center gap-4 pl-1">
                  <div className="w-2 h-2 bg-brand-red rounded-full" />
