@@ -26,7 +26,7 @@ export default function Home() {
       <div className="hidden lg:block">
         <VideoPortal />
       </div>
-      <StrategicPillars />
+      {/* <StrategicPillars /> */}
       <AboutTeam />
 
       {/* ── PHASE 3: LOGIC ── */}

@@ -40,6 +40,7 @@ export function VideoPortal() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const videoCardRef = useRef<HTMLDivElement>(null);
+  const cardsAnimated = useRef(false);
 
   useGSAP(
     () => {
@@ -58,6 +59,39 @@ export function VideoPortal() {
           scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            // Decoupled, automatic staggered entrance animation
+            // Plays once when the video mostly shrinks, independently of active scrolling
+            if (self.progress > 0.85) {
+              if (!cardsAnimated.current) {
+                cardsAnimated.current = true;
+                gsap.fromTo(".bento-card",
+                  { opacity: 0, y: 16 },
+                  { 
+                    opacity: 1, 
+                    y: 0, 
+                    stagger: 0.08, 
+                    duration: 0.8, 
+                    ease: "power3.out",
+                    overwrite: "auto"
+                  }
+                );
+              }
+            } else if (self.progress < 0.5) {
+              // Reset states when scrolling back up past 50% scroll progression
+              if (cardsAnimated.current) {
+                cardsAnimated.current = false;
+                gsap.to(".bento-card", {
+                  opacity: 0,
+                  y: 16,
+                  stagger: 0.03,
+                  duration: 0.4,
+                  ease: "power2.in",
+                  overwrite: "auto"
+                });
+              }
+            }
+          }
         },
       });
 
@@ -85,20 +119,6 @@ export function VideoPortal() {
       );
 
       tl.to(".vp-overlay", { opacity: 0.3, duration: 1 }, 0);
-
-      // Staggered bento cards reveals (subtle vertical slide and fade, no scaling)
-      tl.fromTo(
-        ".bento-card",
-        { opacity: 0, y: 16 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          stagger: 0.05, 
-          duration: 1.0, 
-          ease: "power3.out" 
-        },
-        0.4
-      );
 
       return () => {};
     },
