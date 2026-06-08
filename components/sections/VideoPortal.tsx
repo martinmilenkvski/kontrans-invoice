@@ -111,7 +111,7 @@ export function VideoPortal() {
           height: () => card.getBoundingClientRect().height,
           left: () => card.getBoundingClientRect().left - parent.getBoundingClientRect().left,
           top: () => card.getBoundingClientRect().top - parent.getBoundingClientRect().top,
-          borderRadius: "24px",
+          borderRadius: "0px",
           duration: 1.5,
           ease: "power3.inOut",
         },
@@ -135,7 +135,7 @@ export function VideoPortal() {
       {/* ── BACKGROUND VIDEO SHRINKING FRAME ── */}
       <div 
         ref={videoWrapperRef} 
-        className="absolute z-30 overflow-hidden border border-black/5 pointer-events-none rounded-[24px]"
+        className="absolute z-30 overflow-hidden border border-black/5 pointer-events-none rounded-none"
         style={{ width: "100vw", height: "100vh", left: 0, top: 0 }}
       >
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
@@ -190,13 +190,13 @@ export function VideoPortal() {
             {/* Card 1: Video Placeholder (Top-Left, tall vertical block) */}
             <div 
               ref={videoCardRef} 
-              className="bg-transparent rounded-3xl border border-black/5 relative overflow-hidden h-[420px] pointer-events-none"
+              className="bg-transparent rounded-none border border-black/5 relative overflow-hidden h-[420px] pointer-events-none"
             >
                {/* The video element shrinks directly over this container */}
             </div>
 
             {/* Card 2: Title block (Bottom-Left) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-3xl p-8 flex flex-col justify-between h-[220px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[220px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
                <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-4">
                      <div className="h-px w-8 bg-brand-red" />
@@ -218,7 +218,7 @@ export function VideoPortal() {
           {/* ── COLUMN 2 (CENTER) ── */}
           <div className="flex flex-col gap-6 w-full">
             {/* Card 3: Step 1 (Top-Center) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-3xl p-8 flex flex-col justify-between h-[340px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[340px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
                <div className="flex items-start justify-between w-full">
                   <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[0].tag}</span>
                   <span className="font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[0].id}</span>
@@ -252,7 +252,7 @@ export function VideoPortal() {
             </div>
 
             {/* Card 4: Step 2 (Bottom-Center) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-3xl p-8 flex flex-col justify-between h-[300px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[300px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
                <div className="flex items-start justify-between w-full">
                   <div className="flex flex-col gap-1">
                      <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[1].tag}</span>
@@ -262,7 +262,7 @@ export function VideoPortal() {
                </div>
 
                {/* Animated Route Network illustration */}
-               <div className="my-1 overflow-hidden rounded-xl border border-black/[0.03] bg-black/[0.01]">
+               <div className="my-1 overflow-hidden rounded-none border border-black/[0.03] bg-black/[0.01]">
                  <svg viewBox="0 0 160 80" className="w-full h-16 text-brand-dark/20">
                    <defs>
                      <pattern id="dot-grid" width="12" height="12" patternUnits="userSpaceOnUse">
@@ -295,7 +295,7 @@ export function VideoPortal() {
             {/* Card 5: Top-Right Sub-Grid (Process code + location details) */}
             <div className="grid grid-cols-2 gap-6 w-full">
                {/* Subcard A: Model */}
-               <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-3xl p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
+               <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
                   <div className="flex items-start justify-between w-full">
                      <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">MODEL</span>
                      <svg viewBox="0 0 100 100" className="w-8 h-8 text-brand-dark/30 transition-all duration-700 ease-out group-hover:rotate-180 group-hover:text-brand-red">
@@ -309,7 +309,7 @@ export function VideoPortal() {
                </div>
                
                {/* Subcard B: Location */}
-               <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-3xl p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
+               <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
                   <div className="flex items-start justify-between w-full">
                      <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">LOCATION</span>
                      <div className="relative w-6 h-6 flex items-center justify-center">
@@ -325,7 +325,7 @@ export function VideoPortal() {
             </div>
 
             {/* Card 6: Step 3 (Middle-Right) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-3xl p-8 flex flex-col justify-between h-[240px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[240px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
                <div className="flex items-start justify-between w-full">
                   <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[2].tag}</span>
                   <span className="font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[2].id}</span>
@@ -352,7 +352,7 @@ export function VideoPortal() {
             </div>
 
             {/* Card 7: Step 4 (Bottom-Right) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-3xl p-8 flex flex-col justify-between h-[260px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[260px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
                <div className="flex items-start justify-between w-full">
                   <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[3].tag}</span>
                   <span className="font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[3].id}</span>
