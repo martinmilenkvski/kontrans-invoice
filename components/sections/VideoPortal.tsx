@@ -74,10 +74,10 @@ export function VideoPortal() {
             opacity: 1,
           },
           {
-            width: isDesktop ? "42vw" : "85vw", 
-            height: isDesktop ? "55vh" : "30vh", 
+            width: isDesktop ? "30vw" : "80vw", 
+            height: isDesktop ? "44vh" : "30vh", 
             y: isDesktop ? 0 : "0vh",
-            opacity: isDesktop ? 1 : 0.05, // Almost hide but leave a ghost of motion
+            opacity: isDesktop ? 1 : 0.05,
             borderRadius: isDesktop ? "2px" : "12px",
             duration: 1.5,
             ease: "power4.inOut",
@@ -88,7 +88,6 @@ export function VideoPortal() {
         tl.to(".vp-overlay", { opacity: isDesktop ? 0.45 : 1, duration: 1 }, 0);
 
         // ── PHASE 2: EDITORIAL REVEALS ──
-        
         tl.set(".vp-ed-backdrop", { opacity: 0 });
         if (isDesktop) {
           tl.fromTo(".vp-ed-backdrop",
@@ -97,7 +96,6 @@ export function VideoPortal() {
             0.3
           );
         }
-        // (Top Tag animation removed)
 
         // Top Header Reveal
         tl.fromTo(".vp-ed-header-container", 
@@ -135,7 +133,7 @@ export function VideoPortal() {
           );
 
           if (i > 0) {
-            tl.to(`.vp-step-${i-1}`, { opacity: isDesktop ? 0.3 : 0, duration: 0.4 }, stepTime);
+            tl.to(`.vp-step-${i-1}`, { opacity: isDesktop ? 0.35 : 0, duration: 0.4 }, stepTime);
           }
         });
 
@@ -158,12 +156,10 @@ export function VideoPortal() {
   return (
     <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#FAFAFA] flex items-center justify-center">
       
-      {/* ── BACKGROUND LAYER: INDEX NUMBER (Removed) ── */}
-
       {/* ── BACKGROUND VIDEO SHRINKING FRAME ── */}
       <div 
         ref={videoWrapperRef} 
-        className="relative z-10 overflow-hidden border border-black/10"
+        className="relative z-10 overflow-hidden border border-black/5"
         style={{ width: "100%", height: "100vh" }}
       >
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
@@ -172,20 +168,19 @@ export function VideoPortal() {
         <div className="vp-overlay absolute inset-0 bg-white/20" />
       </div>
 
-      {/* ── LEFT MARGIN HAIRLINE (Removed) ── */}
-
       {/* ── EDITORIAL UI LAYER ── */}
-      <div className="absolute inset-0 z-20 pointer-events-none p-6 lg:p-20 flex flex-col justify-between">
+      <div className="absolute inset-0 z-20 pointer-events-none p-8 lg:p-24 flex flex-col justify-between">
         
-        <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-8 max-w-sm">
-           <div className="flex items-center gap-4 mb-2">
+        {/* Left Column Tag + Title */}
+        <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-6 w-full lg:w-[22vw] lg:max-w-[360px]">
+           <div className="flex items-center gap-4">
               <div className="h-px w-8 bg-brand-red" />
               <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans whitespace-nowrap">
                 003 // ОПЕРАТИВЕН МОДЕЛ
               </span>
            </div>
            <div className="vp-ed-header">
-             <h2 className="font-sans text-[clamp(2.5rem,5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
+             <h2 className="font-sans text-[clamp(2.5rem,4.5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
                Од барање <br />
                до <span className="text-brand-red italic font-sans lowercase font-normal">букинг.</span>
              </h2>
@@ -193,15 +188,18 @@ export function VideoPortal() {
         </div>
 
         {/* MIDDLE ROW (STEPS) */}
-        <div className="relative lg:absolute lg:right-28 lg:top-1/2 lg:-translate-y-1/2 flex items-stretch gap-6 lg:gap-12 h-fit mt-6 lg:mt-0 mb-auto lg:mb-0">
-           <div className="flex flex-col gap-6 lg:gap-12 w-full max-w-95">
+        <div className="relative lg:absolute lg:right-24 lg:top-1/2 lg:-translate-y-1/2 flex items-stretch h-fit mt-6 lg:mt-0 mb-auto lg:mb-0 w-full lg:w-[22vw] lg:max-w-[360px]">
+           <div className="flex flex-col gap-5 w-full">
               {PROCESS_STEPS.map((step, i) => (
-                <div key={i} className={`vp-step-${i} opacity-0 flex flex-col gap-2 lg:gap-3 items-start lg:pl-6 bg-white lg:bg-transparent p-5 lg:p-0 rounded-xl border border-black/5 lg:border-none shadow-xl lg:shadow-none`}>
-                   <span className="font-mono text-[10px] lg:text-[11px] text-brand-red font-bold tracking-[0.2em] uppercase">{step.tag}</span>
-                   <h3 className="font-sans text-xl lg:text-3xl text-brand-dark font-medium tracking-tight leading-none uppercase">
+                <div key={i} className={`vp-step-${i} opacity-0 border-t border-black/10 pt-4 flex flex-col gap-2`}>
+                   <div className="flex items-center justify-between w-full">
+                      <span className="font-mono text-[9px] tracking-[0.2em] text-brand-red font-bold uppercase">{step.tag}</span>
+                      <span className="font-mono text-[9px] text-black/30 font-bold">{step.id}</span>
+                   </div>
+                   <h3 className="font-sans text-lg lg:text-xl text-brand-dark font-medium tracking-tight leading-none uppercase">
                      {step.title}
                    </h3>
-                   <p className="font-sans text-sm lg:text-base text-brand-dark/60 font-normal leading-relaxed">
+                   <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light">
                      {step.desc}
                    </p>
                 </div>
@@ -211,15 +209,15 @@ export function VideoPortal() {
 
         {/* FOOTER ROW: MANIFESTO & COORDINATES */}
         <div className="vp-ed-footer opacity-0 flex justify-between items-end mt-4 lg:mt-0">
-           <div className="flex flex-col gap-6 max-w-xs lg:max-w-sm">
+           <div className="flex flex-col gap-6 w-full lg:w-[22vw] lg:max-w-[360px]">
               <div className="vp-ed-manifesto">
-                 <p className="font-sans text-sm lg:text-[16px] text-brand-dark/70 leading-relaxed">
+                 <p className="font-sans text-sm lg:text-base text-brand-dark/60 leading-relaxed font-light">
                     Нашиот оперативен модел е дизајниран за максимална прецизност. Секој чекор е оптимизиран за да обезбеди сигурност и брзина во глобалниот транспортен ланец.
                  </p>
               </div>
               <div className="flex items-center gap-4 pl-1">
-                 <div className="w-2 h-2 bg-brand-red rounded-full" />
-                 <span className="font-mono text-[11px] text-black/40 tracking-[0.3em] font-bold">41°59'56"N 21°25'44"E</span>
+                 <div className="w-2 h-2 bg-brand-red rounded-full animate-pulse" />
+                 <span className="font-mono text-[10px] text-black/40 tracking-[0.3em] font-bold">41°59'56"N 21°25'44"E</span>
               </div>
            </div>
            
