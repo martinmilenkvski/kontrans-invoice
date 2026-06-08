@@ -48,10 +48,10 @@ function AccordionItem({ faq, index }: { faq: typeof faqs[0], index: number }) {
         className="w-full py-8 lg:py-10 flex items-center justify-between text-left group transition-all duration-500"
       >
         <div className="flex items-start gap-8 lg:gap-16 w-full">
-           <span className="font-(family-name:--font-jost) text-2xl lg:text-3xl font-bold text-brand-dark/10 shrink-0 mt-1 transition-colors duration-500 group-hover:text-brand-red/20">
+           <span className="font-sans text-2xl lg:text-3xl font-bold text-brand-dark/10 shrink-0 mt-1 transition-colors duration-500 group-hover:text-brand-red/20">
              {faq.id}
            </span>
-           <h3 className="text-xl lg:text-2xl font-(family-name:--font-jost) font-medium text-brand-dark leading-snug max-w-3xl transition-all duration-500 group-hover:translate-x-2">
+           <h3 className="text-xl lg:text-2xl font-sans font-medium text-brand-dark leading-snug max-w-3xl transition-all duration-500 group-hover:translate-x-2">
              {faq.question}
            </h3>
         </div>
@@ -69,7 +69,7 @@ function AccordionItem({ faq, index }: { faq: typeof faqs[0], index: number }) {
       >
         <div className="overflow-hidden">
           <div className="pb-12 lg:pb-16 pl-16 lg:pl-28 max-w-3xl">
-             <p className="font-(family-name:--font-jost) text-lg lg:text-xl text-brand-dark/60 leading-relaxed font-medium">
+             <p className="font-sans text-lg lg:text-xl text-brand-dark/60 leading-relaxed font-medium">
                {faq.answer}
              </p>
           </div>
@@ -138,7 +138,7 @@ export function FAQ() {
            <div className="faq-reveal opacity-0 lg:col-span-3 flex flex-col items-start pt-2">
               <div className="flex items-center gap-4">
                  <div className="h-px w-8 bg-brand-red" />
-                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                    006 // FAQ
                  </span>
               </div>
@@ -146,7 +146,7 @@ export function FAQ() {
 
            {/* Middle/Right: Massive Title */}
            <div className="faq-reveal opacity-0 lg:col-span-9 text-left lg:text-right">
-              <h2 className="font-(family-name:--font-jost) text-[clamp(2rem,5vw,4rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
+              <h2 className="font-sans text-[clamp(2rem,5vw,4rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
                  Често поставувани <span className="text-brand-red italic">прашања.</span>
               </h2>
            </div>
@@ -162,14 +162,14 @@ export function FAQ() {
 
         {/* BOTTOM REDIRECT */}
         <div className="mt-20 faq-row opacity-0 flex flex-col items-end">
-           <p className="font-(family-name:--font-jost) text-[11px] font-bold text-black/40 uppercase tracking-[0.3em] mb-4">
+           <p className="font-sans text-[11px] font-bold text-black/40 uppercase tracking-[0.3em] mb-4">
               Имате специфично барање?
            </p>
            <a 
               href="#contact" 
               className="group flex items-center gap-6"
            >
-              <span className="font-(family-name:--font-jost) text-xl lg:text-2xl font-bold text-brand-dark tracking-tight transition-colors group-hover:text-brand-red">
+              <span className="font-sans text-xl lg:text-2xl font-bold text-brand-dark tracking-tight transition-colors group-hover:text-brand-red">
                  Контактирајте го нашиот тим
               </span>
               <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-brand-red group-hover:border-brand-red transition-all duration-500">

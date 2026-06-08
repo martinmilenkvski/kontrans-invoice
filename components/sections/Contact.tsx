@@ -125,17 +125,17 @@ export function Contact() {
            <div className="contact-reveal opacity-0 lg:col-span-4 flex flex-col items-start pt-2">
               <div className="flex items-center gap-4">
                  <div className="h-px w-8 bg-brand-red" />
-                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                    007 // КОНТАКТ
                  </span>
               </div>
-              <p className="mt-8 font-(family-name:--font-jost) text-lg text-brand-dark/40 max-w-xs leading-relaxed font-medium">
+              <p className="mt-8 font-sans text-lg text-brand-dark/40 max-w-xs leading-relaxed font-medium">
                  Побарајте понуда и добијте детален логистички план во најкраток можен рок.
               </p>
            </div>
 
            <div className="contact-reveal opacity-0 lg:col-span-8 text-left">
-              <h2 className="font-(family-name:--font-jost) text-[clamp(2.2rem,5.5vw,4.5rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
+              <h2 className="font-sans text-[clamp(2.2rem,5.5vw,4.5rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
                  Закажете го вашиот <br />
                  <span className="text-brand-red italic">превоз денес.</span>
               </h2>
@@ -163,13 +163,13 @@ export function Contact() {
               <div className="contact-form-item opacity-0 flex flex-col gap-8">
                  <div>
                     <h4 className="font-mono text-[9px] font-bold text-brand-red uppercase tracking-widest mb-4">Адреса</h4>
-                    <p className="font-(family-name:--font-jost) text-xl text-brand-dark font-bold leading-tight">
+                    <p className="font-sans text-xl text-brand-dark font-bold leading-tight">
                        Ул. Киро Крстевски 3/6, <br /> 1000 Скопје
                     </p>
                  </div>
                  <div>
                     <h4 className="font-mono text-[9px] font-bold text-brand-red uppercase tracking-widest mb-4">Контакт</h4>
-                    <p className="font-(family-name:--font-jost) text-xl text-brand-dark font-bold leading-tight">
+                    <p className="font-sans text-xl text-brand-dark font-bold leading-tight">
                        +389 2 311 0000 <br /> info@kontrans.mk
                     </p>
                  </div>
@@ -183,7 +183,7 @@ export function Contact() {
                  {/* Step 1: Transport Mode */}
                  <div className="contact-form-item opacity-0 flex flex-col gap-8">
                     <div className="flex items-center justify-between border-b border-black/20 pb-4">
-                       <span className={`font-(family-name:--font-jost) text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.transportMode ? "text-brand-red" : "text-brand-dark/60"}`}>
+                       <span className={`font-sans text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.transportMode ? "text-brand-red" : "text-brand-dark/60"}`}>
                           01 // ТРАНСПОРТ {errors.transportMode && <span className="ml-2">// {errors.transportMode}</span>}
                        </span>
                     </div>
@@ -215,7 +215,7 @@ export function Contact() {
                  {/* Step 2: Route Info */}
                  <div className="contact-form-item opacity-0 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                     <div className="flex flex-col gap-4">
-                       <span className={`font-(family-name:--font-jost) text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.origin ? "text-brand-red" : "text-brand-dark/60"}`}>
+                       <span className={`font-sans text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.origin ? "text-brand-red" : "text-brand-dark/60"}`}>
                           02 // ПОЧЕТНА ТОЧКА {errors.origin && <span className="ml-2">// {errors.origin}</span>}
                        </span>
                        <input 
@@ -224,11 +224,11 @@ export function Contact() {
                           value={formData.origin}
                           onChange={handleInputChange}
                           placeholder="ГРАД / ПРИСТАНИШТЕ"
-                          className={`bg-transparent border-b-2 py-4 text-2xl font-bold font-(family-name:--font-jost) text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors tracking-tight ${errors.origin ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
+                          className={`bg-transparent border-b-2 py-4 text-2xl font-bold font-sans text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors tracking-tight ${errors.origin ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
                        />
                     </div>
                     <div className="flex flex-col gap-4">
-                       <span className={`font-(family-name:--font-jost) text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.destination ? "text-brand-red" : "text-brand-dark/60"}`}>
+                       <span className={`font-sans text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.destination ? "text-brand-red" : "text-brand-dark/60"}`}>
                           03 // ДЕСТИНАЦИЈА {errors.destination && <span className="ml-2">// {errors.destination}</span>}
                        </span>
                        <input 
@@ -237,7 +237,7 @@ export function Contact() {
                           value={formData.destination}
                           onChange={handleInputChange}
                           placeholder="КРАЈНА ТАЧКА"
-                          className={`bg-transparent border-b-2 py-4 text-2xl font-bold font-(family-name:--font-jost) text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors tracking-tight ${errors.destination ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
+                          className={`bg-transparent border-b-2 py-4 text-2xl font-bold font-sans text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors tracking-tight ${errors.destination ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
                        />
                     </div>
                  </div>
@@ -245,36 +245,36 @@ export function Contact() {
                  {/* Step 3: Logistics Specs */}
                  <div className="contact-form-item opacity-0 grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div className="flex flex-col gap-4">
-                       <span className="font-(family-name:--font-jost) text-[10px] font-black text-brand-dark/60 uppercase tracking-widest">04 // ТЕЖИНА (kg)</span>
+                       <span className="font-sans text-[10px] font-black text-brand-dark/60 uppercase tracking-widest">04 // ТЕЖИНА (kg)</span>
                        <input 
                           type="text" 
                           id="weight"
                           value={formData.weight}
                           onChange={handleInputChange}
                           placeholder="00"
-                          className="bg-transparent border-b-2 border-black/20 py-2 text-xl font-bold font-(family-name:--font-jost) text-brand-dark placeholder:text-black/20 focus:outline-none focus:border-brand-red transition-colors"
+                          className="bg-transparent border-b-2 border-black/20 py-2 text-xl font-bold font-sans text-brand-dark placeholder:text-black/20 focus:outline-none focus:border-brand-red transition-colors"
                        />
                     </div>
                     <div className="flex flex-col gap-4">
-                       <span className="font-(family-name:--font-jost) text-[10px] font-black text-brand-dark/60 uppercase tracking-widest">05 // ВОЛУМЕН (m³)</span>
+                       <span className="font-sans text-[10px] font-black text-brand-dark/60 uppercase tracking-widest">05 // ВОЛУМЕН (m³)</span>
                        <input 
                           type="text" 
                           id="volume"
                           value={formData.volume}
                           onChange={handleInputChange}
                           placeholder="0.0"
-                          className="bg-transparent border-b-2 border-black/20 py-2 text-xl font-bold font-(family-name:--font-jost) text-brand-dark placeholder:text-black/20 focus:outline-none focus:border-brand-red transition-colors"
+                          className="bg-transparent border-b-2 border-black/20 py-2 text-xl font-bold font-sans text-brand-dark placeholder:text-black/20 focus:outline-none focus:border-brand-red transition-colors"
                        />
                     </div>
                     <div className="flex flex-col gap-4">
-                       <span className="font-(family-name:--font-jost) text-[10px] font-black text-brand-dark/60 uppercase tracking-widest">06 // ТИП НА РОБА</span>
+                       <span className="font-sans text-[10px] font-black text-brand-dark/60 uppercase tracking-widest">06 // ТИП НА РОБА</span>
                        <input 
                           type="text" 
                           id="commodity"
                           value={formData.commodity}
                           onChange={handleInputChange}
                           placeholder="ОПИС"
-                          className="bg-transparent border-b-2 border-black/20 py-2 text-xl font-bold font-(family-name:--font-jost) text-brand-dark placeholder:text-black/20 focus:outline-none focus:border-brand-red transition-colors"
+                          className="bg-transparent border-b-2 border-black/20 py-2 text-xl font-bold font-sans text-brand-dark placeholder:text-black/20 focus:outline-none focus:border-brand-red transition-colors"
                        />
                     </div>
                  </div>
@@ -282,7 +282,7 @@ export function Contact() {
                  {/* Step 4: Identification */}
                  <div className="contact-form-item opacity-0 grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="flex flex-col gap-4">
-                       <span className={`font-(family-name:--font-jost) text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.email ? "text-brand-red" : "text-brand-dark/60"}`}>
+                       <span className={`font-sans text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.email ? "text-brand-red" : "text-brand-dark/60"}`}>
                           07 // Е-ПОШТА {errors.email && <span className="ml-2">// {errors.email}</span>}
                        </span>
                        <input 
@@ -291,11 +291,11 @@ export function Contact() {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder="your@mail.com"
-                          className={`bg-transparent border-b-2 py-2 text-xl font-bold font-(family-name:--font-jost) text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors ${errors.email ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
+                          className={`bg-transparent border-b-2 py-2 text-xl font-bold font-sans text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors ${errors.email ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
                        />
                     </div>
                     <div className="flex flex-col gap-4">
-                       <span className={`font-(family-name:--font-jost) text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.phone ? "text-brand-red" : "text-brand-dark/60"}`}>
+                       <span className={`font-sans text-[10px] font-black uppercase tracking-widest transition-colors duration-300 ${errors.phone ? "text-brand-red" : "text-brand-dark/60"}`}>
                           08 // ТЕЛЕФОН {errors.phone && <span className="ml-2">// {errors.phone}</span>}
                        </span>
                        <input 
@@ -304,7 +304,7 @@ export function Contact() {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="+389"
-                          className={`bg-transparent border-b-2 py-2 text-xl font-bold font-(family-name:--font-jost) text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors ${errors.phone ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
+                          className={`bg-transparent border-b-2 py-2 text-xl font-bold font-sans text-brand-dark placeholder:text-black/20 focus:outline-none transition-colors ${errors.phone ? "border-brand-red" : "border-black/20 focus:border-brand-red"}`}
                        />
                     </div>
                  </div>
@@ -320,7 +320,7 @@ export function Contact() {
                        <div className="relative z-10 flex items-center justify-between px-10">
                           <div className="flex flex-col items-start text-left">
                              <span className="font-mono text-[9px] font-bold text-white/40 uppercase tracking-[0.3em] mb-1">Официјално барање</span>
-                             <span className="font-(family-name:--font-jost) text-xl lg:text-2xl font-black text-white uppercase tracking-tight">
+                             <span className="font-sans text-xl lg:text-2xl font-black text-white uppercase tracking-tight">
                                 {isSubmitting ? "Обработка..." : "Испрати до Контранс"}
                              </span>
                           </div>

@@ -43,7 +43,7 @@ export function MissionStatement() {
           <h2 className="reveal-item font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-brand-dark leading-[1.05] tracking-tight font-normal">
             Се посветуваме целосно на нашите <br className="hidden lg:block" />
             партнери и решенијата што ги нудиме, <br className="hidden lg:block" />
-            носејќи <span className="text-brand-red italic font-(family-name:--font-jost) font-medium">највисока експертиза.</span>
+            носејќи <span className="text-brand-red italic font-sans font-medium">највисока експертиза.</span>
           </h2>
         </div>
 
@@ -53,10 +53,10 @@ export function MissionStatement() {
           {/* 1. Left Column: Experience Counter */}
           <div className="reveal-item flex flex-col items-start">
             <div className="flex items-center gap-1">
-              <span className="text-[72px] md:text-[90px] font-black leading-none tracking-tighter font-(family-name:--font-jost) text-brand-dark">20</span>
+              <span className="text-[72px] md:text-[90px] font-black leading-none tracking-tighter font-sans text-brand-dark">20</span>
               <span className="text-[48px] md:text-[60px] font-black leading-none text-brand-red">+</span>
             </div>
-            <span className="text-[11px] font-bold text-brand-dark uppercase tracking-[0.3em] mt-2 block font-(family-name:--font-jost)">
+            <span className="text-[11px] font-bold text-brand-dark uppercase tracking-[0.3em] mt-2 block font-sans">
               ГОДИНИ ИСКУСТВО
             </span>
           </div>
@@ -64,7 +64,7 @@ export function MissionStatement() {
           {/* 2. Middle Column: Body Text */}
           <div className="reveal-item flex flex-col gap-10">
             <div className="max-w-120">
-              <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-(family-name:--font-jost)">
+              <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-sans">
                 Ние сме сеопфатен логистички партнер посветен на извонредност. 
                 Со длабока пасија кон иновациите, ги водиме нашите клиенти кон нови пазари со сигурност и прецизност.
               </p>
@@ -75,7 +75,7 @@ export function MissionStatement() {
           <div className="reveal-item flex flex-col items-end">
             <div className="flex items-center gap-4">
               <div className="h-px w-8 bg-brand-red" />
-              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                 001 // ФИЛОЗОФИЈА
               </span>
             </div>

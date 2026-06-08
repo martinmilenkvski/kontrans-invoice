@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { useGSAP } from "@gsap/react";
@@ -30,6 +30,17 @@ const images = [
 export function Preloader() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { isComplete, setComplete } = usePreloader();
+
+  useEffect(() => {
+    if (!isComplete) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isComplete]);
 
 
   useGSAP(
@@ -151,7 +162,7 @@ export function Preloader() {
   if (isComplete) return null;
 
   return (
-    <div ref={containerRef} className="fixed inset-0 z-[100] touch-none pointer-events-none font-[family-name:var(--font-jost)]">
+    <div ref={containerRef} className="fixed inset-0 z-[100] touch-none pointer-events-auto font-[family-name:var(--font-jost)]">
       {/* Preloader Layer */}
       <div
         className="preloader-overlay fixed inset-0 w-full h-screen bg-white"

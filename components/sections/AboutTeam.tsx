@@ -67,7 +67,7 @@ export function AboutTeam() {
             <h2 className="team-reveal font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-brand-dark leading-[1.05] tracking-tight font-normal">
                Луѓето зад вашата логистика се мостот меѓу <br className="hidden lg:block" />
                локалните увиди и глобалните стандарди, <br className="hidden lg:block" />
-               создавајќи <span className="text-brand-red italic font-(family-name:--font-jost) font-medium">значителни идеи.</span>
+               создавајќи <span className="text-brand-red italic font-sans font-medium">значителни идеи.</span>
             </h2>
           </div>
         </div>
@@ -90,7 +90,7 @@ export function AboutTeam() {
             <div className="md:col-span-3 team-reveal">
                 <div className="flex items-center gap-4">
                   <div className="h-px w-8 bg-brand-red" />
-                  <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+                  <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                     004 // ТИМОТ НА КОНТРАНС
                   </span>
                 </div>
@@ -98,11 +98,11 @@ export function AboutTeam() {
 
             {/* Manifesto / Large Text Column */}
             <div className="md:col-span-5 team-reveal">
-                <h3 className="font-(family-name:--font-jost) text-[clamp(1.5rem,2.5vw,2.2rem)] font-medium text-brand-dark leading-[1.1] tracking-tight mb-8">
+                <h3 className="font-sans text-[clamp(1.5rem,2.5vw,2.2rem)] font-medium text-brand-dark leading-[1.1] tracking-tight mb-8">
                    Ние сме тим од креатори и мислители кои веруваат во создавање на искуства кои навистина поврзуваат.
                 </h3>
                 <div className="w-full h-px bg-black/10 mb-8" />
-                <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-(family-name:--font-jost)">
+                <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-sans">
                   Македонскиот логистички пазар бара комбинација на локален увид и глобални стандарди. Ние сме тука да обезбедиме сигурност и брзина во секој чекор.
                 </p>
             </div>
@@ -111,7 +111,7 @@ export function AboutTeam() {
             <div className="md:col-span-4 team-reveal flex flex-col gap-12 pt-8">
                 <div className="relative">
                     <span className="absolute -left-10 -top-12 text-brand-red text-7xl font-serif opacity-40 select-none">&ldquo;</span>
-                    <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-(family-name:--font-jost) italic relative z-10">
+                    <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-sans italic relative z-10">
                       Нашата приказна е изградена на страст и стремеж за реализација на значајни идеи во глобалниот транспортен ланец.
                     </p>
                     <span className="absolute -right-4 -bottom-10 text-brand-red text-7xl font-serif opacity-40 select-none">&rdquo;</span>
@@ -128,7 +128,7 @@ export function AboutTeam() {
                      />
                   </div>
                   <div className="flex flex-col">
-                      <span className="font-(family-name:--font-jost) text-xl font-bold text-brand-dark tracking-tight leading-none">Марина Миленковска</span>
+                      <span className="font-sans text-xl font-bold text-brand-dark tracking-tight leading-none">Марина Миленковска</span>
                       <span className="font-mono text-[9px] font-bold text-brand-red uppercase tracking-widest mt-2">General Manager // CEO</span>
                       
                       {/* Signature lockup (SVG Path) */}

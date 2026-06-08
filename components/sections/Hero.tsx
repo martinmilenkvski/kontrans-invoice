@@ -171,14 +171,14 @@ export function Hero() {
               Глобален транспорт{" "}
               <br className="hidden sm:block" />
               со{" "}
-              <span className="italic font-(family-name:--font-jost) text-brand-red text-[1.1em]">
+              <span className="italic font-sans text-brand-red text-[1.1em]">
                 доверба.
               </span>
             </motion.h1>
 
             <motion.p
               variants={slideUp}
-              className="text-white/60 font-(family-name:--font-jost) text-base md:text-lg leading-relaxed max-w-md"
+              className="text-white/60 font-sans text-base md:text-lg leading-relaxed max-w-md"
             >
               Сигурен, брз и целосно следен транспорт на над 50 дестинации.
               Бродски, авионски и камионски превоз од една платформа.

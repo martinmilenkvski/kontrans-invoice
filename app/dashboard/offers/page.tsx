@@ -671,7 +671,7 @@ ${t.emailFooter}`.trim();
 
         {/* Brand/Legal Footer (Printable) */}
         <div className="mt-auto px-14 py-8 border-t border-slate-100 bg-slate-50/30 print:bg-transparent flex justify-between items-center text-[8px] text-slate-300 font-black uppercase tracking-[0.3em]">
-          <span>© 2024 KONTRANS TRANSPORT</span>
+          <span>© {new Date().getFullYear()} KONTRANS TRANSPORT</span>
           <span>Quality Certified Logistics</span>
         </div>
       </div>

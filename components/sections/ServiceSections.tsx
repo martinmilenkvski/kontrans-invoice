@@ -46,19 +46,19 @@ export function ServiceHero({ eyebrow, title, accent, description, imageSrc, num
           <div className="lg:col-span-8">
             <div className="hero-reveal opacity-0 flex items-center gap-4 mb-8">
               <div className="h-px w-8 bg-brand-red" />
-              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                 {number} // {eyebrow}
               </span>
             </div>
             
-            <h1 className="hero-reveal opacity-0 font-(family-name:--font-jost) text-[clamp(2.5rem,6vw,5.5rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
+            <h1 className="hero-reveal opacity-0 font-sans text-[clamp(2.5rem,6vw,5.5rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
               {title} <br />
               <span className="text-brand-red italic">{accent}.</span>
             </h1>
           </div>
 
           <div className="lg:col-span-4 pb-4">
-            <p className="hero-reveal opacity-0 font-(family-name:--font-jost) text-xl text-brand-dark/50 leading-relaxed font-medium max-w-sm">
+            <p className="hero-reveal opacity-0 font-sans text-xl text-brand-dark/50 leading-relaxed font-medium max-w-sm">
               {description}
             </p>
           </div>
@@ -116,10 +116,10 @@ export function ServiceHighlight({ title, description, features, imageSrc }: Ser
           
           <div className="lg:col-span-6 flex flex-col gap-12">
             <div className="highlight-reveal opacity-0">
-               <h2 className="font-(family-name:--font-jost) text-4xl lg:text-6xl font-medium text-brand-dark tracking-tighter leading-tight mb-8">
+               <h2 className="font-sans text-4xl lg:text-6xl font-medium text-brand-dark tracking-tighter leading-tight mb-8">
                   {title}
                </h2>
-               <p className="font-(family-name:--font-jost) text-xl text-brand-dark/50 leading-relaxed font-medium">
+               <p className="font-sans text-xl text-brand-dark/50 leading-relaxed font-medium">
                   {description}
                </p>
             </div>
@@ -130,7 +130,7 @@ export function ServiceHighlight({ title, description, features, imageSrc }: Ser
                     <div className="w-10 h-10 bg-brand-red/5 flex items-center justify-center border border-brand-red/10">
                        <CheckCircle2 className="w-5 h-5 text-brand-red" />
                     </div>
-                    <span className="font-(family-name:--font-jost) text-sm font-bold text-brand-dark uppercase tracking-widest leading-snug">
+                    <span className="font-sans text-sm font-bold text-brand-dark uppercase tracking-widest leading-snug">
                        {feature}
                     </span>
                  </div>
@@ -184,15 +184,15 @@ export function ServiceData({ title, items }: ServiceDataProps) {
   return (
     <section ref={containerRef} className="bg-white py-32 border-b border-black/10">
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
-        <h3 className="font-(family-name:--font-jost) text-2xl font-bold text-brand-dark uppercase tracking-widest mb-16">
+        <h3 className="font-sans text-2xl font-bold text-brand-dark uppercase tracking-widest mb-16">
           Технички Капацитети
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-black/10 border border-black/10">
            {items.map((item, i) => (
              <div key={i} className="data-item opacity-0 bg-white p-12 flex flex-col gap-4">
-                <span className="font-(family-name:--font-jost) text-xs font-bold text-brand-red uppercase tracking-widest">{item.label}</span>
-                <span className="font-(family-name:--font-jost) text-3xl font-medium text-brand-dark tracking-tighter">{item.value}</span>
+                <span className="font-sans text-xs font-bold text-brand-red uppercase tracking-widest">{item.label}</span>
+                <span className="font-sans text-3xl font-medium text-brand-dark tracking-tighter">{item.value}</span>
              </div>
            ))}
         </div>

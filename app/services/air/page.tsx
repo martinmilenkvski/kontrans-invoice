@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ServiceHero, ServiceHighlight, ServiceData } from "@/components/sections/ServiceSections";
 import { Contact } from "@/components/sections/Contact";
@@ -26,7 +25,7 @@ const airData = [
 export default function AirTransportPage() {
   return (
     <main className="min-h-screen bg-white">
-      <Header />
+      
       
       <ServiceHero 
         number="002"

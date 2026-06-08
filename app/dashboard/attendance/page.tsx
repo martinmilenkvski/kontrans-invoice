@@ -253,7 +253,7 @@ export default function AttendancePage() {
         </div>
 
         <div className="mt-auto px-14 py-8 border-t border-slate-100 bg-slate-50/30 print:hidden flex justify-between items-center text-[7px] text-slate-300 font-black uppercase tracking-[0.3em]">
-          <span>© 2024 KONTRANS ATTENDANCE</span>
+          <span>© {currentDate.getFullYear()} KONTRANS ATTENDANCE</span>
           <span>Internal Use Only</span>
         </div>
       </div>

@@ -8,7 +8,6 @@ import {
   Users, 
   FileSearch, 
   LogOut, 
-  LayoutDashboard,
   ChevronRight,
   Plus,
   Shield
@@ -39,154 +38,139 @@ export default function DashboardPage() {
       description: "Управувајте со вашите фактури и плаќања",
       icon: <FileText className="w-6 h-6" />,
       href: "/dashboard/invoices",
-      color: "bg-blue-500/10 text-blue-500",
-      border: "border-blue-500/20"
     },
     {
       title: "Присутност",
       description: "Следете ја присутноста на вработените",
       icon: <Users className="w-6 h-6" />,
       href: "/dashboard/attendance",
-      color: "bg-[#D42B2B]/10 text-[#D42B2B]",
-      border: "border-[#D42B2B]/20"
     },
     {
       title: "Понуди",
       description: "Креирајте и прегледувајте нови понуди",
       icon: <FileSearch className="w-6 h-6" />,
       href: "/dashboard/offers",
-      color: "bg-emerald-500/10 text-emerald-500",
-      border: "border-emerald-500/20"
     },
     {
       title: "Осигурување",
       description: "Преглед и обновување на полиси за осигурување",
       icon: <Shield className="w-6 h-6" />,
       href: "/dashboard/insurance",
-      color: "bg-purple-500/10 text-purple-500",
-      border: "border-purple-500/20"
     }
   ];
 
   if (!isLoaded) return null;
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white font-space flex flex-col selection:bg-[#D42B2B] selection:text-white">
-      {/* Structural Brutalist Top Bar */}
-      <header className="border-b-2 border-white/10 bg-[#050505] sticky top-0 z-50">
-        <div className="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+    <main className="min-h-screen bg-[#080808] text-white font-sans flex flex-col selection:bg-[#D42B2B] selection:text-white">
+      {/* Premium Top Bar Header */}
+      <header className="border-b border-white/5 bg-[#080808]/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-[1600px] mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2 shrink-0 group">
-              <div className="w-2 h-2 bg-[#D42B2B] group-hover:scale-150 transition-transform" />
-              <span className="text-sm font-black tracking-[0.2em] uppercase">
-                KON<span className="text-[#D42B2B]">TRANS</span>
+              <span className="text-xl font-black tracking-[0.15em] uppercase">
+                КОН<span className="text-[#D42B2B]">ТРАНС</span>
               </span>
             </Link>
-            <div className="hidden md:flex items-center gap-3 text-white/30 font-mono text-xs uppercase tracking-widest pl-6 border-l-2 border-white/10 h-8">
-              <span className="text-[#D42B2B] mr-2">SYS_MSG:</span>
-              Систем активен // Контролна Табла
-            </div>
           </div>
           
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-2 border-2 border-white/10 hover:border-[#D42B2B] hover:bg-[#D42B2B] hover:text-white transition-all text-white/70 text-xs font-bold uppercase tracking-widest group"
+            className="flex items-center gap-2 px-6 py-2.5 bg-white/5 border border-white/10 hover:bg-[#D42B2B] hover:border-[#D42B2B] text-white transition-all duration-300 text-xs font-bold uppercase tracking-widest group cursor-pointer"
           >
             Одјави се
-            <LogOut className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <LogOut className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
       </header>
 
-      {/* Main Grid Canvas */}
-      <div className="flex-1 max-w-[1600px] w-full mx-auto p-6 md:p-12 relative">
-        {/* Decorative Grid Lines */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-             style={{
-               backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
-               backgroundSize: '40px 40px'
-             }}
-        />
-
-        <div className="relative z-10 mb-16 border-l-4 border-[#D42B2B] pl-6 py-2">
-          <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight leading-none mb-4">
-            Команден <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/30">Центар</span>
+      {/* Main Canvas */}
+      <div className="flex-1 max-w-[1600px] w-full mx-auto p-6 md:p-12 relative flex flex-col justify-center">
+        
+        {/* Title Section */}
+        <div className="relative z-10 mb-16 flex flex-col items-start gap-4">
+          <div className="flex items-center gap-4">
+            <span className="h-px w-8 bg-[#D42B2B]" />
+            <span className="font-mono text-[10px] text-[#D42B2B] tracking-[0.4em] uppercase font-bold">
+              КОНТРОЛЕН ПАНЕЛ
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-medium tracking-tight text-white leading-none">
+            Команден <span className="italic text-[#D42B2B] font-light">центар.</span>
           </h1>
-          <p className="text-white/40 font-mono text-xs uppercase tracking-[0.2em] max-w-xl">
-            // Пристапот е одобрен. Изберете модул за да продолжите со работа.
+          <p className="text-white/50 text-sm max-w-md">
+            Добредојдовте назад во вашиот менаџмент систем. Изберете некој од оперативните модули подолу.
           </p>
         </div>
 
-        {/* Brutalist Module Grid */}
+        {/* Sleek Module Grid */}
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {dashboardOptions.map((option, idx) => (
             <Link 
               key={option.title}
               href={option.href}
-              className="group block"
+              className="group block h-full"
             >
-              <div className="h-full bg-[#0a0a0a] border-2 border-white/10 hover:border-[#D42B2B] transition-all relative overflow-hidden flex flex-col shadow-[8px_8px_0_0_rgba(255,255,255,0.02)] hover:shadow-[8px_8px_0_0_#D42B2B] hover:-translate-y-1 hover:-translate-x-1">
+              <div className="h-full bg-[#111111] border border-white/5 hover:border-[#D42B2B]/30 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(212,43,43,0.08)] group relative overflow-hidden min-h-[300px]">
                 
-                {/* Protocol Header */}
-                <div className="flex items-center justify-between p-4 border-b-2 border-white/10 bg-[#000]">
-                  <span className="font-mono text-[#D42B2B] text-[0.65rem] uppercase tracking-widest">
-                    МОД_0{idx + 1}
-                  </span>
-                  <div className="flex gap-1">
-                    <div className="w-1.5 h-1.5 bg-white/20 group-hover:bg-[#D42B2B] transition-colors" />
-                    <div className="w-1.5 h-1.5 bg-white/20 group-hover:bg-[#D42B2B] transition-colors" />
-                  </div>
-                </div>
-                
-                <div className="p-6 md:p-8 flex-1 flex flex-col">
-                  {/* Brutalist Icon Box */}
-                  <div className="w-14 h-14 border-2 border-white/10 bg-black flex items-center justify-center mb-8 group-hover:bg-[#D42B2B] group-hover:border-[#D42B2B] text-white/50 group-hover:text-white transition-all">
+                {/* Top red indicator border line on hover */}
+                <div className="absolute top-0 left-0 w-full h-[2px] bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+                <div>
+                  {/* Circular Hover Icon Box */}
+                  <div className="w-14 h-14 bg-white/5 flex items-center justify-center text-white/50 group-hover:text-white group-hover:bg-[#D42B2B] transition-all duration-500 mb-8 border border-white/10 group-hover:border-[#D42B2B]">
                     {option.icon}
                   </div>
                   
-                  <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide mb-4 group-hover:text-[#D42B2B] transition-colors leading-tight">{option.title}</h3>
-                  <p className="text-white/40 font-mono text-xs leading-relaxed mb-10 flex-1">
+                  <h3 className="text-2xl font-medium tracking-tight text-white mb-3 transition-colors duration-300 group-hover:text-[#D42B2B]">
+                    {option.title}
+                  </h3>
+                  <p className="text-white/40 text-sm leading-relaxed mb-10">
                     {option.description}
                   </p>
+                </div>
 
-                  <div className="flex items-center justify-between text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white/30 group-hover:text-white transition-colors border-t-2 border-white/10 pt-4">
-                    <span>Отвори модул</span>
-                    <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
-                  </div>
+                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-white/30 group-hover:text-white transition-colors border-t border-white/5 pt-4">
+                  <span>Отвори модул</span>
+                  <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300 text-[#D42B2B]" />
                 </div>
               </div>
             </Link>
           ))}
         </div>
 
-        {/* Support Banner (Brutalist) */}
-        <div className="relative z-10 mt-16 bg-[#D42B2B] border-2 border-[#D42B2B] p-6 lg:p-10 flex flex-col md:flex-row items-center justify-between gap-8 text-black shadow-[8px_8px_0_0_rgba(255,255,255,0.1)]">
+        {/* Support Banner (Premium Logistics Design) */}
+        <div className="relative z-10 mt-16 bg-gradient-to-r from-[#D42B2B] to-[#b02222] border border-white/5 p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-white shadow-xl">
           <div className="flex items-start gap-6">
-            <Shield className="w-12 h-12 shrink-0 opacity-80" />
+            <div className="w-12 h-12 bg-white/10 flex items-center justify-center border border-white/10 shrink-0">
+              <Shield className="w-6 h-6 text-white" />
+            </div>
             <div>
-              <h4 className="text-xl font-black uppercase tracking-tight mb-2">Системска Дијагностика и Поддршка</h4>
-              <p className="text-black/70 font-mono text-sm uppercase tracking-wider">ПРЕДУПРЕДУВАЊЕ: Криптиран канал. Само за овластен персонал.</p>
+              <h4 className="text-2xl font-medium tracking-tight mb-2">Системска Дијагностика и Поддршка</h4>
+              <p className="text-white/85 text-sm tracking-wide leading-relaxed">
+                За сите прашања околу кориснички пристап, дијагностички проблеми или помош при генерирање на фактури/осигурувања, контактирајте ја техничката поддршка.
+              </p>
             </div>
           </div>
-          <button className="whitespace-nowrap px-8 py-4 bg-black text-white hover:bg-white hover:text-black border-2 border-black text-xs font-black uppercase tracking-[0.2em] transition-colors flex items-center gap-3 group">
+          <button className="whitespace-nowrap px-8 py-4 bg-white text-black hover:bg-[#111111] hover:text-white text-xs font-bold uppercase tracking-widest transition-colors duration-300 flex items-center gap-3 group cursor-pointer border-none shadow-lg">
             КОНТАКТ
-            <ChevronRight className="w-4 h-4 group-hover:translate-x-1" />
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
 
       {/* Structural Footer */}
-      <footer className="mt-auto border-t-2 border-white/10 bg-black">
-        <div className="max-w-[1600px] mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/30 font-mono text-[0.65rem] uppercase tracking-[0.2em]">
+      <footer className="mt-auto border-t border-white/5 bg-[#0a0a0a]">
+        <div className="max-w-[1600px] mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-4 text-white/30 text-xs tracking-wider">
+          <p className="uppercase">
             СИС_ДАТУМ // {new Date().getFullYear()} // KONTRANS ПРЕМИУМ ПАНЕЛ
           </p>
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full bg-[#D42B2B] opacity-40" />
-              <span className="relative inline-flex h-2 w-2 bg-[#D42B2B]" />
+              <span className="animate-ping absolute inline-flex h-full w-full bg-[#D42B2B] opacity-40 rounded-full" />
+              <span className="relative inline-flex h-2 w-2 bg-[#D42B2B] rounded-full" />
             </span>
-            <span className="text-[#D42B2B] font-mono text-[0.65rem] uppercase tracking-[0.2em]">Активна Врска</span>
+            <span className="text-[#D42B2B] text-[10px] uppercase tracking-widest font-mono">Активна Врска</span>
           </div>
         </div>
       </footer>

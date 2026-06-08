@@ -179,14 +179,14 @@ export function VideoPortal() {
         
         <div className="vp-ed-header-container flex flex-col gap-4 lg:gap-10 max-w-sm">
            <div className="vp-ed-header">
-             <h2 className="font-(family-name:--font-jost) text-[clamp(2.5rem,5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
+             <h2 className="font-sans text-[clamp(2.5rem,5vw,4rem)] text-brand-dark leading-[0.9] lg:leading-[0.85] tracking-tight font-medium">
                Од барање <br />
-              до <span className="text-brand-red italic font-(family-name:--font-jost) lowercase font-normal">реализација.</span>
+              до <span className="text-brand-red italic font-sans lowercase font-normal">реализација.</span>
              </h2>
            </div>
            
            <div className="vp-ed-manifesto">
-              <p className="font-(family-name:--font-jost) text-[16px] md:text-[18px] text-brand-dark/70 leading-relaxed max-w-85 lg:max-w-none">
+              <p className="font-sans text-[16px] md:text-[18px] text-brand-dark/70 leading-relaxed max-w-85 lg:max-w-none">
                  Нашиот оперативен модел е дизајниран за максимална прецизност. Секој чекор е оптимизиран за да обезбеди сигурност и брзина во глобалниот транспортен ланец.
               </p>
            </div>
@@ -198,10 +198,10 @@ export function VideoPortal() {
               {PROCESS_STEPS.map((step, i) => (
                 <div key={i} className={`vp-step-${i} opacity-0 flex flex-col gap-2 lg:gap-3 items-start lg:pl-6 bg-white lg:bg-transparent p-5 lg:p-0 rounded-xl border border-black/5 lg:border-none shadow-xl lg:shadow-none`}>
                    <span className="font-mono text-[10px] lg:text-[11px] text-brand-red font-bold tracking-[0.2em] uppercase">{step.tag}</span>
-                   <h3 className="font-(family-name:--font-jost) text-xl lg:text-3xl text-brand-dark font-medium tracking-tight leading-none uppercase">
+                   <h3 className="font-sans text-xl lg:text-3xl text-brand-dark font-medium tracking-tight leading-none uppercase">
                      {step.title}
                    </h3>
-                   <p className="font-(family-name:--font-jost) text-sm lg:text-base text-brand-dark/60 font-normal leading-relaxed">
+                   <p className="font-sans text-sm lg:text-base text-brand-dark/60 font-normal leading-relaxed">
                      {step.desc}
                    </p>
                 </div>
@@ -214,7 +214,7 @@ export function VideoPortal() {
            <div className="flex flex-col gap-4">
               <div className="flex items-center gap-4">
                  <div className="h-px w-8 bg-brand-red" />
-                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost) whitespace-nowrap">
+                 <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans whitespace-nowrap">
                    003 // ОПЕРАТИВЕН МОДЕЛ
                  </span>
               </div>

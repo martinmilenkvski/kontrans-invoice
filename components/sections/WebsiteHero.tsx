@@ -62,7 +62,7 @@ export function WebsiteHero({
               {accent && (
                 <>
                   {accentMode === "block" ? <br /> : " "}
-                  <span className="text-brand-red italic font-(family-name:--font-jost) font-normal tracking-normal text-[1.05em]">
+                  <span className="text-brand-red italic font-sans font-normal tracking-normal text-[1.05em]">
                     {accent}
                   </span>
                 </>

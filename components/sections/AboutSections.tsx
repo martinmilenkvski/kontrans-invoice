@@ -38,19 +38,19 @@ export function AboutHero() {
           <div className="lg:col-span-8">
             <div className="hero-reveal opacity-0 flex items-center gap-4 mb-12">
               <div className="h-px w-8 bg-brand-red" />
-              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                 001 // НАШАТА ПРИКАЗНА
               </span>
             </div>
             
-            <h1 className="hero-reveal opacity-0 font-(family-name:--font-jost) text-[clamp(3rem,7vw,6rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
+            <h1 className="hero-reveal opacity-0 font-sans text-[clamp(3rem,7vw,6rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
               Логистика со <br />
               <span className="text-brand-red italic">лично значење.</span>
             </h1>
           </div>
 
           <div className="lg:col-span-4 pb-4">
-            <p className="hero-reveal opacity-0 font-(family-name:--font-jost) text-xl text-brand-dark/50 leading-relaxed font-medium max-w-sm">
+            <p className="hero-reveal opacity-0 font-sans text-xl text-brand-dark/50 leading-relaxed font-medium max-w-sm">
               Од 2003 година, Контранс гради мостови меѓу индустриите, обезбедувајќи повеќе од само транспорт - обезбедуваме ветување за сигурност.
             </p>
           </div>
@@ -105,7 +105,7 @@ export function AboutHistory() {
           <div className="lg:col-span-5 flex flex-col justify-center">
             <div className="history-reveal opacity-0 flex items-center gap-4 mb-8">
               <div className="h-px w-8 bg-brand-red" />
-              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                 002 // ТРАДИЦИЈА
               </span>
             </div>
@@ -114,13 +114,13 @@ export function AboutHistory() {
               2003
             </div>
             
-            <h3 className="history-reveal opacity-0 font-(family-name:--font-jost) text-4xl lg:text-6xl font-medium text-brand-dark tracking-tighter leading-[1.1] -mt-12 lg:-mt-20 relative z-10">
+            <h3 className="history-reveal opacity-0 font-sans text-4xl lg:text-6xl font-medium text-brand-dark tracking-tighter leading-[1.1] -mt-12 lg:-mt-20 relative z-10">
               Повеќе од две децении <br /> посветеност.
             </h3>
           </div>
 
           <div className="lg:col-span-7 flex flex-col justify-center gap-12 pt-12 lg:pt-0">
-            <p className="history-reveal opacity-0 font-(family-name:--font-jost) text-2xl text-brand-dark/60 leading-relaxed font-medium">
+            <p className="history-reveal opacity-0 font-sans text-2xl text-brand-dark/60 leading-relaxed font-medium">
               Контранс е основана со идејата за логистички услуги кои се прилагодени на специфичните потреби на секој клиент. Денес, раководени од високо стручен тим, планираме и спроведуваме комплексни задачи до најмалите детали.
             </p>
             
@@ -129,7 +129,7 @@ export function AboutHistory() {
                   <div className="w-12 h-12 border border-black/10 flex items-center justify-center mb-6 group-hover:bg-brand-red group-hover:border-brand-red transition-all duration-500">
                     <History className="w-5 h-5 group-hover:text-white transition-colors" />
                   </div>
-                  <h4 className="font-(family-name:--font-jost) font-bold uppercase tracking-widest text-xs mb-3 text-brand-red">Глобално влијание</h4>
+                  <h4 className="font-sans font-bold uppercase tracking-widest text-xs mb-3 text-brand-red">Глобално влијание</h4>
                   <p className="text-brand-dark/50 text-sm leading-relaxed">Ја поддржуваме индустријата и трговијата во глобалната размена на стоки повеќе од 20 години.</p>
                </div>
 
@@ -137,7 +137,7 @@ export function AboutHistory() {
                   <div className="w-12 h-12 border border-black/10 flex items-center justify-center mb-6 group-hover:bg-brand-red group-hover:border-brand-red transition-all duration-500">
                     <CheckCircle2 className="w-5 h-5 group-hover:text-white transition-colors" />
                   </div>
-                  <h4 className="font-(family-name:--font-jost) font-bold uppercase tracking-widest text-xs mb-3 text-brand-red">Стручен Тим</h4>
+                  <h4 className="font-sans font-bold uppercase tracking-widest text-xs mb-3 text-brand-red">Стручен Тим</h4>
                   <p className="text-brand-dark/50 text-sm leading-relaxed">Нашите кадри се основата на секој успешен транспортен проект што го реализираме.</p>
                </div>
             </div>
@@ -205,8 +205,8 @@ export function AboutValues() {
                 <v.icon className="w-6 h-6" />
               </div>
               <div className="flex flex-col gap-4">
-                <h3 className="font-(family-name:--font-jost) text-xl font-bold uppercase tracking-widest group-hover:text-white transition-colors">{v.title}</h3>
-                <p className="font-(family-name:--font-jost) text-brand-dark/50 leading-relaxed text-sm group-hover:text-white/60 transition-colors">
+                <h3 className="font-sans text-xl font-bold uppercase tracking-widest group-hover:text-white transition-colors">{v.title}</h3>
+                <p className="font-sans text-brand-dark/50 leading-relaxed text-sm group-hover:text-white/60 transition-colors">
                   {v.desc}
                 </p>
               </div>
@@ -254,22 +254,22 @@ export function AboutFlexibility() {
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div className="flex-reveal opacity-0 flex items-center gap-4 mb-12">
               <div className="h-px w-8 bg-brand-red" />
-              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                 003 // НАШИОТ ПРИСТАП
               </span>
             </div>
             
-            <h2 className="flex-reveal opacity-0 font-(family-name:--font-jost) text-4xl lg:text-7xl font-medium text-brand-dark tracking-tighter leading-[1.05] mb-12">
+            <h2 className="flex-reveal opacity-0 font-sans text-4xl lg:text-7xl font-medium text-brand-dark tracking-tighter leading-[1.05] mb-12">
               Вашиот најдобар избор за <span className="text-brand-red">посветено справување.</span>
             </h2>
             
-            <p className="flex-reveal opacity-0 font-(family-name:--font-jost) text-xl text-brand-dark/60 leading-relaxed font-medium mb-12">
+            <p className="flex-reveal opacity-0 font-sans text-xl text-brand-dark/60 leading-relaxed font-medium mb-12">
               Она што е најважно при барањето транспортни услуги вклучува обезбедување навремен простор, брз, евтин и сигурен транспорт. Контранс е флексибилна за вашите потреби.
             </p>
 
             <ul className="flex-reveal opacity-0 grid grid-cols-1 md:grid-cols-2 gap-6">
               {['Навремен простор', 'Компетитивни цени', 'Брз транспорт', 'Достава од врата'].map((item, idx) => (
-                <li key={idx} className="flex items-center gap-4 font-(family-name:--font-jost) font-bold uppercase tracking-widest text-[10px] text-brand-dark/40 border-b border-black/5 pb-4">
+                <li key={idx} className="flex items-center gap-4 font-sans font-bold uppercase tracking-widest text-[10px] text-brand-dark/40 border-b border-black/5 pb-4">
                   <span className="w-2 h-2 bg-brand-red rotate-45" />
                   {item}
                 </li>

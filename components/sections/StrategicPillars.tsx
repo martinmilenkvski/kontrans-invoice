@@ -129,7 +129,7 @@ export function StrategicPillars() {
               <div className="pillar-reveal opacity-0 lg:col-span-3 flex flex-col items-start pt-2">
                  <div className="flex items-center gap-4">
                     <div className="h-px w-8 bg-brand-red" />
-                    <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+                    <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                       005 // СТРАТЕШКИ СТОЛБОВИ
                     </span>
                  </div>
@@ -137,14 +137,14 @@ export function StrategicPillars() {
 
               {/* Middle: Massive Title (5 cols) */}
               <div className="pillar-reveal opacity-0 lg:col-span-5 text-left lg:text-center">
-                 <h2 className="font-(family-name:--font-jost) text-[clamp(2.5rem,5.5vw,4.8rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
+                 <h2 className="font-sans text-[clamp(2.5rem,5.5vw,4.8rem)] text-brand-dark leading-[0.85] tracking-tighter font-medium">
                     Три стратешки <span className="text-brand-red italic">столба.</span>
                  </h2>
               </div>
 
               {/* Right: Description (4 cols) */}
               <div className="pillar-reveal opacity-0 lg:col-span-4 text-left lg:text-right pt-2">
-                 <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-(family-name:--font-jost) max-w-sm lg:ml-auto">
+                 <p className="text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-sans max-w-sm lg:ml-auto">
                     Основата на секоја успешна операција преку брзина, прецизност и глобална поврзаност, создаваме решенија кои ја движат вашата визија напред.
                  </p>
               </div>
@@ -175,7 +175,7 @@ export function StrategicPillars() {
                   <div className="absolute inset-0 bg-black/10" />
                   <div className="absolute bottom-8 left-8">
                      <span className="font-mono text-[10px] text-white/60 tracking-widest font-bold uppercase">{pillar.index}</span>
-                     <h4 className="text-white font-(family-name:--font-jost) text-2xl font-medium tracking-tight uppercase mt-2">{pillar.title}</h4>
+                     <h4 className="text-white font-sans text-2xl font-medium tracking-tight uppercase mt-2">{pillar.title}</h4>
                   </div>
                 </div>
 
@@ -186,10 +186,10 @@ export function StrategicPillars() {
                          <span className="font-mono text-[11px] text-brand-red tracking-[0.4em] font-bold">({pillar.index})</span>
                          <div className="w-1.5 h-1.5 bg-brand-red" />
                       </div>
-                      <h4 className="font-(family-name:--font-jost) text-2xl lg:text-3xl text-brand-dark font-black tracking-tighter uppercase leading-none mb-6">
+                      <h4 className="font-sans text-2xl lg:text-3xl text-brand-dark font-black tracking-tighter uppercase leading-none mb-6">
                         {pillar.title}
                       </h4>
-                      <p className="font-(family-name:--font-jost) text-[15px] lg:text-[16px] text-brand-dark/70 leading-relaxed">
+                      <p className="font-sans text-[15px] lg:text-[16px] text-brand-dark/70 leading-relaxed">
                         {pillar.description}
                       </p>
                    </div>

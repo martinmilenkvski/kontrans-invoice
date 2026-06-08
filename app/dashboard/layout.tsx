@@ -4,7 +4,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="font-space">
+    <div className="font-sans">
       {children}
     </div>
   );

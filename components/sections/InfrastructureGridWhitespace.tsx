@@ -107,7 +107,7 @@ export function InfrastructureGridWhitespace() {
           <h2 className="font-sans text-[clamp(2.5rem,6vw,5.5rem)] font-black text-brand-dark leading-[0.9] tracking-tighter mb-12">
             Инфраструктура.<br />Капацитет.
           </h2>
-          <p className="font-(family-name:--font-jost) text-xl text-brand-dark/80 max-w-lg leading-relaxed font-semibold">
+          <p className="font-sans text-xl text-brand-dark/80 max-w-lg leading-relaxed font-semibold">
              Нашата мрежа е дизајнирана за висок проток, мапирана со хируршка прецизност низ сите индустриски граници.
           </p>
         </div>

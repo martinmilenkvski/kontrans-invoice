@@ -136,7 +136,7 @@ export function Commitment() {
             <h2 className="comm-headline font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-brand-dark leading-[1.05] tracking-tight font-normal opacity-0">
               Се посветуваме целосно на нашите <br className="hidden lg:block" />
               партнери и решенијата што ги нудиме, <br className="hidden lg:block" />
-              носејќи <span className="text-brand-red italic font-(family-name:--font-jost) font-medium">највисока експертиза.</span>
+              носејќи <span className="text-brand-red italic font-sans font-medium">највисока експертиза.</span>
             </h2>
           </div>
         </div>
@@ -148,7 +148,7 @@ export function Commitment() {
            <div className="comm-tag opacity-0 flex flex-col items-end">
             <div className="flex items-center gap-4">
               <div className="h-px w-8 bg-brand-red" />
-              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-(family-name:--font-jost)">
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
                 002 // НАШАТА ПОСВЕТЕНОСТ
               </span>
             </div>
@@ -156,20 +156,20 @@ export function Commitment() {
 
            {/* Middle: Paragraph */}
            <div className="flex flex-col gap-10">
-              <p className="comm-text text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-(family-name:--font-jost) max-w-lg opacity-0 text-right ml-auto">
+              <p className="comm-text text-[16px] md:text-[18px] leading-relaxed text-brand-dark/70 font-sans max-w-lg opacity-0 text-right ml-auto">
                 Ние сме сеопфатен логистички партнер специјализиран за глобален патен, авионски и бродски транспорт. Со длабок увид во индустријата и филозофија насочена кон партнерот, ги водиме клиентите низ секоја фаза од транспортниот циклус.
               </p>
            </div>
 
            {/* Right: Counter */}
            <div className="comm-counter flex flex-col items-end opacity-0">
-              <div className="flex items-center gap-1 font-(family-name:--font-jost) text-[72px] md:text-[90px] font-black text-brand-dark leading-none tracking-tighter">
+              <div className="flex items-center gap-1 font-sans text-[72px] md:text-[90px] font-black text-brand-dark leading-none tracking-tighter">
                 <SlotDigit digit={7} delay={0.6} />
                 <SlotDigit digit={5} delay={0.7} />
                 <SlotDigit digit={0} delay={0.8} />
                 <span className="text-[48px] md:text-[60px] font-black leading-none text-brand-red">+</span>
               </div>
-              <span className="text-[11px] font-bold text-brand-dark uppercase tracking-[0.3em] mt-2 block font-(family-name:--font-jost)">УСПЕШНИ ПРОЕКТИ</span>
+              <span className="text-[11px] font-bold text-brand-dark uppercase tracking-[0.3em] mt-2 block font-sans">УСПЕШНИ ПРОЕКТИ</span>
            </div>
         </div>
 
@@ -211,7 +211,7 @@ export function Commitment() {
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-2">
                        <span className="text-white/60 text-[0.65rem] font-bold tracking-widest uppercase">ПОЧНЕТЕ ТУКА</span>
-                       <h3 className="text-white font-(family-name:--font-jost) font-black text-3xl lg:text-4xl leading-tight uppercase tracking-tighter">
+                       <h3 className="text-white font-sans font-black text-3xl lg:text-4xl leading-tight uppercase tracking-tighter">
                           ПОБАРАЈ <br /> ПОНУДА.
                        </h3>
                     </div>

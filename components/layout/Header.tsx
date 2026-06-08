@@ -28,9 +28,25 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isComplete: isPreloaderDone } = usePreloader();
   const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+    };
+    checkLoginStatus();
+
+    window.addEventListener("storage", checkLoginStatus);
+    return () => {
+      window.removeEventListener("storage", checkLoginStatus);
+    };
+  }, [pathname]);
+
+  const isDashboardOrLogin = pathname === "/login" || pathname?.startsWith("/dashboard");
+  if (isDashboardOrLogin) return null;
 
   // Pages that have a light background by default at the very top
-  const isLightPage = pathname === "/about" || pathname === "/contact";
+  const isLightPage = pathname === "/about" || pathname === "/contact" || pathname?.startsWith("/services");
   
   // Theme logic: If we're on a light page, use dark text
   const isDarkTheme = isLightPage;
@@ -118,14 +134,14 @@ export function Header() {
         <div className="flex items-center gap-4 shrink-0">
           <motion.div variants={item}>
             <Link
-              href="/login"
+              href={isLoggedIn ? "/dashboard" : "/login"}
               className={`hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-none text-sm font-bold tracking-wide transition-all duration-300 group ${
                 isDarkTheme 
                   ? "bg-brand-dark text-white hover:bg-brand-red shadow-lg shadow-black/5" 
                   : "bg-white/10 border border-white/15 text-white hover:bg-white/20"
               }`}
             >
-              Најави се
+              {isLoggedIn ? "Контролна табла" : "Најави се"}
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </motion.div>
@@ -195,6 +211,13 @@ export function Header() {
             className="mt-4 mb-2 flex items-center justify-center gap-3 px-6 py-4 bg-brand-red text-white text-lg font-bold tracking-widest uppercase transition-all"
           >
             Побарај понуда <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href={isLoggedIn ? "/dashboard" : "/login"}
+            onClick={() => setIsMenuOpen(false)}
+            className="mb-2 flex items-center justify-center gap-3 px-6 py-4 bg-brand-dark hover:bg-brand-red text-white text-lg font-bold tracking-widest uppercase transition-all"
+          >
+            {isLoggedIn ? "Контролна табла" : "Најави се"} <ArrowRight className="w-4 h-4" />
           </Link>
         </nav>
       </div>

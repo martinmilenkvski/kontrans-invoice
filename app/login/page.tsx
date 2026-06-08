@@ -107,7 +107,7 @@ export default function LoginPage() {
         </div>
         
         <p className="mt-8 text-center text-white/20 text-[0.65rem] uppercase tracking-[0.2em]">
-          &copy; 2024 KONTRANS INVOICE SYSTEM
+          &copy; {new Date().getFullYear()} KONTRANS INVOICE SYSTEM
         </p>
       </div>
     </main>
