@@ -69,10 +69,10 @@ export function Services() {
       if (!containerRef.current) return;
       const { top, height } = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
+
       const scrollableDistance = height - windowHeight;
       const scrolled = -top;
-      
+
       if (scrollableDistance > 0) {
         const p = Math.max(0, Math.min(1, scrolled / scrollableDistance));
         setProgress(p);
@@ -81,7 +81,7 @@ export function Services() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -111,15 +111,15 @@ export function Services() {
 
   return (
     <>
-      <section 
-        ref={containerRef} 
-        id="services" 
+      <section
+        ref={containerRef}
+        id="services"
         className="relative bg-white pt-12 pb-0 px-0 font-[family-name:var(--font-jost)] text-[#1A1A1A]"
         style={{ height: `${serviceStacks.length * 100}vh` }}
       >
         {/* STICKY STAGE */}
         <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col pt-[8vh] lg:pt-[10vh]">
-          
+
           <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-12">
             {/* Stack Stage */}
             <div className="relative h-[65vh] lg:h-[70vh] w-full">
@@ -154,10 +154,10 @@ export function Services() {
                 const contentY = 20 * (1 - contentOpacity);
 
                 return (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`absolute inset-0 w-full h-full rounded-none overflow-hidden flex flex-col lg:flex-row border border-black/5 ${service.color} will-change-transform`}
-                    style={{ 
+                    style={{
                       zIndex: i + 1,
                       transform: `translateY(${yPercent}%) scale(${scale})`,
                       opacity: opacity,
@@ -165,23 +165,23 @@ export function Services() {
                     }}
                   >
                     {/* Text Side (Left) */}
-                    <div 
+                    <div
                       className={`flex-1 flex flex-col justify-between p-8 lg:p-12 ${service.textColor}`}
                       style={{ opacity: contentOpacity, transform: `translateY(${contentY}px)` }}
                     >
                       <div>
                         <div className="flex items-center gap-3 mb-6">
-                           <div className="w-8 h-8 rounded-none flex items-center justify-center bg-transparent">
-                              {/* Icon color is handled in serviceStacks data or via cloneElement */}
-                              {React.cloneElement(service.icon as any, { 
-                                size: 24, 
-                                className: service.isLight ? "text-[#D42B2B]" : "text-white" 
-                              })}
+                          <div className="w-8 h-8 rounded-none flex items-center justify-center bg-transparent">
+                            {/* Icon color is handled in serviceStacks data or via cloneElement */}
+                            {React.cloneElement(service.icon as any, {
+                              size: 24,
+                              className: service.isLight ? "text-[#D42B2B]" : "text-white"
+                            })}
 
-                           </div>
-                           <span className="text-[12px] font-bold tracking-widest uppercase opacity-60">
-                              {service.label}
-                           </span>
+                          </div>
+                          <span className="text-[12px] font-bold tracking-widest uppercase opacity-60">
+                            {service.label}
+                          </span>
                         </div>
                         <h3
                           className="text-[32px] lg:text-[48px] font-semibold mb-6 tracking-tight leading-tight"
@@ -220,7 +220,7 @@ export function Services() {
                         >
                           {/* Background Slide Effect */}
                           <div className="absolute inset-0 bg-[#D42B2B] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                          
+
                           <span className="relative z-10 text-[11px] font-black uppercase tracking-[0.2em] text-black group-hover:text-white transition-colors duration-500">
                             {service.buttonText}
                           </span>
@@ -234,16 +234,16 @@ export function Services() {
 
                     {/* Image Side (Right) */}
                     <div className="hidden lg:block lg:w-[45%] h-full relative overflow-hidden bg-white">
-                      <div 
+                      <div
                         className="absolute inset-0 transition-transform duration-1000"
                         style={{ transform: slideProgress > 0.8 ? "scale(1)" : "scale(1.1)" }}
                       >
-                         <Image
-                           src={service.image}
-                           alt={service.title}
-                           fill
-                           className="object-cover"
-                         />
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                     </div>
                   </div>

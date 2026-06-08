@@ -21,30 +21,42 @@ export function AboutTeam() {
       }
     });
 
-    // 1. Image mask reveal first
+    // 1. Reveal team header first (at the start of the timeline)
+    tl.fromTo(".team-header-reveal",
+      { y: 60, opacity: 0 },
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 1.2, 
+        ease: "power3.out",
+      }
+    );
+
+    // 2. Image mask reveal starts shortly after the header starts revealing
     tl.fromTo(".team-img-mask",
       { clipPath: "inset(0 0 100% 0)" },
       { 
         clipPath: "inset(0 0 0% 0)", 
-        duration: 2, 
+        duration: 1.8, 
         ease: "power4.inOut",
-      }
+      },
+      "-=0.8"
     );
 
-    // 2. Reveal text after image starts/finishes
+    // 3. Reveal content columns (under the image) as the image finishes revealing
     tl.fromTo(".team-reveal", 
-      { y: 100, opacity: 0 },
+      { y: 60, opacity: 0 },
       { 
         y: 0, 
         opacity: 1, 
-        duration: 1.5, 
+        duration: 1.2, 
         stagger: 0.15, 
         ease: "power4.out",
       },
       "-=0.8" 
     );
 
-    // 3. Animate Signature Path (Last step)
+    // 4. Animate Signature Path (Last step)
     tl.fromTo(".signature-path",
       { strokeDasharray: 600, strokeDashoffset: 600 },
       { 
@@ -64,7 +76,7 @@ export function AboutTeam() {
         {/* 1. Header Section (Matching Commitment Headline Style) */}
         <div className="w-full flex justify-end">
           <div className="max-w-5xl text-right">
-            <h2 className="team-reveal font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-brand-dark leading-[1.05] tracking-tight font-normal">
+            <h2 className="team-header-reveal font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-brand-dark leading-[1.05] tracking-tight font-normal">
                Луѓето зад вашата логистика се мостот меѓу <br className="hidden lg:block" />
                локалните увиди и глобалните стандарди, <br className="hidden lg:block" />
                создавајќи <span className="text-brand-red italic font-sans font-medium">значителни идеи.</span>

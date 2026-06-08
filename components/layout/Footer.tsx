@@ -1,126 +1,159 @@
 "use client";
 
+import React, { useRef } from "react";
 import Link from "next/link";
-import { MapPin, Phone, Mail, Instagram, Facebook, Linkedin } from "lucide-react";
+import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const shipRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // Parallax Lift: as the footer unmasks into view, slide the ship up
+    gsap.fromTo(shipRef.current,
+      { yPercent: 40, opacity: 0 },
+      {
+        yPercent: -10, // lift slightly higher than the viewport bottom
+        opacity: 0.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom bottom",
+          scrub: true,
+        }
+      }
+    );
+  }, { scope: containerRef });
 
   return (
     <div 
-      className="relative lg:h-[700px]"
+      ref={containerRef}
+      className="relative lg:h-screen"
       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
     >
-      <div className="relative lg:fixed lg:bottom-0 lg:h-[700px] w-full">
-        <footer className="bg-brand-red h-full min-h-[500px] relative font-sans text-white overflow-hidden border-t border-white/5 flex flex-col justify-between pt-12 lg:pt-0">
+      <div className="relative lg:fixed lg:bottom-0 lg:h-screen w-full">
+        <footer className="bg-gradient-to-br from-[#D42B2B] via-[#B52424] to-[#751111] h-full min-h-[600px] relative font-sans text-white overflow-hidden border-t border-white/5 flex flex-col justify-between pt-8 lg:pt-16 pb-0">
           
           {/* Top Divider Detail */}
           <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
-          {/* ── MIDDLE SECTION: LOGO & LINKS ── */}
-          <div className="w-full grow flex flex-col justify-center border-b border-white/10">
-            <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 h-full">
+
+          {/* ── 2. MIDDLE SECTION: FOUR-COLUMN DETAILS GRID ── */}
+          <div className="w-full relative z-20 grow flex flex-col justify-center my-6">
+            <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16 items-start">
               
-              {/* Branding */}
-              <div className="lg:col-span-5 p-8 lg:p-20 border-r border-white/10 flex flex-col justify-center gap-12">
-                 <div className="flex flex-col gap-4">
-                    <h1 className="text-6xl lg:text-[7rem] font-black tracking-tighter leading-none uppercase">
-                       КОН<br />ТРАНС
-                    </h1>
-                    <p className="font-mono text-[0.6rem] tracking-[0.4em] uppercase opacity-60 max-w-xs leading-relaxed mt-4">
-                       Вашиот доверлив партнер за меѓународен транспорт и глобална логистика низ светот.
-                    </p>
-                 </div>
-    
-                 <div className="flex gap-4 mt-8">
-                    {[
-                      { icon: Instagram, href: "#" },
-                      { icon: Facebook, href: "#" },
-                      { icon: Linkedin, href: "#" }
-                    ].map((social, i) => (
-                      <Link key={i} href={social.href} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-brand-red transition-colors duration-300">
-                         <social.icon className="w-5 h-5" />
-                      </Link>
-                    ))}
-                 </div>
+              {/* Col 1: Brand description & Stacked Brand Mark */}
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[10px] lg:text-xs tracking-[0.2em] text-white/50 uppercase font-bold">За компанијата</span>
+                <p className="text-sm lg:text-base text-white/85 max-w-[320px] leading-relaxed font-light">
+                  Вашиот доверлив партнер за меѓународен транспорт и глобална логистика низ целиот свет.
+                </p>
               </div>
-    
-              {/* Links Grid */}
-              <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 h-full">
-                 
-                 {/* Col: Services */}
-                 <div className="p-8 lg:p-20 border-r border-white/10 flex flex-col justify-center gap-10">
-                    <span className="font-mono text-[0.55rem] font-bold tracking-widest uppercase opacity-40">01 // Услуги</span>
-                    <ul className="flex flex-col gap-6">
-                       {['Бродски транспорт', 'Авионски транспорт', 'Камионски транспорт', 'Складирање'].map((link) => (
-                         <li key={link}>
-                            <Link href="/#services" className="text-sm font-bold uppercase tracking-widest hover:text-black hover:pl-2 transition-all duration-300 block">
-                               {link}
-                            </Link>
-                         </li>
-                       ))}
-                    </ul>
-                 </div>
-    
-                 {/* Col: Company */}
-                 <div className="p-8 lg:p-20 border-r border-white/10 flex flex-col justify-center gap-10">
-                    <span className="font-mono text-[0.55rem] font-bold tracking-widest uppercase opacity-40">02 // Компанија</span>
-                    <ul className="flex flex-col gap-6">
-                       {['За нас', 'Процес', 'Статистика', 'Контакт'].map((link) => (
-                         <li key={link}>
-                            <Link href={link === 'За нас' ? '/about' : link === 'Контакт' ? '/contact' : '/#process'} className="text-sm font-bold uppercase tracking-widest hover:text-black hover:pl-2 transition-all duration-300 block">
-                               {link}
-                            </Link>
-                         </li>
-                       ))}
-                    </ul>
-                 </div>
-    
-                 {/* Col: Info */}
-                 <div className="p-8 lg:p-20 flex flex-col justify-center gap-10">
-                    <span className="font-mono text-[0.55rem] font-bold tracking-widest uppercase opacity-40">03 // Контакт</span>
-                    <div className="flex flex-col gap-10">
-                       <div className="flex items-start gap-4 hover:opacity-100 opacity-80 transition-opacity">
-                          <MapPin className="w-5 h-5 mt-0.5 text-white/50" />
-                          <span className="text-xs font-bold leading-relaxed uppercase tracking-wider">
-                             Киро Крстевски 3/6 <br />1000 Скопје
-                          </span>
-                       </div>
-                       <div className="flex items-start gap-4 hover:opacity-100 opacity-80 transition-opacity cursor-pointer">
-                          <Phone className="w-5 h-5 mt-0.5 text-white/50" />
-                          <div className="flex flex-col gap-2">
-                             <span className="text-xs font-bold uppercase tracking-widest">+389 2 3232 657</span>
-                             <span className="text-xs font-bold uppercase tracking-widest">+389 2 3215 296</span>
-                          </div>
-                       </div>
-                       <div className="flex items-start gap-4 hover:opacity-100 opacity-80 transition-opacity cursor-pointer">
-                          <Mail className="w-5 h-5 mt-0.5 text-white/50" />
-                          <span className="text-xs font-bold uppercase tracking-widest">office@kontrans.com.mk</span>
-                       </div>
-                    </div>
-                 </div>
-    
+
+              {/* Col 2: Services navigation list */}
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[10px] lg:text-xs tracking-[0.2em] text-white/50 uppercase font-bold">01 // Услуги</span>
+                <ul className="flex flex-col gap-3">
+                   {['Бродски транспорт', 'Авионски транспорт', 'Камионски транспорт', 'Складирање'].map((link, idx) => (
+                     <li key={idx}>
+                        <Link href={link === 'Бродски транспорт' ? '/services/sea' : link === 'Авионски транспорт' ? '/services/air' : link === 'Камионски транспорт' ? '/services/road' : '/#services'} className="text-sm lg:text-base font-semibold uppercase tracking-wider text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1.5 block">
+                           {link}
+                        </Link>
+                     </li>
+                   ))}
+                </ul>
               </div>
-    
+
+              {/* Col 3: Company navigation list */}
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[10px] lg:text-xs tracking-[0.2em] text-white/50 uppercase font-bold">02 // Компанија</span>
+                <ul className="flex flex-col gap-3">
+                   {['За нас', 'Процес', 'Статистика', 'Контакт'].map((link, idx) => (
+                     <li key={idx}>
+                        <Link href={link === 'За нас' ? '/about' : link === 'Контакт' ? '/contact' : '/#process'} className="text-sm lg:text-base font-semibold uppercase tracking-wider text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1.5 block">
+                           {link}
+                        </Link>
+                     </li>
+                   ))}
+                </ul>
+              </div>
+
+              {/* Col 4: Detailed Contact (with phones) */}
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[10px] lg:text-xs tracking-[0.2em] text-white/50 uppercase font-bold">03 // Контакт</span>
+                <div className="flex flex-col gap-3">
+                   <p className="text-sm lg:text-base text-white leading-relaxed font-bold">
+                      Киро Крстевски 3/6<br />1000 Скопје, Македонија
+                   </p>
+                   <div className="flex flex-col text-sm lg:text-base text-white/90 font-medium">
+                      <span>+389 2 3232 657</span>
+                      <span>+389 2 3215 296</span>
+                   </div>
+                   <span className="text-sm lg:text-base text-white/70 font-semibold block">office@kontrans.com.mk</span>
+                </div>
+              </div>
+
             </div>
           </div>
-    
-          {/* ── BOTTOM SECTION: COPYRIGHT ── */}
-          <div className="w-full">
-            <div className="max-w-[1400px] mx-auto p-8 lg:px-20 lg:py-8 flex flex-col md:flex-row justify-between items-center gap-8">
-               <div className="font-mono text-[0.55rem] tracking-[0.5em] uppercase opacity-40">
+
+          {/* ── 3. COPYRIGHT & SUBSCRIBE ROW ── */}
+          <div className="w-full relative z-20 border-t border-white/10 pt-6 pb-6 lg:pb-8">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row justify-between items-center gap-6">
+              
+              {/* Copyright & Legal Links */}
+              <div className="flex flex-col md:flex-row items-center gap-6 lg:gap-12">
+                <div className="font-mono text-[9px] tracking-widest text-white/40 uppercase">
                   &copy; {currentYear} КОНТРАНС. СИТЕ ПРАВА СЕ ЗАДРЖАНИ.
-               </div>
-               <div className="flex gap-12 font-mono text-[0.55rem] tracking-[0.4em] uppercase opacity-40">
-                  <Link href="#privacy" className="hover:opacity-100 transition-opacity">Приватност</Link>
-                  <Link href="#terms" className="hover:opacity-100 transition-opacity">Услови</Link>
-               </div>
+                </div>
+                <div className="flex gap-6 font-mono text-[9px] tracking-widest text-white/40 uppercase">
+                  <Link href="#privacy" className="hover:text-white transition-colors duration-300">Приватност</Link>
+                  <Link href="#terms" className="hover:text-white transition-colors duration-300">Услови</Link>
+                </div>
+              </div>
+
+              {/* Newsletter subscribe form (bottom-right) */}
+              <div className="flex items-center gap-4 border border-white/20 bg-white/5 hover:border-white/40 transition-colors duration-300 max-w-sm w-full">
+                <input 
+                  type="email" 
+                  placeholder="Пријавете се за новости" 
+                  className="w-full bg-transparent px-4 py-2.5 text-xs text-white placeholder:text-white/40 focus:outline-none"
+                />
+                <button className="bg-white text-[#D42B2B] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider hover:bg-[#400A0A] hover:text-white transition-colors duration-300">
+                  Пријави се
+                </button>
+              </div>
+
             </div>
           </div>
-    
-          {/* Decorative BG Text */}
-          <div className="absolute -bottom-10 -right-10 text-[25vw] font-black opacity-[0.03] select-none pointer-events-none group-hover:scale-105 transition-transform duration-1000">
-             2026
+
+          {/* ── 4. GIANT WATERMARK LOGO ROW ── */}
+          <div className="w-full relative overflow-hidden select-none pointer-events-none z-20 mt-auto">
+            <h1 className="text-[16vw] lg:text-[22vw] font-black tracking-tighter leading-[0.8] uppercase text-white opacity-95 text-center translate-y-[15%]">
+              КОНТРАНС
+            </h1>
+          </div>
+
+          {/* Parallax Container Ship */}
+          <div 
+            ref={shipRef}
+            className="absolute bottom-0 right-0 w-[60vw] max-w-[900px] h-full pointer-events-none select-none z-10 mix-blend-multiply lg:mix-blend-luminosity opacity-20"
+          >
+             <Image 
+               src="/footer-ship.png"
+               alt="Container Ship"
+               fill
+               className="object-contain object-right-bottom"
+               sizes="(max-w-lg) 100vw, 60vw"
+             />
           </div>
     
         </footer>
