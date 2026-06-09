@@ -232,19 +232,19 @@ export function VideoPortal() {
                </div>
 
                {/* Isometric Box wireframe illustration */}
-               <div className="flex justify-center items-center my-3">
-                 <svg viewBox="0 0 100 100" className="w-20 h-20 text-brand-dark transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-12">
+               <div className="flex-1 flex justify-center items-center my-1">
+                 <svg viewBox="0 0 100 100" className="w-24 h-24 text-brand-dark transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-12">
                    {/* Top Face */}
-                   <polygon points="50,15 85,35 50,55 15,35" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                   <polygon points="50,15 85,35 50,55 15,35" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
                    {/* Left Face with hatched lines (striped) */}
-                   <polygon points="15,35 50,55 50,90 15,70" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                   <line x1="22" y1="39" x2="22" y2="74" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-                   <line x1="29" y1="43" x2="29" y2="78" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-                   <line x1="36" y1="47" x2="36" y2="82" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-                   <line x1="43" y1="51" x2="43" y2="86" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+                   <polygon points="15,35 50,55 50,90 15,70" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                   <line x1="22" y1="39" x2="22" y2="74" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
+                   <line x1="29" y1="43" x2="29" y2="78" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
+                   <line x1="36" y1="47" x2="36" y2="82" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
+                   <line x1="43" y1="51" x2="43" y2="86" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
                    {/* Right Face */}
-                   <polygon points="50,55 85,35 85,70 50,90" fill="currentColor" fillOpacity="0.05" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                   <line x1="50" y1="55" x2="50" y2="90" stroke="currentColor" strokeWidth="1.5" />
+                   <polygon points="50,55 85,35 85,70 50,90" fill="currentColor" fillOpacity="0.05" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                   <line x1="50" y1="55" x2="50" y2="90" stroke="currentColor" strokeWidth="2" />
                  </svg>
                </div>
 
@@ -271,20 +271,20 @@ export function VideoPortal() {
                </div>
 
                {/* Animated Route Network illustration */}
-               <div className="my-2 overflow-hidden rounded-none border border-black/[0.03] bg-black/[0.01]">
-                 <svg viewBox="0 0 160 80" className="w-full h-16 text-brand-dark/20">
+               <div className="flex-1 flex items-center justify-center my-1 w-full">
+                 <svg viewBox="0 0 160 80" className="w-full max-w-[280px] h-20 text-brand-dark/25 transition-all duration-500 group-hover:scale-105">
                    <defs>
                      <pattern id="dot-grid" width="12" height="12" patternUnits="userSpaceOnUse">
                        <circle cx="2" cy="2" r="0.75" fill="currentColor" fillOpacity="0.4" />
                      </pattern>
                    </defs>
                    <rect width="100%" height="100%" fill="url(#dot-grid)" />
-                   <path d="M 20,60 L 60,30 L 100,50 L 140,20" fill="none" stroke="var(--color-brand-red)" strokeWidth="1.5" strokeLinecap="round" />
-                   <circle cx="20" cy="60" r="3" fill="currentColor" />
-                   <circle cx="60" cy="30" r="3" fill="currentColor" />
-                   <circle cx="100" cy="50" r="3" fill="currentColor" />
-                   <circle cx="140" cy="20" r="4" fill="var(--color-brand-red)" />
-                   <circle cx="140" cy="20" r="7" fill="none" stroke="var(--color-brand-red)" strokeWidth="1" className="animate-ping" style={{ transformOrigin: '140px 20px' }} />
+                   <path d="M 20,60 L 60,30 L 100,50 L 140,20" fill="none" stroke="var(--color-brand-red)" strokeWidth="2.5" strokeLinecap="round" />
+                   <circle cx="20" cy="60" r="3.5" fill="currentColor" />
+                   <circle cx="60" cy="30" r="3.5" fill="currentColor" />
+                   <circle cx="100" cy="50" r="3.5" fill="currentColor" />
+                   <circle cx="140" cy="20" r="5.5" fill="var(--color-brand-red)" />
+                   <circle cx="140" cy="20" r="8.5" fill="none" stroke="var(--color-brand-red)" strokeWidth="1.5" className="animate-ping" style={{ transformOrigin: '140px 20px' }} />
                  </svg>
                </div>
 
@@ -301,13 +301,13 @@ export function VideoPortal() {
             <div className="grid grid-cols-2 gap-6 w-full">
                {/* Subcard A: Model */}
                <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-                  <div className="flex items-start justify-between w-full">
+                  <div className="flex items-center justify-between w-full">
                      <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">MODEL</span>
-                     <svg viewBox="0 0 100 100" className="w-8 h-8 text-brand-dark/30 transition-all duration-700 ease-out group-hover:rotate-180 group-hover:text-brand-red">
-                       <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
-                       <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="0.75" />
-                       <line x1="50" y1="50" x2="50" y2="10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                       <circle cx="78" cy="22" r="2.5" fill="var(--color-brand-red)" />
+                     <svg viewBox="0 0 100 100" className="w-12 h-12 text-brand-dark/30 transition-all duration-700 ease-out group-hover:rotate-180 group-hover:text-brand-red">
+                       <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
+                       <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="1.25" />
+                       <line x1="50" y1="50" x2="50" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                       <circle cx="78" cy="22" r="3.5" fill="var(--color-brand-red)" />
                      </svg>
                   </div>
                   <span className="font-space text-3xl text-brand-dark font-bold leading-none mt-auto">003</span>
@@ -343,12 +343,12 @@ export function VideoPortal() {
                </div>
                
                {/* Concentric checkmark stamp illustration */}
-               <div className="flex justify-center my-2">
-                  <svg viewBox="0 0 100 100" className="w-16 h-16 text-brand-dark transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                    <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="1" />
-                    <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 3" />
-                    <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" strokeWidth="1" />
-                    <path d="M 35,50 L 45,60 L 65,38" fill="none" stroke="var(--color-brand-red)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+               <div className="flex-1 flex justify-center items-center my-1">
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 text-brand-dark transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                     <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                     <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
+                     <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                     <path d="M 35,50 L 45,60 L 65,38" fill="none" stroke="var(--color-brand-red)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                </div>
 
