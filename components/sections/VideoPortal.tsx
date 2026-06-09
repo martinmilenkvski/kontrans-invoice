@@ -40,6 +40,7 @@ export function VideoPortal() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const videoCardRef = useRef<HTMLDivElement>(null);
+  const gridContainerRef = useRef<HTMLDivElement>(null);
   const cardsAnimated = useRef(false);
 
   useGSAP(
@@ -54,15 +55,15 @@ export function VideoPortal() {
         scrollTrigger: {
           trigger: parent,
           start: "top top",
-          end: "+=200%",
+          end: "+=120%",
           pin: true,
           scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             // Decoupled, automatic staggered entrance animation
-            // Plays once when the video mostly shrinks, independently of active scrolling
-            if (self.progress > 0.85) {
+            // Triggers sooner (when video shrinks halfway) to let the cards reveal before scroll ends
+            if (self.progress > 0.45) {
               if (!cardsAnimated.current) {
                 cardsAnimated.current = true;
                 gsap.fromTo(".bento-card",
@@ -77,8 +78,8 @@ export function VideoPortal() {
                   }
                 );
               }
-            } else if (self.progress < 0.5) {
-              // Reset states when scrolling back up past 50% scroll progression
+            } else if (self.progress < 0.2) {
+              // Reset states when scrolling back up past 20% scroll progression
               if (cardsAnimated.current) {
                 cardsAnimated.current = false;
                 gsap.to(".bento-card", {
@@ -96,13 +97,14 @@ export function VideoPortal() {
       });
 
       // Animate video shrink to the top-left bento slot on scroll
+      // Starts with margins matching the central grid container
       tl.fromTo(
         video,
         {
-          width: "100vw",
-          height: "100vh",
-          left: 0,
-          top: 0,
+          width: () => gridContainerRef.current?.getBoundingClientRect().width || window.innerWidth,
+          height: () => window.innerHeight * 0.82,
+          left: () => gridContainerRef.current ? (gridContainerRef.current.getBoundingClientRect().left - parent.getBoundingClientRect().left) : 0,
+          top: () => (window.innerHeight - window.innerHeight * 0.82) / 2,
           borderRadius: "0px",
           opacity: 1,
         },
@@ -136,7 +138,7 @@ export function VideoPortal() {
       <div 
         ref={videoWrapperRef} 
         className="absolute z-30 overflow-hidden border border-black/5 pointer-events-none rounded-none"
-        style={{ width: "100vw", height: "100vh", left: 0, top: 0 }}
+        style={{ width: "100vw", height: "100vh", left: 0, top: 0, opacity: 0 }}
       >
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
           <source src="/process-video.mp4" type="video/mp4" />
@@ -182,7 +184,10 @@ export function VideoPortal() {
       </div>
 
       {/* ── BENTO GRID CONTAINER ── */}
-      <div className="w-full max-w-[1600px] px-6 lg:px-12 relative z-10">
+      <div 
+        ref={gridContainerRef}
+        className="w-full max-w-[1600px] px-6 lg:px-12 relative z-10"
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full items-start">
           
           {/* ── COLUMN 1 (LEFT) ── */}
