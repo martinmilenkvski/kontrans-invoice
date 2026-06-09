@@ -356,40 +356,29 @@ export function VideoPortal() {
                </div>
             </div>
 
-            {/* Card 7: Step 4 (Bottom-Right) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[260px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-               <div className="flex items-start justify-between w-full">
+            {/* Card 7: Step 4 (Bottom-Right, with image background) */}
+            <div className="bento-card group relative bg-black border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[260px] opacity-0 overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:border-black/10">
+               {/* Background Image with hover scale zoom */}
+               <img 
+                 src="/about-storage.png" 
+                 alt="Warehouse storage" 
+                 className="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none select-none z-0"
+               />
+               {/* Gradient overlay to ensure text contrast */}
+               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35 z-0" />
+
+               <div className="flex items-start justify-between w-full relative z-10">
                   <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[3].tag}</span>
-                  <span className="font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[3].id}</span>
+                  <span className="font-space text-6xl text-white/10 group-hover:text-white/20 font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[3].id}</span>
                </div>
                
-               {/* Warehouse Storage Grid illustration */}
-               <div className="flex justify-center my-1">
-                  <svg viewBox="0 0 120 60" className="w-24 h-12 text-brand-dark/25 group-hover:text-brand-red/60 transition-colors duration-500">
-                    <line x1="10" y1="50" x2="110" y2="50" stroke="currentColor" strokeWidth="1.5" />
-                    <line x1="10" y1="25" x2="110" y2="25" stroke="currentColor" strokeWidth="1.5" />
-                    
-                    <line x1="10" y1="10" x2="10" y2="50" stroke="currentColor" strokeWidth="1.5" />
-                    <line x1="60" y1="10" x2="60" y2="50" stroke="currentColor" strokeWidth="1.5" />
-                    <line x1="110" y1="10" x2="110" y2="50" stroke="currentColor" strokeWidth="1.5" />
-                    
-                    <rect x="18" y="31" width="14" height="14" fill="currentColor" rx="1" />
-                    <rect x="36" y="31" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1" rx="1" />
-                    <rect x="68" y="31" width="14" height="14" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1" rx="1" />
-                    <rect x="86" y="31" width="14" height="14" fill="currentColor" rx="1" />
-                    
-                    <rect x="18" y="6" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1" rx="1" />
-                    <rect x="36" y="6" width="14" height="14" fill="currentColor" rx="1" />
-                    <rect x="68" y="6" width="14" height="14" fill="currentColor" rx="1" />
-                    <rect x="86" y="6" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1" rx="1" />
-                  </svg>
-               </div>
 
-               <div className="flex flex-col gap-2">
-                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
+
+               <div className="flex flex-col gap-2 relative z-10">
+                  <h3 className="font-space text-lg text-white font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
                     {PROCESS_STEPS[3].title}
                   </h3>
-                  <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light">
+                  <p className="font-sans text-xs lg:text-sm text-white/70 leading-relaxed font-light">
                     {PROCESS_STEPS[3].desc}
                   </p>
                </div>
