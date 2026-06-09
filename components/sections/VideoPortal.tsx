@@ -231,20 +231,30 @@ export function VideoPortal() {
                   </h3>
                </div>
 
-               {/* Isometric Box wireframe illustration */}
+               {/* High-tech Clipboard Checklist illustration */}
                <div className="flex-1 flex justify-center items-center my-1">
-                 <svg viewBox="0 0 100 100" className="w-24 h-24 text-brand-dark transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-12">
-                   {/* Top Face */}
-                   <polygon points="50,15 85,35 50,55 15,35" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                   {/* Left Face with hatched lines (striped) */}
-                   <polygon points="15,35 50,55 50,90 15,70" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                   <line x1="22" y1="39" x2="22" y2="74" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
-                   <line x1="29" y1="43" x2="29" y2="78" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
-                   <line x1="36" y1="47" x2="36" y2="82" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
-                   <line x1="43" y1="51" x2="43" y2="86" stroke="currentColor" strokeWidth="1.25" strokeDasharray="2 2" />
-                   {/* Right Face */}
-                   <polygon points="50,55 85,35 85,70 50,90" fill="currentColor" fillOpacity="0.05" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                   <line x1="50" y1="55" x2="50" y2="90" stroke="currentColor" strokeWidth="2" />
+                 <svg viewBox="0 0 100 100" className="w-24 h-24 text-brand-dark transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-2">
+                   {/* Board body */}
+                   <rect x="26" y="20" width="48" height="66" rx="2" fill="none" stroke="currentColor" strokeWidth="2" />
+                   {/* Top Clip */}
+                   <path d="M 41,20 L 41,14 L 59,14 L 59,20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                   <rect x="45" y="17" width="10" height="5" rx="0.5" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth="1" />
+                   
+                   {/* List Rows */}
+                   {/* Row 1 */}
+                   <rect x="33" y="32" width="8" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                   <path d="M 35,36 L 37,38 L 41,33" fill="none" stroke="var(--color-brand-red)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                   <line x1="47" y1="36" x2="67" y2="36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                   
+                   {/* Row 2 */}
+                   <rect x="33" y="48" width="8" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                   <path d="M 35,52 L 37,54 L 41,49" fill="none" stroke="var(--color-brand-red)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                   <line x1="47" y1="52" x2="67" y2="52" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                   
+                   {/* Row 3 (Highlight Row) */}
+                   <rect x="33" y="64" width="8" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                   <path d="M 35,68 L 37,70 L 41,65" fill="none" stroke="var(--color-brand-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                   <line x1="47" y1="68" x2="61" y2="68" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                  </svg>
                </div>
 
@@ -301,25 +311,29 @@ export function VideoPortal() {
             <div className="grid grid-cols-2 gap-6 w-full">
                {/* Subcard A: Model */}
                <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-                  <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center justify-between w-full h-12">
                      <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">MODEL</span>
-                     <svg viewBox="0 0 100 100" className="w-12 h-12 text-brand-dark/30 transition-all duration-700 ease-out group-hover:rotate-180 group-hover:text-brand-red">
-                       <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
-                       <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="1.25" />
-                       <line x1="50" y1="50" x2="50" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                       <circle cx="78" cy="22" r="3.5" fill="var(--color-brand-red)" />
-                     </svg>
+                     <div className="w-12 h-12 flex items-center justify-end">
+                        <svg viewBox="0 0 100 100" className="w-10 h-10 text-brand-dark/30 transition-all duration-700 ease-out group-hover:rotate-180 group-hover:text-brand-red">
+                          <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
+                          <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="1.25" />
+                          <line x1="50" y1="50" x2="50" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                          <circle cx="78" cy="22" r="3.5" fill="var(--color-brand-red)" />
+                        </svg>
+                     </div>
                   </div>
                   <span className="font-space text-3xl text-brand-dark font-bold leading-none mt-auto">003</span>
                </div>
                
                {/* Subcard B: Location */}
                <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-                  <div className="flex items-start justify-between w-full">
+                  <div className="flex items-center justify-between w-full h-12">
                      <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">LOCATION</span>
-                     <div className="relative w-6 h-6 flex items-center justify-center">
-                        <div className="absolute w-2.5 h-2.5 bg-brand-red rounded-full animate-ping" />
-                        <div className="w-1.5 h-1.5 bg-brand-red rounded-full z-10" />
+                     <div className="w-12 h-12 flex items-center justify-end">
+                        <div className="relative w-6 h-6 flex items-center justify-center">
+                           <div className="absolute w-2.5 h-2.5 bg-brand-red rounded-full animate-ping" />
+                           <div className="w-1.5 h-1.5 bg-brand-red rounded-full z-10" />
+                        </div>
                      </div>
                   </div>
                   <div className="flex flex-col mt-auto">
