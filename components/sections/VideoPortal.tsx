@@ -365,7 +365,7 @@ export function VideoPortal() {
                  className="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none select-none z-0"
                />
                {/* Gradient overlay to ensure text contrast */}
-               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35 z-0" />
+               <div className="absolute inset-0 bg-gradient-to-t from-brand-red/90 via-brand-red/70 to-brand-red/40 z-0" />
 
                <div className="flex items-start justify-between w-full relative z-10">
                   <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[3].tag}</span>
