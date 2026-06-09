@@ -202,35 +202,37 @@ export function VideoPortal() {
 
             {/* Card 2: Title block (Bottom-Left) */}
             <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[220px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-               <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-4">
-                     <div className="h-px w-8 bg-brand-red" />
-                     <span className="text-[10px] font-bold text-brand-red uppercase tracking-[0.3em] font-space">
-                       003 // ОПЕРАТИВЕН МОДЕЛ
-                     </span>
-                  </div>
-                  <h2 className="font-space text-2xl lg:text-3xl text-brand-dark font-medium leading-[1.1] tracking-tight">
-                     Од барање <br />
-                     до <span className="text-brand-red italic font-space font-medium">букинг.</span>
-                  </h2>
+               <div className="flex items-center gap-4">
+                  <div className="h-px w-8 bg-brand-red" />
+                  <span className="text-[10px] font-bold text-brand-red uppercase tracking-[0.3em] font-space">
+                    003 // ОПЕРАТИВЕН МОДЕЛ
+                  </span>
                </div>
-               <p className="font-sans text-xs text-brand-dark/50 leading-relaxed font-light">
-                  Нашиот оперативен модел е оптимизиран за брзина, прецизност и максимална сигурност во транспортниот ланец.
-               </p>
+               
+               <h2 className="font-space text-2xl lg:text-3xl text-brand-dark font-medium leading-[1.1] tracking-tight">
+                  Од барање <br />
+                  до <span className="text-brand-red italic font-space font-medium">букинг.</span>
+               </h2>
             </div>
           </div>
 
           {/* ── COLUMN 2 (CENTER) ── */}
           <div className="flex flex-col gap-6 w-full">
             {/* Card 3: Step 1 (Top-Center) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[340px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-               <div className="flex items-start justify-between w-full">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[340px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15 relative">
+               {/* Top-Right corner absolute step number */}
+               <span className="absolute top-6 right-8 font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[0].id}</span>
+
+               {/* Subtitle & Title */}
+               <div className="flex flex-col gap-1.5">
                   <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[0].tag}</span>
-                  <span className="font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[0].id}</span>
+                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
+                    {PROCESS_STEPS[0].title}
+                  </h3>
                </div>
 
                {/* Isometric Box wireframe illustration */}
-               <div className="flex justify-center items-center my-2">
+               <div className="flex justify-center items-center my-3">
                  <svg viewBox="0 0 100 100" className="w-20 h-20 text-brand-dark transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-12">
                    {/* Top Face */}
                    <polygon points="50,15 85,35 50,55 15,35" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -246,28 +248,30 @@ export function VideoPortal() {
                  </svg>
                </div>
 
-               <div className="flex flex-col gap-2">
-                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
-                    {PROCESS_STEPS[0].title}
-                  </h3>
-                  <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light">
-                    {PROCESS_STEPS[0].desc}
-                  </p>
-               </div>
+               {/* Description */}
+               <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light mt-auto">
+                 {PROCESS_STEPS[0].desc}
+               </p>
             </div>
 
             {/* Card 4: Step 2 (Bottom-Center) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[300px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-               <div className="flex items-start justify-between w-full">
-                  <div className="flex flex-col gap-1">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[300px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15 relative">
+               {/* Top-Right corner absolute step number */}
+               <span className="absolute top-6 right-8 font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[1].id}</span>
+
+               {/* Subtitle & Title & Stat */}
+               <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2">
                      <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[1].tag}</span>
-                     <span className="font-space text-3xl font-bold text-brand-dark mt-1">24ч.</span>
+                     <span className="font-space text-xs font-bold text-brand-dark bg-black/5 px-2 py-0.5">24ч.</span>
                   </div>
-                  <span className="font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[1].id}</span>
+                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
+                    {PROCESS_STEPS[1].title}
+                  </h3>
                </div>
 
                {/* Animated Route Network illustration */}
-               <div className="my-1 overflow-hidden rounded-none border border-black/[0.03] bg-black/[0.01]">
+               <div className="my-2 overflow-hidden rounded-none border border-black/[0.03] bg-black/[0.01]">
                  <svg viewBox="0 0 160 80" className="w-full h-16 text-brand-dark/20">
                    <defs>
                      <pattern id="dot-grid" width="12" height="12" patternUnits="userSpaceOnUse">
@@ -284,14 +288,10 @@ export function VideoPortal() {
                  </svg>
                </div>
 
-               <div className="flex flex-col gap-2">
-                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
-                    {PROCESS_STEPS[1].title}
-                  </h3>
-                  <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light">
-                    {PROCESS_STEPS[1].desc}
-                  </p>
-               </div>
+               {/* Description */}
+               <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light mt-auto">
+                 {PROCESS_STEPS[1].desc}
+               </p>
             </div>
           </div>
 
@@ -330,14 +330,20 @@ export function VideoPortal() {
             </div>
 
             {/* Card 6: Step 3 (Middle-Right) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[240px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-               <div className="flex items-start justify-between w-full">
+            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[240px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15 relative">
+               {/* Top-Right corner absolute step number */}
+               <span className="absolute top-6 right-8 font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[2].id}</span>
+
+               {/* Subtitle & Title */}
+               <div className="flex flex-col gap-1.5">
                   <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[2].tag}</span>
-                  <span className="font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[2].id}</span>
+                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
+                    {PROCESS_STEPS[2].title}
+                  </h3>
                </div>
                
                {/* Concentric checkmark stamp illustration */}
-               <div className="flex justify-center my-1">
+               <div className="flex justify-center my-2">
                   <svg viewBox="0 0 100 100" className="w-16 h-16 text-brand-dark transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
                     <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="1" />
                     <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 3" />
@@ -346,14 +352,10 @@ export function VideoPortal() {
                   </svg>
                </div>
 
-               <div className="flex flex-col gap-2">
-                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
-                    {PROCESS_STEPS[2].title}
-                  </h3>
-                  <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light">
-                    {PROCESS_STEPS[2].desc}
-                  </p>
-               </div>
+               {/* Description */}
+               <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light mt-auto">
+                 {PROCESS_STEPS[2].desc}
+               </p>
             </div>
 
             {/* Card 7: Step 4 (Bottom-Right, with image background) */}
@@ -367,17 +369,22 @@ export function VideoPortal() {
                {/* Gradient overlay to ensure text contrast */}
                <div className="absolute inset-0 bg-gradient-to-t from-brand-red/90 via-brand-red/70 to-brand-red/40 z-0" />
 
-               <div className="flex items-start justify-between w-full relative z-10">
-                  <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[3].tag}</span>
-                  <span className="font-space text-6xl text-white/10 group-hover:text-white/20 font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[3].id}</span>
-               </div>
-               
+               {/* Top-Right corner absolute step number */}
+               <span className="absolute top-6 right-8 font-space text-6xl text-white/10 group-hover:text-white/20 font-medium leading-none select-none transition-colors duration-500 z-10">{PROCESS_STEPS[3].id}</span>
 
-
-               <div className="flex flex-col gap-2 relative z-10">
+               {/* Subtitle & Title */}
+               <div className="flex flex-col gap-1.5 relative z-10">
+                  <span className="font-space text-[10px] tracking-[0.2em] text-white/80 font-bold uppercase">{PROCESS_STEPS[3].tag}</span>
                   <h3 className="font-space text-lg text-white font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
                     {PROCESS_STEPS[3].title}
                   </h3>
+               </div>
+               
+               {/* Spacer in the middle for layout alignment */}
+               <div className="h-12 relative z-10" />
+
+               {/* Description */}
+               <div className="flex flex-col gap-2 relative z-10 mt-auto">
                   <p className="font-sans text-xs lg:text-sm text-white/70 leading-relaxed font-light">
                     {PROCESS_STEPS[3].desc}
                   </p>
