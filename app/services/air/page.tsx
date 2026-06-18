@@ -24,7 +24,10 @@ const airData = [
 
 export default function AirTransportPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main 
+      className="min-h-screen bg-white"
+      style={{ "--grid-line-color": "rgba(0, 0, 0, 0.05)" } as React.CSSProperties}
+    >
       
       
       <ServiceHero 

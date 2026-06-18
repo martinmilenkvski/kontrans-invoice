@@ -74,7 +74,7 @@ export function Commitment() {
       { y: 0, opacity: 1, duration: 1.5, ease: heroEase }, 0
     );
 
-    tl.fromTo([".comm-tag", ".comm-text", ".comm-btn", ".comm-counter", ".comm-footer-text"], 
+    tl.fromTo([".comm-tag", ".comm-text", ".comm-btn", ".comm-counter"], 
       { y: 30, opacity: 0 }, 
       { y: 0, opacity: 1, duration: 1.2, ease: heroEase, stagger: 0.1 }, 
       0.5
@@ -126,7 +126,7 @@ export function Commitment() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative bg-[#FFFFFF] pt-32 pb-24 overflow-hidden border-b border-black/10">
+    <section ref={containerRef} className="relative bg-[#FFFFFF] pt-32 pb-24 overflow-hidden">
       
       <div className="max-w-400 mx-auto px-4 lg:px-4 flex flex-col gap-24 lg:gap-32">
         
@@ -220,15 +220,6 @@ export function Commitment() {
                 {/* ABSTRACT DECORATIVE CIRCLE */}
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 border border-white/5 rounded-full" />
               </Link>
-           </div>
-           
-           <div className="flex justify-between items-center px-2">
-              <span className="comm-footer-text font-mono text-[0.65rem] text-black/60 font-black tracking-[0.4em] uppercase opacity-0">
-                 BEYOND CONVENTIONAL LOGISTICS.
-              </span>
-              <span className="comm-footer-text font-mono text-[0.65rem] text-black/60 font-black tracking-[0.4em] uppercase opacity-0 text-right">
-                 НИЕ ГРАДИМЕ ДОВЕРБА.
-              </span>
            </div>
         </div>
 

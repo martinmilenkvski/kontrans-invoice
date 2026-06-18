@@ -199,9 +199,9 @@ export function Preloader() {
         className="preloader-header fixed w-full flex justify-center items-center translate-y-[50vh] lg:translate-y-[60vh] z-10 origin-top"
         style={{ willChange: "transform" }}
       >
-        <div className="flex text-[#1A1A1A] uppercase text-[4rem] lg:text-[7.5rem] font-semibold leading-[0.9] tracking-tighter">
+        <div className="flex text-[#1A1A1A] uppercase text-[4rem] lg:text-[7.5rem] font-semibold leading-[1.15] tracking-tighter">
           {headerText.map((char, idx) => (
-            <div key={idx} className="char-mask relative inline-block overflow-hidden">
+            <div key={idx} className="char-mask relative inline-block overflow-hidden py-1">
               <span className={`char-inner inline-block min-w-[0.5rem] ${idx >= 3 ? 'text-[#D42B2B]' : ''}`}>
                 {char === " " ? "\u00A0" : char}
               </span>

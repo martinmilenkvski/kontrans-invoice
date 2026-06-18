@@ -130,7 +130,7 @@ export function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden bg-background"
+      className="sticky top-0 z-0 w-full h-screen overflow-hidden bg-background"
     >
       {/* ── Full-bleed background video ── */}
       <motion.div

@@ -28,6 +28,8 @@ export default function DashboardPage() {
   }, [router]);
 
   const handleLogout = () => {
+    // Clear session cookie for Middleware route guard
+    document.cookie = "isLoggedIn=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     localStorage.removeItem("isLoggedIn");
     router.push("/");
   };

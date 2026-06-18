@@ -51,78 +51,99 @@ export function VideoPortal() {
       const card = videoCardRef.current;
       const video = videoWrapperRef.current;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: parent,
-          start: "top top",
-          end: "+=120%",
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            // Decoupled, automatic staggered entrance animation
-            // Triggers sooner (when video shrinks halfway) to let the cards reveal before scroll ends
-            if (self.progress > 0.45) {
-              if (!cardsAnimated.current) {
-                cardsAnimated.current = true;
-                gsap.fromTo(".bento-card",
-                  { opacity: 0, y: 16 },
-                  { 
-                    opacity: 1, 
-                    y: 0, 
-                    stagger: 0.08, 
-                    duration: 0.8, 
-                    ease: "power3.out",
+      const mm = gsap.matchMedia();
+
+      // Desktop animation: pin and shrink reveal
+      mm.add("(min-width: 768px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: parent,
+            start: "top top",
+            end: "+=120%",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              if (self.progress > 0.45) {
+                if (!cardsAnimated.current) {
+                  cardsAnimated.current = true;
+                  gsap.fromTo(".bento-card",
+                    { opacity: 0, y: 16 },
+                    { 
+                      opacity: 1, 
+                      y: 0, 
+                      stagger: 0.08, 
+                      duration: 0.8, 
+                      ease: "power3.out",
+                      overwrite: "auto"
+                    }
+                  );
+                }
+              } else if (self.progress < 0.2) {
+                if (cardsAnimated.current) {
+                  cardsAnimated.current = false;
+                  gsap.to(".bento-card", {
+                    opacity: 0,
+                    y: 16,
+                    stagger: 0.03,
+                    duration: 0.4,
+                    ease: "power2.in",
                     overwrite: "auto"
-                  }
-                );
-              }
-            } else if (self.progress < 0.2) {
-              // Reset states when scrolling back up past 20% scroll progression
-              if (cardsAnimated.current) {
-                cardsAnimated.current = false;
-                gsap.to(".bento-card", {
-                  opacity: 0,
-                  y: 16,
-                  stagger: 0.03,
-                  duration: 0.4,
-                  ease: "power2.in",
-                  overwrite: "auto"
-                });
+                  });
+                }
               }
             }
-          }
-        },
+          },
+        });
+
+        tl.fromTo(
+          video,
+          {
+            width: () => gridContainerRef.current?.getBoundingClientRect().width || window.innerWidth,
+            height: () => window.innerHeight * 0.82,
+            left: () => gridContainerRef.current ? (gridContainerRef.current.getBoundingClientRect().left - parent.getBoundingClientRect().left) : 0,
+            top: () => (window.innerHeight - window.innerHeight * 0.82) / 2,
+            borderRadius: "0px",
+            opacity: 1,
+          },
+          {
+            width: () => card.getBoundingClientRect().width,
+            height: () => card.getBoundingClientRect().height,
+            left: () => card.getBoundingClientRect().left - parent.getBoundingClientRect().left,
+            top: () => card.getBoundingClientRect().top - parent.getBoundingClientRect().top,
+            borderRadius: "0px",
+            duration: 1.5,
+            ease: "power3.inOut",
+          },
+          0
+        );
+
+        tl.to(".vp-overlay", { opacity: 0.3, duration: 1 }, 0);
       });
 
-      // Animate video shrink to the top-left bento slot on scroll
-      // Starts with margins matching the central grid container
-      tl.fromTo(
-        video,
-        {
-          width: () => gridContainerRef.current?.getBoundingClientRect().width || window.innerWidth,
-          height: () => window.innerHeight * 0.82,
-          left: () => gridContainerRef.current ? (gridContainerRef.current.getBoundingClientRect().left - parent.getBoundingClientRect().left) : 0,
-          top: () => (window.innerHeight - window.innerHeight * 0.82) / 2,
-          borderRadius: "0px",
-          opacity: 1,
-        },
-        {
-          width: () => card.getBoundingClientRect().width,
-          height: () => card.getBoundingClientRect().height,
-          left: () => card.getBoundingClientRect().left - parent.getBoundingClientRect().left,
-          top: () => card.getBoundingClientRect().top - parent.getBoundingClientRect().top,
-          borderRadius: "0px",
-          duration: 1.5,
-          ease: "power3.inOut",
-        },
-        0
-      );
+      // Mobile: no scroll hijacking or pinning, let bento cards fade in smoothly as they scroll into view
+      mm.add("(max-width: 767px)", () => {
+        gsap.fromTo(".bento-card",
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.05,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: parent,
+              start: "top 80%",
+              toggleActions: "play none none none"
+            }
+          }
+        );
+      });
 
-      tl.to(".vp-overlay", { opacity: 0.3, duration: 1 }, 0);
-
-      return () => {};
+      return () => {
+        mm.revert();
+      };
     },
     { scope: containerRef }
   );
@@ -131,54 +152,17 @@ export function VideoPortal() {
     <section 
       ref={containerRef}
       id="process"
-      className="relative w-full h-screen overflow-hidden bg-white flex items-center justify-center border-t border-black/10 text-brand-dark"
+      className="relative w-full h-auto bg-white flex items-center justify-center text-brand-dark py-12 md:py-24 lg:py-32"
     >
       
-      {/* ── BACKGROUND VIDEO SHRINKING FRAME ── */}
       <div 
         ref={videoWrapperRef} 
-        className="absolute z-30 overflow-hidden border border-black/5 pointer-events-none rounded-none"
+        className="hidden md:block absolute z-30 overflow-hidden pointer-events-none rounded-none"
         style={{ width: "100vw", height: "100vh", left: 0, top: 0, opacity: 0 }}
       >
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
           <source src="/process-video.mp4" type="video/mp4" />
         </video>
-
-        {/* HUD UI Elements Layer */}
-        <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8 text-white z-10 pointer-events-none select-none">
-          {/* Top Row: Camera details & Recording Pulse */}
-          <div className="flex items-center justify-between w-full font-mono text-[9px] tracking-wider text-white/80 bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-full self-start max-w-max">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-brand-red rounded-full animate-pulse" />
-              <span>LIVE CAM // PORT_CAM_03</span>
-            </span>
-            <span className="mx-2 text-white/30">|</span>
-            <span>HD 1080P // 60FPS</span>
-          </div>
-
-          {/* Center Crosshair or Ticks */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
-            <div className="relative w-10 h-10">
-              <div className="absolute left-0 top-5 w-2 h-px bg-white" />
-              <div className="absolute right-0 top-5 w-2 h-px bg-white" />
-              <div className="absolute left-5 top-0 w-px h-2 bg-white" />
-              <div className="absolute left-5 bottom-0 w-px h-2 bg-white" />
-              <div className="absolute inset-0 border border-white/20 rounded-full scale-75" />
-            </div>
-          </div>
-
-          {/* Corner Ticks */}
-          <div className="absolute top-4 left-4 w-3.5 h-3.5 border-t border-l border-white/40 pointer-events-none" />
-          <div className="absolute top-4 right-4 w-3.5 h-3.5 border-t border-r border-white/40 pointer-events-none" />
-          <div className="absolute bottom-4 left-4 w-3.5 h-3.5 border-b border-l border-white/40 pointer-events-none" />
-          <div className="absolute bottom-4 right-4 w-3.5 h-3.5 border-b border-r border-white/40 pointer-events-none" />
-
-          {/* Bottom Row: Timestamp and coordinates */}
-          <div className="flex items-end justify-between w-full font-mono text-[8px] tracking-widest text-white/70">
-            <span>SYS_DAT: 08.06.2026 // 16:46 UTC</span>
-            <span>41°59'56"N // 21°26'15"E</span>
-          </div>
-        </div>
 
         <div className="vp-overlay absolute inset-0 bg-white/10" />
       </div>
@@ -188,222 +172,76 @@ export function VideoPortal() {
         ref={gridContainerRef}
         className="w-full max-w-[1600px] px-6 lg:px-12 relative z-10"
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 w-full">
           
-          {/* ── COLUMN 1 (LEFT) ── */}
-          <div className="flex flex-col gap-6 w-full">
-            {/* Card 1: Video Placeholder (Top-Left, tall vertical block) */}
-            <div 
-              ref={videoCardRef} 
-              className="bg-transparent rounded-none border border-black/5 relative overflow-hidden h-[420px] pointer-events-none"
-            >
-               {/* The video element shrinks directly over this container */}
+          {/* ── COLUMN 1 (LEFT): VIDEO PANEL ── */}
+          <div className="flex flex-col w-full md:self-stretch h-full">
+            {/* Title above the video */}
+            <h2 className="font-sans text-[clamp(2.2rem,5vw,3.2rem)] text-brand-dark leading-[1.05] tracking-tight font-normal">
+              Од барање до вашиот <span className="text-brand-red italic font-sans font-medium relative inline-block">магацин</span> во 4 чекори.
+            </h2>
+
+            {/* Centered Video Placeholder */}
+            <div className="flex-1 flex flex-col justify-center w-full py-12 md:py-0 min-h-0">
+              <div 
+                ref={videoCardRef} 
+                className="bg-transparent rounded-none relative overflow-hidden w-full aspect-video pointer-events-none"
+              >
+                 {/* The video element shrinks directly over this container on desktop, and plays directly on mobile */}
+                 <video 
+                   autoPlay 
+                   loop 
+                   muted 
+                   playsInline 
+                   className="absolute inset-0 w-full h-full object-cover md:hidden"
+                 >
+                   <source src="/process-video.mp4" type="video/mp4" />
+                 </video>
+              </div>
             </div>
 
-            {/* Card 2: Title block (Bottom-Left) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[220px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-               <div className="flex items-center gap-4">
-                  <div className="h-px w-8 bg-brand-red" />
-                  <span className="text-[10px] font-bold text-brand-red uppercase tracking-[0.3em] font-space">
-                    003 // ОПЕРАТИВЕН МОДЕЛ
-                  </span>
-               </div>
-               
-               <h2 className="font-space text-2xl lg:text-3xl text-brand-dark font-medium leading-[1.1] tracking-tight">
-                  Од барање <br />
-                  до <span className="text-brand-red italic font-space font-medium">букинг.</span>
-               </h2>
-            </div>
-          </div>
-
-          {/* ── COLUMN 2 (CENTER) ── */}
-          <div className="flex flex-col gap-6 w-full">
-            {/* Card 3: Step 1 (Top-Center) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[340px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15 relative">
-               {/* Top-Right corner absolute step number */}
-               <span className="absolute top-6 right-8 font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[0].id}</span>
-
-               {/* Subtitle & Title */}
-               <div className="flex flex-col gap-1.5">
-                  <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[0].tag}</span>
-                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
-                    {PROCESS_STEPS[0].title}
-                  </h3>
-               </div>
-
-               {/* High-tech Clipboard Checklist illustration */}
-               <div className="flex-1 flex justify-center items-center my-1">
-                 <svg viewBox="0 0 100 100" className="w-24 h-24 text-brand-dark transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-2">
-                   {/* Board body */}
-                   <rect x="26" y="20" width="48" height="66" rx="2" fill="none" stroke="currentColor" strokeWidth="2" />
-                   {/* Top Clip */}
-                   <path d="M 41,20 L 41,14 L 59,14 L 59,20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                   <rect x="45" y="17" width="10" height="5" rx="0.5" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth="1" />
-                   
-                   {/* List Rows */}
-                   {/* Row 1 */}
-                   <rect x="33" y="32" width="8" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                   <path d="M 35,36 L 37,38 L 41,33" fill="none" stroke="var(--color-brand-red)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                   <line x1="47" y1="36" x2="67" y2="36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                   
-                   {/* Row 2 */}
-                   <rect x="33" y="48" width="8" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                   <path d="M 35,52 L 37,54 L 41,49" fill="none" stroke="var(--color-brand-red)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                   <line x1="47" y1="52" x2="67" y2="52" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                   
-                   {/* Row 3 (Highlight Row) */}
-                   <rect x="33" y="64" width="8" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                   <path d="M 35,68 L 37,70 L 41,65" fill="none" stroke="var(--color-brand-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                   <line x1="47" y1="68" x2="61" y2="68" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                 </svg>
-               </div>
-
-               {/* Description */}
-               <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light mt-auto">
-                 {PROCESS_STEPS[0].desc}
-               </p>
-            </div>
-
-            {/* Card 4: Step 2 (Bottom-Center) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[300px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15 relative">
-               {/* Top-Right corner absolute step number */}
-               <span className="absolute top-6 right-8 font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[1].id}</span>
-
-               {/* Subtitle & Title & Stat */}
-               <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2">
-                     <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[1].tag}</span>
-                     <span className="font-space text-xs font-bold text-brand-dark bg-black/5 px-2 py-0.5">24ч.</span>
-                  </div>
-                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
-                    {PROCESS_STEPS[1].title}
-                  </h3>
-               </div>
-
-               {/* Animated Route Network illustration */}
-               <div className="flex-1 flex items-center justify-center my-1 w-full">
-                 <svg viewBox="0 0 160 80" className="w-full max-w-[280px] h-20 text-brand-dark/25 transition-all duration-500 group-hover:scale-105">
-                   <defs>
-                     <pattern id="dot-grid" width="12" height="12" patternUnits="userSpaceOnUse">
-                       <circle cx="2" cy="2" r="0.75" fill="currentColor" fillOpacity="0.4" />
-                     </pattern>
-                   </defs>
-                   <rect width="100%" height="100%" fill="url(#dot-grid)" />
-                   <path d="M 20,60 L 60,30 L 100,50 L 140,20" fill="none" stroke="var(--color-brand-red)" strokeWidth="2.5" strokeLinecap="round" />
-                   <circle cx="20" cy="60" r="3.5" fill="currentColor" />
-                   <circle cx="60" cy="30" r="3.5" fill="currentColor" />
-                   <circle cx="100" cy="50" r="3.5" fill="currentColor" />
-                   <circle cx="140" cy="20" r="5.5" fill="var(--color-brand-red)" />
-                   <circle cx="140" cy="20" r="8.5" fill="none" stroke="var(--color-brand-red)" strokeWidth="1.5" className="animate-ping" style={{ transformOrigin: '140px 20px' }} />
-                 </svg>
-               </div>
-
-               {/* Description */}
-               <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light mt-auto">
-                 {PROCESS_STEPS[1].desc}
-               </p>
+            {/* Tag at the bottom of the left side */}
+            <div className="flex items-center gap-3 mb-8 lg:mb-10">
+              <div className="h-px w-6 bg-brand-red" />
+              <span className="text-[10px] font-bold text-brand-red uppercase tracking-[0.2em] font-space">
+                003 // ОПЕРАТИВЕН МОДЕЛ
+              </span>
             </div>
           </div>
 
-          {/* ── COLUMN 3 (RIGHT) ── */}
-          <div className="flex flex-col gap-6 w-full">
-            {/* Card 5: Top-Right Sub-Grid (Process code + location details) */}
-            <div className="grid grid-cols-2 gap-6 w-full">
-               {/* Subcard A: Model */}
-               <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-                  <div className="flex items-center justify-between w-full h-12">
-                     <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">MODEL</span>
-                     <div className="w-12 h-12 flex items-center justify-end">
-                        <svg viewBox="0 0 100 100" className="w-10 h-10 text-brand-dark/30 transition-all duration-700 ease-out group-hover:rotate-180 group-hover:text-brand-red">
-                          <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
-                          <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="1.25" />
-                          <line x1="50" y1="50" x2="50" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                          <circle cx="78" cy="22" r="3.5" fill="var(--color-brand-red)" />
-                        </svg>
-                     </div>
-                  </div>
-                  <span className="font-space text-3xl text-brand-dark font-bold leading-none mt-auto">003</span>
-               </div>
-               
-               {/* Subcard B: Location */}
-               <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-6 flex flex-col justify-between h-[120px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15">
-                  <div className="flex items-center justify-between w-full h-12">
-                     <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">LOCATION</span>
-                     <div className="w-12 h-12 flex items-center justify-end">
-                        <div className="relative w-6 h-6 flex items-center justify-center">
-                           <div className="absolute w-2.5 h-2.5 bg-brand-red rounded-full animate-ping" />
-                           <div className="w-1.5 h-1.5 bg-brand-red rounded-full z-10" />
-                        </div>
-                     </div>
-                  </div>
-                  <div className="flex flex-col mt-auto">
-                     <span className="font-mono text-[9px] text-black/40 font-bold">41°59'56"N</span>
-                     <span className="font-mono text-[9px] text-black/40 font-bold">21°26'15"E</span>
-                  </div>
-               </div>
-            </div>
+          {/* ── COLUMN 2 (RIGHT): THE HORIZONTAL SPLIT ── */}
+          <div className="flex flex-col w-full md:mt-0 relative py-8">
+             {/* The vertical divider line */}
+             <div className="absolute left-[35%] top-0 bottom-0 w-px bg-black/10 -translate-x-1/2"></div>
 
-            {/* Card 6: Step 3 (Middle-Right) */}
-            <div className="bento-card group bg-[#F5F5F7] border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[240px] opacity-0 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:border-black/15 relative">
-               {/* Top-Right corner absolute step number */}
-               <span className="absolute top-6 right-8 font-space text-6xl text-black/[0.04] group-hover:text-black/[0.08] font-medium leading-none select-none transition-colors duration-500">{PROCESS_STEPS[2].id}</span>
+             <div className="flex flex-col w-full">
+                {PROCESS_STEPS.map((step, index) => (
+                   <div 
+                      key={step.id} 
+                      className="bento-card opacity-0 relative grid grid-cols-[35%_1fr] group/step cursor-pointer py-10"
+                   >
+                      {/* Left Side: Number */}
+                      <div className="flex flex-col items-end justify-start text-right pr-8 md:pr-12">
+                         <span className="font-sans text-5xl md:text-6xl text-black/10 font-black tracking-tighter group-hover/step:text-brand-red/20 transition-colors duration-500">
+                           0{index + 1}
+                         </span>
+                      </div>
 
-               {/* Subtitle & Title */}
-               <div className="flex flex-col gap-1.5">
-                  <span className="font-space text-[10px] tracking-[0.2em] text-brand-red font-bold uppercase">{PROCESS_STEPS[2].tag}</span>
-                  <h3 className="font-space text-lg text-brand-dark font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
-                    {PROCESS_STEPS[2].title}
-                  </h3>
-               </div>
-               
-               {/* Concentric checkmark stamp illustration */}
-               <div className="flex-1 flex justify-center items-center my-1">
-                  <svg viewBox="0 0 100 100" className="w-24 h-24 text-brand-dark transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-                     <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                     <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
-                     <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                     <path d="M 35,50 L 45,60 L 65,38" fill="none" stroke="var(--color-brand-red)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-               </div>
-
-               {/* Description */}
-               <p className="font-sans text-xs lg:text-sm text-brand-dark/50 leading-relaxed font-light mt-auto">
-                 {PROCESS_STEPS[2].desc}
-               </p>
-            </div>
-
-            {/* Card 7: Step 4 (Bottom-Right, with image background) */}
-            <div className="bento-card group relative bg-black border border-black/[0.04] rounded-none p-8 flex flex-col justify-between h-[260px] opacity-0 overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:border-black/10">
-               {/* Background Image with hover scale zoom */}
-               <img 
-                 src="/about-storage.png" 
-                 alt="Warehouse storage" 
-                 className="absolute inset-0 w-full h-full object-cover opacity-40 transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none select-none z-0"
-               />
-               {/* Gradient overlay to ensure text contrast */}
-               <div className="absolute inset-0 bg-gradient-to-t from-brand-red/90 via-brand-red/70 to-brand-red/40 z-0" />
-
-               {/* Top-Right corner absolute step number */}
-               <span className="absolute top-6 right-8 font-space text-6xl text-white/10 group-hover:text-white/20 font-medium leading-none select-none transition-colors duration-500 z-10">{PROCESS_STEPS[3].id}</span>
-
-               {/* Subtitle & Title */}
-               <div className="flex flex-col gap-1.5 relative z-10">
-                  <span className="font-space text-[10px] tracking-[0.2em] text-white/80 font-bold uppercase">{PROCESS_STEPS[3].tag}</span>
-                  <h3 className="font-space text-lg text-white font-semibold tracking-tight uppercase group-hover:text-brand-red transition-colors duration-300">
-                    {PROCESS_STEPS[3].title}
-                  </h3>
-               </div>
-               
-               {/* Spacer in the middle for layout alignment */}
-               <div className="h-12 relative z-10" />
-
-               {/* Description */}
-               <div className="flex flex-col gap-2 relative z-10 mt-auto">
-                  <p className="font-sans text-xs lg:text-sm text-white/70 leading-relaxed font-light">
-                    {PROCESS_STEPS[3].desc}
-                  </p>
-               </div>
-            </div>
+                      {/* Right Side: Title & Desc */}
+                      <div className="flex flex-col items-start justify-start pl-8 md:pl-12 relative">
+                         {/* Animated Hover Line on the middle axis */}
+                         <div className="absolute left-0 top-1 w-0.5 h-12 bg-brand-red scale-y-0 group-hover/step:scale-y-100 origin-top transition-transform duration-500 -translate-x-1/2 z-10"></div>
+                         
+                         <h3 className="font-space text-xl md:text-2xl text-brand-dark font-bold tracking-tight uppercase mb-4 group-hover/step:text-brand-red transition-colors duration-500">
+                            {step.title}
+                         </h3>
+                         <p className="font-sans text-sm md:text-base text-brand-dark/60 leading-relaxed font-light group-hover/step:text-brand-dark/90 transition-colors duration-500">
+                            {step.desc}
+                         </p>
+                      </div>
+                   </div>
+                ))}
+             </div>
           </div>
 
         </div>

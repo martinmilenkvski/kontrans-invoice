@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   description: "Experience excellence in global logistics with Kontrans. Specialized in sea, air, and road transport with a focus on reliability and precision. Вашиот товар. Нашата одговорност.",
   keywords: ["logistics", "transport", "shipping", "Kontrans", "global freight", "Macedonia logistics"],
   authors: [{ name: "Kontrans" }],
+  icons: {
+    icon: "/kontrans-logo-white.svg",
+    shortcut: "/kontrans-logo-white.svg",
+    apple: "/kontrans-logo-white.svg",
+  },
   openGraph: {
     title: "Kontrans | Premium Logistics Solutions",
     description: "Reliable global transport solutions by sea, air, and road.",
@@ -48,14 +53,7 @@ export default function RootLayout({
       <body
         className={`${jost.variable} ${spaceGrotesk.variable} ${signature.variable} antialiased bg-background text-white`}
       >
-        {/* Global Swiss-Brutalist Grid Structure */}
-        <div className="pointer-events-none fixed inset-0 z-[-1] flex justify-center opacity-10">
-          <div className="w-full max-w-[1600px] grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 h-full gap-0 border-x border-white">
-             {Array.from({ length: 12 }).map((_, i) => (
-               <div key={i} className="h-full border-r border-white hidden lg:block last:border-r-0" />
-             ))}
-          </div>
-        </div>
+
 
         <PreloaderProvider>
           <Header />

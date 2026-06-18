@@ -10,6 +10,10 @@
   --color-brand-dark: #111111;
 }
 
+:root {
+  --grid-line-color: rgba(255, 255, 255, 0.06);
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
@@ -37,3 +41,11 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+

@@ -65,11 +65,51 @@ export function Contact() {
     if (!validate()) return;
     
     setIsSubmitting(true);
-    // Simulation for now
-    setTimeout(() => {
+    setSubmitStatus('idle');
+    
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          transportMode,
+          ...formData,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitStatus('success');
+        // Reset form states
+        setFormData({
+          origin: "",
+          destination: "",
+          weight: "",
+          volume: "",
+          commodity: "",
+          email: "",
+          phone: "",
+        });
+        setTransportMode(null);
+      } else {
+        setSubmitStatus('error');
+        setErrors(prev => ({
+          ...prev,
+          global: data.errors ? data.errors.join(", ") : "Грешка при испраќање."
+        }));
+      }
+    } catch (err) {
+      setSubmitStatus('error');
+      setErrors(prev => ({
+        ...prev,
+        global: "Грешка при воспоставување врска со серверот."
+      }));
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-    }, 1500);
+    }
   };
 
   useGSAP(() => {
@@ -335,6 +375,15 @@ export function Contact() {
                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                           <p className="font-mono text-[10px] font-bold text-green-700 uppercase tracking-widest">
                              Вашето барање е успешно испратено. Нашиот тим ќе ве контактира набрзо.
+                          </p>
+                       </div>
+                    )}
+
+                    {submitStatus === 'error' && (
+                       <div className="mt-8 flex items-center gap-4 bg-red-50 p-6 border border-red-100">
+                          <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                          <p className="font-mono text-[10px] font-bold text-red-700 uppercase tracking-widest">
+                             Грешка: {errors.global || "обидете се повторно подоцна."}
                           </p>
                        </div>
                     )}

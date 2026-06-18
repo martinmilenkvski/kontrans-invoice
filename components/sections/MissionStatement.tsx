@@ -30,7 +30,7 @@ export function MissionStatement() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative bg-white pt-32 pb-12 md:pt-48 md:pb-16 px-6 overflow-hidden">
+    <section ref={containerRef} className="relative z-10 bg-white pt-32 pb-12 md:pt-48 md:pb-16 px-6 overflow-hidden">
       {/* Background Decorative Grid */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />

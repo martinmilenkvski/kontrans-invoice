@@ -17,28 +17,28 @@ export default function Home() {
     <main className="min-h-screen bg-background overflow-x-clip">
       {/* ── PHASE 1: ENTRY ── */}
       <Hero />
-      <MissionStatement />
-      <Services />
-      <LogosMarquee />
+      <div className="relative z-10 bg-white">
+        <MissionStatement />
+        <Services />
+        <LogosMarquee />
 
-      {/* ── PHASE 2: IDENTITY ── */}
-      <Commitment />
-      <div className="hidden lg:block">
+        {/* ── PHASE 2: IDENTITY ── */}
+        <Commitment />
         <VideoPortal />
+        {/* <StrategicPillars /> */}
+        <AboutTeam />
+
+        {/* ── PHASE 3: LOGIC ── */}
+
+        {/* <InfrastructureGridWhitespace /> */}
+
+        {/* ── PHASE 4: PROOF & CLOSURE ── */}
+        {/* <TechnicalAnatomy /> */}
+        <FAQ />
+        <Contact />
+
+        <Footer />
       </div>
-      {/* <StrategicPillars /> */}
-      <AboutTeam />
-
-      {/* ── PHASE 3: LOGIC ── */}
-
-      {/* <InfrastructureGridWhitespace /> */}
-
-      {/* ── PHASE 4: PROOF & CLOSURE ── */}
-      {/* <TechnicalAnatomy /> */}
-      <FAQ />
-      <Contact />
-
-      <Footer />
     </main>
   );
 }

@@ -15,7 +15,8 @@ export default function LoginPage() {
     e.preventDefault();
     // Simple client-side check
     if (username === "admin" && password === "admin") {
-      // In a real app, we'd set a cookie or JWT here
+      // Set session cookie for Middleware route guard
+      document.cookie = "isLoggedIn=true; path=/; max-age=86400; SameSite=Strict";
       localStorage.setItem("isLoggedIn", "true");
       router.push("/dashboard");
     } else {
