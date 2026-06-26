@@ -47,7 +47,7 @@ export function Header() {
 
   // Pages that have a light background by default at the very top
   const isLightPage = pathname === "/about" || pathname === "/contact" || pathname?.startsWith("/services");
-  
+
   // Theme logic: If we're on a light page, use dark text
   const isDarkTheme = isLightPage;
 
@@ -135,11 +135,10 @@ export function Header() {
           <motion.div variants={item}>
             <Link
               href={isLoggedIn ? "/dashboard" : "/login"}
-              className={`hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-none text-sm font-bold tracking-wide transition-all duration-300 group ${
-                isDarkTheme 
-                  ? "bg-brand-dark text-white hover:bg-brand-red shadow-lg shadow-black/5" 
+              className={`hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-none text-sm font-bold tracking-wide transition-all duration-300 group ${isDarkTheme
+                  ? "bg-brand-dark text-white hover:bg-brand-red shadow-lg shadow-black/5"
                   : "bg-white/10 border border-white/15 text-white hover:bg-white/20"
-              }`}
+                }`}
             >
               {isLoggedIn ? "Контролна табла" : "Најави се"}
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

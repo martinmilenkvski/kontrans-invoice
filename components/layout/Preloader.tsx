@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
 
 
 
-const headerText = "KONTRANS".split("");
+const headerText = "КОНТРАНС".split("");
 
 const images = [
   "/service_ocean_bright.png",
@@ -67,19 +67,24 @@ export function Preloader() {
         }
       });
 
+      // Add absolute labels to control precise sequencing
+      tl.addLabel("start", 0);
+      tl.addLabel("textEnter", 0.8);
+      tl.addLabel("collapse", 3.2);
+      tl.addLabel("curtainExit", 4.2);
 
-      // Phase 1: Progress Bar
+      // Phase 1: Progress Bar (syncs with build phase)
       tl.to(".progress-bar", {
         scaleX: 1,
-        duration: 4,
+        duration: 2.8,
         ease: "power3.inOut",
-      })
-        .set(".progress-bar", { transformOrigin: "right" })
+      }, "start")
+        .set(".progress-bar", { transformOrigin: "right" }, 2.8)
         .to(".progress-bar", {
           scaleX: 0,
-          duration: 1,
+          duration: 0.4,
           ease: "power3.in",
-        });
+        }, 2.8);
 
       // Phase 2: Image Reveal
       preloaderImages.forEach((preloaderImg, index) => {
@@ -87,11 +92,10 @@ export function Preloader() {
           preloaderImg as Element,
           {
             clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-            duration: 1,
+            duration: 0.8,
             ease: "hop",
-            delay: (index as number) * 0.75,
           },
-          "-=5"
+          `start+=${index * 0.4}`
         );
       });
 
@@ -100,36 +104,34 @@ export function Preloader() {
           preloaderImageInner as Element,
           {
             scale: 1,
-            duration: 1.5,
+            duration: 1.2,
             ease: "hop",
-            delay: (index as number) * 0.75,
           },
-          "-=5.25"
+          `start+=${index * 0.4}`
         );
       });
 
       // Phase 3: Header Entrance
-
       tl.to(
         chars,
         {
           yPercent: 0,
-          duration: 1,
+          duration: 0.8,
           ease: "hop",
-          stagger: 0.025,
+          stagger: 0.02,
         },
-        "-=3.5"
+        "textEnter"
       );
 
-      // Phase 4: Preloader Exit
+      // Phase 4: Preloader Exit (Cohesive Collapse)
       tl.to(
         ".preloader-images",
         {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-          duration: 1,
+          duration: 0.6,
           ease: "hop",
         },
-        "-=1.5"
+        "collapse"
       );
 
       tl.to(
@@ -138,22 +140,25 @@ export function Preloader() {
           yPercent: (index) => {
             return index % 2 === 0 ? 100 : -100;
           },
-          duration: 1,
+          duration: 0.6,
           ease: "hop",
-          stagger: 0.025,
-          delay: 0.5,
+          stagger: 0.02,
+          overwrite: "auto",
         },
-        "-=2.5"
+        "collapse+=0.2"
       );
+
+      // Guarantee text container is completely removed so it's impossible to see
+      tl.set(".preloader-header", { display: "none" }, "curtainExit");
 
       tl.to(
         ".preloader-overlay",
         {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-          duration: 1.75,
+          duration: 1.2,
           ease: "hop",
         },
-        "-=0.5"
+        "curtainExit"
       );
     },
     { scope: containerRef }
@@ -194,6 +199,15 @@ export function Preloader() {
         </div>
       </div>
 
+      <style dangerouslySetInnerHTML={{ __html: `
+        .char-mask:nth-child(odd) .char-inner {
+          transform: translateY(-100%);
+        }
+        .char-mask:nth-child(even) .char-inner {
+          transform: translateY(100%);
+        }
+      `}} />
+
       {/* Sticky Header that moves after loading */}
       <div
         className="preloader-header fixed w-full flex justify-center items-center translate-y-[50vh] lg:translate-y-[60vh] z-10 origin-top"
@@ -201,8 +215,8 @@ export function Preloader() {
       >
         <div className="flex text-[#1A1A1A] uppercase text-[4rem] lg:text-[7.5rem] font-semibold leading-[1.15] tracking-tighter">
           {headerText.map((char, idx) => (
-            <div key={idx} className="char-mask relative inline-block overflow-hidden py-1">
-              <span className={`char-inner inline-block min-w-[0.5rem] ${idx >= 3 ? 'text-[#D42B2B]' : ''}`}>
+            <div key={idx} className="char-mask relative inline-block overflow-hidden">
+              <span className={`char-inner inline-block py-3 pr-[0.08em] min-w-[0.5rem] ${idx >= 3 ? 'text-[#D42B2B]' : ''}`}>
                 {char === " " ? "\u00A0" : char}
               </span>
             </div>

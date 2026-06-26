@@ -43,35 +43,35 @@ function AccordionItem({ faq, index }: { faq: typeof faqs[0], index: number }) {
 
   return (
     <div className="faq-row border-b border-black/10 opacity-0 translate-y-20">
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-8 lg:py-10 flex items-center justify-between text-left group transition-all duration-500"
       >
         <div className="flex items-start gap-8 lg:gap-16 w-full">
-           <span className="font-sans text-2xl lg:text-3xl font-bold text-brand-dark/10 shrink-0 mt-1 transition-colors duration-500 group-hover:text-brand-red/20">
-             {faq.id}
-           </span>
-           <h3 className="text-xl lg:text-2xl font-sans font-medium text-brand-dark leading-snug max-w-3xl transition-all duration-500 group-hover:translate-x-2">
-             {faq.question}
-           </h3>
+          <span className="font-sans text-2xl lg:text-3xl font-bold text-brand-dark/10 shrink-0 mt-1 transition-colors duration-500 group-hover:text-brand-red/20">
+            {faq.id}
+          </span>
+          <h3 className="text-xl lg:text-2xl font-sans font-medium text-brand-dark leading-snug max-w-3xl transition-all duration-500 group-hover:translate-x-2">
+            {faq.question}
+          </h3>
         </div>
-        
+
         <div className={`shrink-0 w-10 h-10 lg:w-14 lg:h-14 rounded-full border border-black/10 flex items-center justify-center transition-all duration-700 ${isOpen ? 'bg-brand-red border-brand-red rotate-45' : 'group-hover:border-brand-dark group-hover:rotate-90'}`}>
-          <Plus 
-            className={`w-5 h-5 lg:w-7 lg:h-7 transition-colors duration-500 ${isOpen ? 'text-white' : 'text-brand-dark'}`} 
+          <Plus
+            className={`w-5 h-5 lg:w-7 lg:h-7 transition-colors duration-500 ${isOpen ? 'text-white' : 'text-brand-dark'}`}
           />
         </div>
       </button>
 
-      <div 
+      <div
         className="grid transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)]"
         style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
       >
         <div className="overflow-hidden">
           <div className="pb-12 lg:pb-16 pl-16 lg:pl-28 max-w-3xl">
-             <p className="font-sans text-lg lg:text-xl text-brand-dark/60 leading-relaxed font-medium">
-               {faq.answer}
-             </p>
+            <p className="font-sans text-lg lg:text-xl text-brand-dark/60 leading-relaxed font-medium">
+              {faq.answer}
+            </p>
           </div>
         </div>
       </div>
@@ -91,13 +91,13 @@ export function FAQ() {
       }
     });
 
-    tl.fromTo(".faq-reveal", 
+    tl.fromTo(".faq-reveal",
       { y: 60, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 1.2, 
-        ease: "power4.out" 
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power4.out"
       }
     );
 
@@ -117,7 +117,7 @@ export function FAQ() {
   }, { scope: containerRef });
 
   return (
-    <section 
+    <section
       ref={containerRef}
       id="faq"
       className="relative bg-white pt-32 pb-48 border-t border-black/10 text-brand-dark"
@@ -130,19 +130,19 @@ export function FAQ() {
 
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-          
+
           {/* LEFT COLUMN: Pinned Header */}
           <div className="lg:col-span-4 lg:sticky lg:top-36 lg:self-start flex flex-col gap-6 faq-reveal opacity-0">
-             <div className="flex items-center gap-4">
-                <div className="h-px w-8 bg-brand-red" />
-                <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
-                  006 // FAQ
-                </span>
-             </div>
-             
-             <h2 className="font-sans text-4xl lg:text-[clamp(2rem,4.5vw,4.5rem)] text-brand-dark leading-[0.95] tracking-tighter font-medium">
-                Често поставувани <span className="text-brand-red italic">прашања.</span>
-             </h2>
+            <div className="flex items-center gap-4">
+              <div className="h-px w-8 bg-brand-red" />
+              <span className="text-[11px] font-bold text-brand-red uppercase tracking-[0.4em] font-sans">
+                006 // FAQ
+              </span>
+            </div>
+
+            <h2 className="font-sans text-4xl lg:text-[clamp(2rem,4.5vw,4.5rem)] text-brand-dark leading-[0.95] tracking-tighter font-medium">
+              Често поставувани <span className="text-brand-red italic">прашања.</span>
+            </h2>
           </div>
 
           {/* RIGHT COLUMN: Free Scrolling Accordions & Redirect */}
@@ -155,20 +155,20 @@ export function FAQ() {
 
             {/* BOTTOM REDIRECT */}
             <div className="mt-20 faq-row opacity-0 flex flex-col items-end">
-               <p className="font-sans text-[11px] font-bold text-black/40 uppercase tracking-[0.3em] mb-4">
-                  Имате специфично барање?
-               </p>
-               <a 
-                  href="#contact" 
-                  className="group flex items-center gap-6"
-               >
-                  <span className="font-sans text-xl lg:text-2xl font-bold text-brand-dark tracking-tight transition-colors group-hover:text-brand-red">
-                     Контактирајте го нашиот тим
-                  </span>
-                  <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-brand-red group-hover:border-brand-red transition-all duration-500">
-                     <Plus className="w-6 h-6 text-brand-dark group-hover:text-white transition-colors" />
-                  </div>
-               </a>
+              <p className="font-sans text-[11px] font-bold text-black/40 uppercase tracking-[0.3em] mb-4">
+                Имате специфично барање?
+              </p>
+              <a
+                href="#contact"
+                className="group flex items-center gap-6"
+              >
+                <span className="font-sans text-xl lg:text-2xl font-bold text-brand-dark tracking-tight transition-colors group-hover:text-brand-red">
+                  Контактирајте го нашиот тим
+                </span>
+                <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-brand-red group-hover:border-brand-red transition-all duration-500">
+                  <Plus className="w-6 h-6 text-brand-dark group-hover:text-white transition-colors" />
+                </div>
+              </a>
             </div>
           </div>
 

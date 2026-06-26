@@ -122,9 +122,9 @@ export function Hero() {
 
   // counterDelay = card's delayChildren + (index * staggerChildren)
   const stats = [
-    { label: "Пратки",          value: 1000, suffix: "+", counterDelay: 1.2  },
-    { label: "Дестинации",      value: 50,   suffix: "+", counterDelay: 1.38 },
-    { label: "Години искуство", value: 20,   suffix: "+", counterDelay: 1.56 },
+    { label: "Пратки", value: 1000, suffix: "+", counterDelay: 1.2 },
+    { label: "Дестинации", value: 50, suffix: "+", counterDelay: 1.38 },
+    { label: "Години искуство", value: 20, suffix: "+", counterDelay: 1.56 },
   ];
 
   return (
@@ -155,46 +155,46 @@ export function Hero() {
         <motion.div
           className="relative z-10 h-full max-w-[1600px] mx-auto px-6 lg:px-12 flex flex-col"
         >
-        <div className="mt-auto pb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-24 items-end">
+          <div className="mt-auto pb-16 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 lg:gap-24 items-end">
 
-          {/* ── LEFT: Headline + subtitle + CTA ── */}
-          <motion.div
-            variants={heroContainer}
-            initial="hidden"
-            animate="show"
-            className="flex flex-col gap-6 max-w-2xl"
-          >
-            <motion.h1
-              variants={slideUp}
-              className="font-sans text-[clamp(2.8rem,8vw,6.5rem)] font-medium text-white leading-[0.8] tracking-tighter"
-            >
-              Глобален транспорт{" "}
-              <br className="hidden sm:block" />
-              со{" "}
-              <span className="italic font-sans text-brand-red text-[1.1em]">
-                доверба.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              variants={slideUp}
-              className="text-white/60 font-sans text-base md:text-lg leading-relaxed max-w-md"
-            >
-              Сигурен, брз и целосно следен транспорт на над 50 дестинации.
-              Бродски, авионски и камионски превоз од една платформа.
-            </motion.p>
-
+            {/* ── LEFT: Headline + subtitle + CTA ── */}
             <motion.div
-              variants={slideUp}
-              className="flex flex-wrap items-center gap-8 pt-8"
+              variants={heroContainer}
+              initial="hidden"
+              animate="show"
+              className="flex flex-col gap-6 max-w-2xl"
             >
+              <motion.h1
+                variants={slideUp}
+                className="font-sans text-[clamp(2.8rem,8vw,6.5rem)] font-medium text-white leading-[0.8] tracking-tighter"
+              >
+                Глобален транспорт{" "}
+                <br className="hidden sm:block" />
+                со{" "}
+                <span className="italic font-sans text-brand-red text-[1.1em]">
+                  доверба.
+                </span>
+              </motion.h1>
+
+              <motion.p
+                variants={slideUp}
+                className="text-white/60 font-sans text-base md:text-lg leading-relaxed max-w-md"
+              >
+                Сигурен, брз и целосно следен транспорт на над 50 дестинации.
+                Бродски, авионски и камионски превоз од една платформа.
+              </motion.p>
+
+              <motion.div
+                variants={slideUp}
+                className="flex flex-wrap items-center gap-8 pt-8"
+              >
                 <Link
                   href="#contact"
                   className="group relative flex items-center gap-4 bg-white px-8 py-5 transition-all duration-500"
                 >
                   {/* Background Slide Effect */}
                   <div className="absolute inset-0 bg-brand-red scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  
+
                   <span className="relative z-10 font-sans text-xs font-black uppercase tracking-[0.2em] text-black group-hover:text-white transition-colors duration-500">
                     Побарај понуда
                   </span>
@@ -204,52 +204,52 @@ export function Hero() {
                   </div>
                 </Link>
 
-              <div className="hidden sm:block w-px h-10 bg-white/10" />
+                <div className="hidden sm:block w-px h-10 bg-white/10" />
 
-              <Link
-                href="#services"
-                className="group relative flex flex-col py-2"
-              >
-                <span className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-white/40 group-hover:text-white transition-colors duration-300">
-                  Истражи ги
-                </span>
-                <span className="font-sans text-xs font-black uppercase tracking-[0.2em] text-white">
-                  Нашите услуги
-                </span>
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* ── RIGHT: Stat cards with slot-machine numbers ── */}
-          <motion.div
-            variants={statsContainer}
-            initial="hidden"
-            animate="show"
-            className="hidden lg:flex flex-col w-65 divide-y divide-white/10 border border-white/10 px-6"
-          >
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                variants={slideLeft}
-                className="flex items-end justify-between py-5 cursor-default"
-              >
-                <div className="flex flex-col gap-1">
-                  <span className="font-sans text-white/40 text-[0.8rem] uppercase tracking-[0.2em]">
-                    {stat.label}
+                <Link
+                  href="#services"
+                  className="group relative flex flex-col py-2"
+                >
+                  <span className="font-sans text-[10px] font-black uppercase tracking-[0.3em] text-white/40 group-hover:text-white transition-colors duration-300">
+                    Истражи ги
                   </span>
-                  <SlotCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    startDelay={stat.counterDelay}
-                  />
-                </div>
-                <span className="text-white/20 text-xs">···</span>
+                  <span className="font-sans text-xs font-black uppercase tracking-[0.2em] text-white">
+                    Нашите услуги
+                  </span>
+                </Link>
               </motion.div>
-            ))}
-          </motion.div>
+            </motion.div>
 
-        </div>
-      </motion.div>
+            {/* ── RIGHT: Stat cards with slot-machine numbers ── */}
+            <motion.div
+              variants={statsContainer}
+              initial="hidden"
+              animate="show"
+              className="hidden lg:flex flex-col w-65 divide-y divide-white/10 border border-white/10 px-6"
+            >
+              {stats.map((stat, i) => (
+                <motion.div
+                  key={i}
+                  variants={slideLeft}
+                  className="flex items-end justify-between py-5 cursor-default"
+                >
+                  <div className="flex flex-col gap-1">
+                    <span className="font-sans text-white/40 text-[0.8rem] uppercase tracking-[0.2em]">
+                      {stat.label}
+                    </span>
+                    <SlotCounter
+                      value={stat.value}
+                      suffix={stat.suffix}
+                      startDelay={stat.counterDelay}
+                    />
+                  </div>
+                  <span className="text-white/20 text-xs">···</span>
+                </motion.div>
+              ))}
+            </motion.div>
+
+          </div>
+        </motion.div>
       )}
     </section>
   );

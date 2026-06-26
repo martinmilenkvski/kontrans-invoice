@@ -70,11 +70,11 @@ export function VideoPortal() {
                   cardsAnimated.current = true;
                   gsap.fromTo(".bento-card",
                     { opacity: 0, y: 16 },
-                    { 
-                      opacity: 1, 
-                      y: 0, 
-                      stagger: 0.08, 
-                      duration: 0.8, 
+                    {
+                      opacity: 1,
+                      y: 0,
+                      stagger: 0.08,
+                      duration: 0.8,
                       ease: "power3.out",
                       overwrite: "auto"
                     }
@@ -149,14 +149,14 @@ export function VideoPortal() {
   );
 
   return (
-    <section 
+    <section
       ref={containerRef}
       id="process"
       className="relative w-full h-auto bg-white flex items-center justify-center text-brand-dark py-12 md:py-24 lg:py-32"
     >
-      
-      <div 
-        ref={videoWrapperRef} 
+
+      <div
+        ref={videoWrapperRef}
         className="hidden md:block absolute z-30 overflow-hidden pointer-events-none rounded-none"
         style={{ width: "100vw", height: "100vh", left: 0, top: 0, opacity: 0 }}
       >
@@ -168,12 +168,12 @@ export function VideoPortal() {
       </div>
 
       {/* ── BENTO GRID CONTAINER ── */}
-      <div 
+      <div
         ref={gridContainerRef}
         className="w-full max-w-[1600px] px-6 lg:px-12 relative z-10"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 w-full">
-          
+
           {/* ── COLUMN 1 (LEFT): VIDEO PANEL ── */}
           <div className="flex flex-col w-full md:self-stretch h-full">
             {/* Title above the video */}
@@ -183,20 +183,20 @@ export function VideoPortal() {
 
             {/* Centered Video Placeholder */}
             <div className="flex-1 flex flex-col justify-center w-full py-12 md:py-0 min-h-0">
-              <div 
-                ref={videoCardRef} 
+              <div
+                ref={videoCardRef}
                 className="bg-transparent rounded-none relative overflow-hidden w-full aspect-video pointer-events-none"
               >
-                 {/* The video element shrinks directly over this container on desktop, and plays directly on mobile */}
-                 <video 
-                   autoPlay 
-                   loop 
-                   muted 
-                   playsInline 
-                   className="absolute inset-0 w-full h-full object-cover md:hidden"
-                 >
-                   <source src="/process-video.mp4" type="video/mp4" />
-                 </video>
+                {/* The video element shrinks directly over this container on desktop, and plays directly on mobile */}
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover md:hidden"
+                >
+                  <source src="/process-video.mp4" type="video/mp4" />
+                </video>
               </div>
             </div>
 
@@ -211,37 +211,37 @@ export function VideoPortal() {
 
           {/* ── COLUMN 2 (RIGHT): THE HORIZONTAL SPLIT ── */}
           <div className="flex flex-col w-full md:mt-0 relative py-8">
-             {/* The vertical divider line */}
-             <div className="absolute left-[35%] top-0 bottom-0 w-px bg-black/10 -translate-x-1/2"></div>
+            {/* The vertical divider line */}
+            <div className="absolute left-[35%] top-0 bottom-0 w-px bg-black/10 -translate-x-1/2"></div>
 
-             <div className="flex flex-col w-full">
-                {PROCESS_STEPS.map((step, index) => (
-                   <div 
-                      key={step.id} 
-                      className="bento-card opacity-0 relative grid grid-cols-[35%_1fr] group/step cursor-pointer py-10"
-                   >
-                      {/* Left Side: Number */}
-                      <div className="flex flex-col items-end justify-start text-right pr-8 md:pr-12">
-                         <span className="font-sans text-5xl md:text-6xl text-black/10 font-black tracking-tighter group-hover/step:text-brand-red/20 transition-colors duration-500">
-                           0{index + 1}
-                         </span>
-                      </div>
+            <div className="flex flex-col w-full">
+              {PROCESS_STEPS.map((step, index) => (
+                <div
+                  key={step.id}
+                  className="bento-card opacity-0 relative grid grid-cols-[35%_1fr] group/step cursor-pointer py-10"
+                >
+                  {/* Left Side: Number */}
+                  <div className="flex flex-col items-end justify-start text-right pr-8 md:pr-12">
+                    <span className="font-sans text-5xl md:text-6xl text-black/10 font-black tracking-tighter group-hover/step:text-brand-red/20 transition-colors duration-500">
+                      0{index + 1}
+                    </span>
+                  </div>
 
-                      {/* Right Side: Title & Desc */}
-                      <div className="flex flex-col items-start justify-start pl-8 md:pl-12 relative">
-                         {/* Animated Hover Line on the middle axis */}
-                         <div className="absolute left-0 top-1 w-0.5 h-12 bg-brand-red scale-y-0 group-hover/step:scale-y-100 origin-top transition-transform duration-500 -translate-x-1/2 z-10"></div>
-                         
-                         <h3 className="font-space text-xl md:text-2xl text-brand-dark font-bold tracking-tight uppercase mb-4 group-hover/step:text-brand-red transition-colors duration-500">
-                            {step.title}
-                         </h3>
-                         <p className="font-sans text-sm md:text-base text-brand-dark/60 leading-relaxed font-light group-hover/step:text-brand-dark/90 transition-colors duration-500">
-                            {step.desc}
-                         </p>
-                      </div>
-                   </div>
-                ))}
-             </div>
+                  {/* Right Side: Title & Desc */}
+                  <div className="flex flex-col items-start justify-start pl-8 md:pl-12 relative">
+                    {/* Animated Hover Line on the middle axis */}
+                    <div className="absolute left-0 top-1 w-0.5 h-12 bg-brand-red scale-y-0 group-hover/step:scale-y-100 origin-top transition-transform duration-500 -translate-x-1/2 z-10"></div>
+
+                    <h3 className="font-space text-xl md:text-2xl text-brand-dark font-bold tracking-tight uppercase mb-4 group-hover/step:text-brand-red transition-colors duration-500">
+                      {step.title}
+                    </h3>
+                    <p className="font-sans text-sm md:text-base text-brand-dark/60 leading-relaxed font-light group-hover/step:text-brand-dark/90 transition-colors duration-500">
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>
